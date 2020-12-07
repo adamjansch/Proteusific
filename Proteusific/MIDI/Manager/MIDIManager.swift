@@ -41,7 +41,7 @@ final class MIDIManager {
 		let availableDevices: [MIDIDevice] = deviceIndexes.compactMap({ deviceIndex in
 			let deviceRef = MIDIGetDevice(deviceIndex)
 			let device = MIDIDevice(objectRef: deviceRef)
-			return (device.offline) ? nil : device
+			return (device.online) ? device : nil
 		})
 		
 		self.availableDevices = availableDevices
