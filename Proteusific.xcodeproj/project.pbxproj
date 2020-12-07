@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37438206257E0E41006E60E2 /* MIDIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37438205257E0E41006E60E2 /* MIDIObject.swift */; };
 		374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */; };
 		374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CCE257D006C00BE9ACA /* ContentView.swift */; };
 		374B2CD1257D006D00BE9ACA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 374B2CD0257D006D00BE9ACA /* Assets.xcassets */; };
@@ -15,6 +16,9 @@
 		374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CD7257D006D00BE9ACA /* Proteusific.xcdatamodeld */; };
 		374B2CE4257D006D00BE9ACA /* ProteusificTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CE3257D006D00BE9ACA /* ProteusificTests.swift */; };
 		374B2CEF257D006D00BE9ACA /* ProteusificUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CEE257D006D00BE9ACA /* ProteusificUITests.swift */; };
+		374B2D05257D697300BE9ACA /* MIDIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2D04257D697300BE9ACA /* MIDIManager.swift */; };
+		374B2D0B257D6B0600BE9ACA /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */; };
+		374B2D19257D718D00BE9ACA /* MIDIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2D18257D718D00BE9ACA /* MIDIDevice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37438205257E0E41006E60E2 /* MIDIObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIObject.swift; sourceTree = "<group>"; };
 		374B2CC9257D006C00BE9ACA /* Proteusific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proteusific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteusificApp.swift; sourceTree = "<group>"; };
 		374B2CCE257D006C00BE9ACA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -49,6 +54,10 @@
 		374B2CEA257D006D00BE9ACA /* ProteusificUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProteusificUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		374B2CEE257D006D00BE9ACA /* ProteusificUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteusificUITests.swift; sourceTree = "<group>"; };
 		374B2CF0257D006D00BE9ACA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		374B2D04257D697300BE9ACA /* MIDIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIManager.swift; sourceTree = "<group>"; };
+		374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		374B2D0C257D6B2300BE9ACA /* Proteusific.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Proteusific.entitlements; sourceTree = "<group>"; };
+		374B2D18257D718D00BE9ACA /* MIDIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIDevice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374B2D0B257D6B0600BE9ACA /* CoreMIDI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37438204257E0E2E006E60E2 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				37438205257E0E41006E60E2 /* MIDIObject.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		374B2CC0257D006C00BE9ACA = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +101,7 @@
 				374B2CE2257D006D00BE9ACA /* ProteusificTests */,
 				374B2CED257D006D00BE9ACA /* ProteusificUITests */,
 				374B2CCA257D006C00BE9ACA /* Products */,
+				374B2D09257D6B0600BE9ACA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,12 +118,11 @@
 		374B2CCB257D006C00BE9ACA /* Proteusific */ = {
 			isa = PBXGroup;
 			children = (
-				374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */,
-				374B2CCE257D006C00BE9ACA /* ContentView.swift */,
+				374B2D0C257D6B2300BE9ACA /* Proteusific.entitlements */,
+				374B2CFF257D68C800BE9ACA /* Global */,
+				374B2D03257D693500BE9ACA /* MIDI */,
 				374B2CD0257D006D00BE9ACA /* Assets.xcassets */,
-				374B2CD5257D006D00BE9ACA /* Persistence.swift */,
 				374B2CDA257D006D00BE9ACA /* Info.plist */,
-				374B2CD7257D006D00BE9ACA /* Proteusific.xcdatamodeld */,
 				374B2CD2257D006D00BE9ACA /* Preview Content */,
 			);
 			path = Proteusific;
@@ -134,6 +152,51 @@
 				374B2CF0257D006D00BE9ACA /* Info.plist */,
 			);
 			path = ProteusificUITests;
+			sourceTree = "<group>";
+		};
+		374B2CFF257D68C800BE9ACA /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */,
+				374B2CCE257D006C00BE9ACA /* ContentView.swift */,
+				374B2CD5257D006D00BE9ACA /* Persistence.swift */,
+				374B2CD7257D006D00BE9ACA /* Proteusific.xcdatamodeld */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		374B2D03257D693500BE9ACA /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				374B2D16257D716A00BE9ACA /* Manager */,
+				37438204257E0E2E006E60E2 /* Protocol */,
+				374B2D17257D717200BE9ACA /* Model */,
+			);
+			path = MIDI;
+			sourceTree = "<group>";
+		};
+		374B2D09257D6B0600BE9ACA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		374B2D16257D716A00BE9ACA /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				374B2D04257D697300BE9ACA /* MIDIManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		374B2D17257D717200BE9ACA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				374B2D18257D718D00BE9ACA /* MIDIDevice.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,10 +328,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37438206257E0E41006E60E2 /* MIDIObject.swift in Sources */,
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
 				374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */,
 				374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */,
+				374B2D19257D718D00BE9ACA /* MIDIDevice.swift in Sources */,
+				374B2D05257D697300BE9ACA /* MIDIManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +491,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Proteusific/Proteusific.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Proteusific/Preview Content\"";
 				DEVELOPMENT_TEAM = VG27CYE64F;
@@ -437,6 +504,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.adamjansch.Proteusific;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -447,6 +515,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Proteusific/Proteusific.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Proteusific/Preview Content\"";
 				DEVELOPMENT_TEAM = VG27CYE64F;
@@ -459,6 +528,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.adamjansch.Proteusific;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
