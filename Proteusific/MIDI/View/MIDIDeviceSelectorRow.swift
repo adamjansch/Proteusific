@@ -1,5 +1,5 @@
 //
-//  MIDIDeviceRow.swift
+//  MIDIDeviceSelectorRow.swift
 //  Proteusific
 //
 //  Created by Adam Jansch on 08/12/2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MIDIDeviceRow: View {
+struct MIDIDeviceSelectorRow: View {
 	// MARK: - PROPERTIES
 	// MARK: Stored properties
 	let device: MIDIDevice

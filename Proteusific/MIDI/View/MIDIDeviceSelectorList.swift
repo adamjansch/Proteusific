@@ -1,5 +1,5 @@
 //
-//  MIDIDeviceSelector.swift
+//  MIDIDeviceSelectorList.swift
 //  Proteusific
 //
 //  Created by Adam Jansch on 07/12/2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MIDIDeviceSelector: View {
+struct MIDIDeviceSelectorList: View {
 	// MARK: - ENUMS
 	// MARK: Context enum
 	enum Context {
@@ -31,7 +31,7 @@ struct MIDIDeviceSelector: View {
 		List {
 			Section {
 				ForEach(MIDIManager.shared.availableDevices) { device in
-					MIDIDeviceRow(device: device, selectedDevice: $selectedDevice)
+					MIDIDeviceSelectorRow(device: device, selectedDevice: $selectedDevice)
 				}
 			}
 		}
@@ -40,7 +40,7 @@ struct MIDIDeviceSelector: View {
 	}
 	
 	// MARK: State properties
-	@State var selectedDevice: MIDIDevice?
+	@State private var selectedDevice: MIDIDevice?
 	
 	
 	// MARK: Stored properties

@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37294A59257FA1330045BB8E /* MIDIDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A58257FA1330045BB8E /* MIDIDeviceRow.swift */; };
+		37294A59257FA1330045BB8E /* MIDIDeviceSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A58257FA1330045BB8E /* MIDIDeviceSelectorRow.swift */; };
+		37294A5E257FD9B20045BB8E /* MIDISettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A5D257FD9B20045BB8E /* MIDISettingsList.swift */; };
+		37294A6F257FDC280045BB8E /* MIDISettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A6E257FDC280045BB8E /* MIDISettingsRow.swift */; };
 		37438206257E0E41006E60E2 /* MIDIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37438205257E0E41006E60E2 /* MIDIObject.swift */; };
 		37468492257E9DA400CC131C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37468491257E9DA400CC131C /* MainView.swift */; };
-		3746849B257EB64A00CC131C /* MIDIDeviceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3746849A257EB64A00CC131C /* MIDIDeviceSelector.swift */; };
+		3746849B257EB64A00CC131C /* MIDIDeviceSelectorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3746849A257EB64A00CC131C /* MIDIDeviceSelectorList.swift */; };
 		374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */; };
 		374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CCE257D006C00BE9ACA /* ContentView.swift */; };
 		374B2CD1257D006D00BE9ACA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 374B2CD0257D006D00BE9ACA /* Assets.xcassets */; };
@@ -42,10 +44,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		37294A58257FA1330045BB8E /* MIDIDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIDeviceRow.swift; sourceTree = "<group>"; };
+		37294A58257FA1330045BB8E /* MIDIDeviceSelectorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIDeviceSelectorRow.swift; sourceTree = "<group>"; };
+		37294A5D257FD9B20045BB8E /* MIDISettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISettingsList.swift; sourceTree = "<group>"; };
+		37294A6E257FDC280045BB8E /* MIDISettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISettingsRow.swift; sourceTree = "<group>"; };
 		37438205257E0E41006E60E2 /* MIDIObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIObject.swift; sourceTree = "<group>"; };
 		37468491257E9DA400CC131C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		3746849A257EB64A00CC131C /* MIDIDeviceSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIDeviceSelector.swift; sourceTree = "<group>"; };
+		3746849A257EB64A00CC131C /* MIDIDeviceSelectorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIDeviceSelectorList.swift; sourceTree = "<group>"; };
 		374B2CC9257D006C00BE9ACA /* Proteusific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proteusific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteusificApp.swift; sourceTree = "<group>"; };
 		374B2CCE257D006C00BE9ACA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,8 +115,10 @@
 		37468499257EB61500CC131C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3746849A257EB64A00CC131C /* MIDIDeviceSelector.swift */,
-				37294A58257FA1330045BB8E /* MIDIDeviceRow.swift */,
+				37294A5D257FD9B20045BB8E /* MIDISettingsList.swift */,
+				37294A6E257FDC280045BB8E /* MIDISettingsRow.swift */,
+				3746849A257EB64A00CC131C /* MIDIDeviceSelectorList.swift */,
+				37294A58257FA1330045BB8E /* MIDIDeviceSelectorRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -357,12 +363,14 @@
 				37468492257E9DA400CC131C /* MainView.swift in Sources */,
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
-				3746849B257EB64A00CC131C /* MIDIDeviceSelector.swift in Sources */,
+				3746849B257EB64A00CC131C /* MIDIDeviceSelectorList.swift in Sources */,
 				374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */,
 				374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */,
 				374B2D19257D718D00BE9ACA /* MIDIDevice.swift in Sources */,
+				37294A6F257FDC280045BB8E /* MIDISettingsRow.swift in Sources */,
+				37294A5E257FD9B20045BB8E /* MIDISettingsList.swift in Sources */,
 				374B2D05257D697300BE9ACA /* MIDIManager.swift in Sources */,
-				37294A59257FA1330045BB8E /* MIDIDeviceRow.swift in Sources */,
+				37294A59257FA1330045BB8E /* MIDIDeviceSelectorRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
