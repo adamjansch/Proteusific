@@ -31,14 +31,17 @@ struct MIDIDeviceSelector: View {
 		List {
 			Section {
 				ForEach(MIDIManager.shared.availableDevices) { device in
-					let displayName = device.name ?? "<nil>"
-					Text(displayName)
+					MIDIDeviceRow(device: device, selectedDevice: $selectedDevice)
 				}
 			}
 		}
 		.listStyle(InsetGroupedListStyle())
 		.navigationBarTitle(context.navigationBarTitle)
 	}
+	
+	// MARK: State properties
+	@State var selectedDevice: MIDIDevice?
+	
 	
 	// MARK: Stored properties
 	let context: Context

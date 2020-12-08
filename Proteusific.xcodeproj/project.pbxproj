@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37294A59257FA1330045BB8E /* MIDIDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A58257FA1330045BB8E /* MIDIDeviceRow.swift */; };
 		37438206257E0E41006E60E2 /* MIDIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37438205257E0E41006E60E2 /* MIDIObject.swift */; };
 		37468492257E9DA400CC131C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37468491257E9DA400CC131C /* MainView.swift */; };
 		3746849B257EB64A00CC131C /* MIDIDeviceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3746849A257EB64A00CC131C /* MIDIDeviceSelector.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37294A58257FA1330045BB8E /* MIDIDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIDeviceRow.swift; sourceTree = "<group>"; };
 		37438205257E0E41006E60E2 /* MIDIObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIObject.swift; sourceTree = "<group>"; };
 		37468491257E9DA400CC131C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3746849A257EB64A00CC131C /* MIDIDeviceSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIDeviceSelector.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				3746849A257EB64A00CC131C /* MIDIDeviceSelector.swift */,
+				37294A58257FA1330045BB8E /* MIDIDeviceRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */,
 				374B2D19257D718D00BE9ACA /* MIDIDevice.swift in Sources */,
 				374B2D05257D697300BE9ACA /* MIDIManager.swift in Sources */,
+				37294A59257FA1330045BB8E /* MIDIDeviceRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 import Foundation
 import CoreMIDI
 
-struct MIDIDevice: MIDIObject, Identifiable {
+struct MIDIDevice: MIDIObject, Identifiable, Equatable {
 	// MARK: - PROPERTIES
 	// MARK: MIDIObject properties
 	let objectRef: MIDIObjectRef

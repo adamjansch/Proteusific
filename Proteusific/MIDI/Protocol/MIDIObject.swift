@@ -14,6 +14,7 @@ enum MIDIProperty {
 	case model
 	case name
 	case offline
+	case uniqueID
 	
 	private var id: CFString {
 		switch self {
@@ -27,6 +28,8 @@ enum MIDIProperty {
 			return kMIDIPropertyName
 		case .offline:
 			return kMIDIPropertyOffline
+		case .uniqueID:
+			return kMIDIPropertyUniqueID
 		}
 	}
 	
@@ -51,7 +54,8 @@ enum MIDIProperty {
 			
 			return string.takeRetainedValue() as String
 			
-		case .offline:
+		case .offline,
+			 .uniqueID:
 			var intValue: Int32 = 0
 			let status = MIDIObjectGetIntegerProperty(midiObjectRef, id, &intValue)
 			
@@ -88,5 +92,9 @@ extension MIDIObject {
 		}
 		
 		return offline == 0
+	}
+	
+	var uniqueID: Int? {
+		return MIDIProperty.uniqueID.value(from: objectRef) as? Int
 	}
 }
