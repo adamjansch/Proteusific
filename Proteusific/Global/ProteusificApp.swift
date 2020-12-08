@@ -16,8 +16,7 @@ struct ProteusificApp: App {
 	// MARK: Computed properties
 	var body: some Scene {
 		WindowGroup {
-			ContentView()
-				.environment(\.managedObjectContext, persistenceController.container.viewContext)
+			MainView()
 		}
 	}
 	

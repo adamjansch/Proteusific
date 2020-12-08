@@ -8,10 +8,15 @@
 import Foundation
 import CoreMIDI
 
-struct MIDIDevice: MIDIObject {
+struct MIDIDevice: MIDIObject, Identifiable {
 	// MARK: - PROPERTIES
 	// MARK: MIDIObject properties
 	let objectRef: MIDIObjectRef
+	
+	// MARK: Identifiable properties
+	var id: MIDIObjectRef {
+		return objectRef
+	}
 	
 	// MARK: Computed properties
 	var manufacturer: String? {

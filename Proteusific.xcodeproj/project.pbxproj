@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		37438206257E0E41006E60E2 /* MIDIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37438205257E0E41006E60E2 /* MIDIObject.swift */; };
+		37468492257E9DA400CC131C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37468491257E9DA400CC131C /* MainView.swift */; };
+		3746849B257EB64A00CC131C /* MIDIDeviceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3746849A257EB64A00CC131C /* MIDIDeviceSelector.swift */; };
 		374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */; };
 		374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CCE257D006C00BE9ACA /* ContentView.swift */; };
 		374B2CD1257D006D00BE9ACA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 374B2CD0257D006D00BE9ACA /* Assets.xcassets */; };
@@ -40,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		37438205257E0E41006E60E2 /* MIDIObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIObject.swift; sourceTree = "<group>"; };
+		37468491257E9DA400CC131C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3746849A257EB64A00CC131C /* MIDIDeviceSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIDeviceSelector.swift; sourceTree = "<group>"; };
 		374B2CC9257D006C00BE9ACA /* Proteusific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proteusific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteusificApp.swift; sourceTree = "<group>"; };
 		374B2CCE257D006C00BE9ACA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +98,22 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		37468490257E9D7A00CC131C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				37468491257E9DA400CC131C /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		37468499257EB61500CC131C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3746849A257EB64A00CC131C /* MIDIDeviceSelector.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		374B2CC0257D006C00BE9ACA = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +140,7 @@
 			children = (
 				374B2D0C257D6B2300BE9ACA /* Proteusific.entitlements */,
 				374B2CFF257D68C800BE9ACA /* Global */,
+				37468490257E9D7A00CC131C /* Main */,
 				374B2D03257D693500BE9ACA /* MIDI */,
 				374B2CD0257D006D00BE9ACA /* Assets.xcassets */,
 				374B2CDA257D006D00BE9ACA /* Info.plist */,
@@ -171,6 +192,7 @@
 				374B2D16257D716A00BE9ACA /* Manager */,
 				37438204257E0E2E006E60E2 /* Protocol */,
 				374B2D17257D717200BE9ACA /* Model */,
+				37468499257EB61500CC131C /* View */,
 			);
 			path = MIDI;
 			sourceTree = "<group>";
@@ -329,8 +351,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				37438206257E0E41006E60E2 /* MIDIObject.swift in Sources */,
+				37468492257E9DA400CC131C /* MainView.swift in Sources */,
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
+				3746849B257EB64A00CC131C /* MIDIDeviceSelector.swift in Sources */,
 				374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */,
 				374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */,
 				374B2D19257D718D00BE9ACA /* MIDIDevice.swift in Sources */,
@@ -498,6 +522,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Proteusific/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -506,7 +531,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -522,6 +547,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Proteusific/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -530,7 +556,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};
