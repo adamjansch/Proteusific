@@ -43,9 +43,16 @@ enum MIDIProperty {
 			let status = MIDIObjectGetStringProperty(midiObjectRef, id, &stringValue)
 			
 			guard status == noErr else {
-				let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: nil)
-				print("Error getting string property from objectRef \(midiObjectRef): \(error)")
-				return nil
+				switch status {
+				case kMIDIUnknownProperty:
+					// Don't log an error for this one
+					return nil
+					
+				default:
+					let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: nil)
+					print("Error getting string property from objectRef \(midiObjectRef): \(error)")
+					return nil
+				}
 			}
 			
 			guard let string = stringValue else {
@@ -94,7 +101,7 @@ extension MIDIObject {
 		return offline == 0
 	}
 	
-	var uniqueID: Int? {
-		return MIDIProperty.uniqueID.value(from: objectRef) as? Int
+	var uniqueID: Int32? {
+		return MIDIProperty.uniqueID.value(from: objectRef) as? Int32
 	}
 }

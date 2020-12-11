@@ -9,8 +9,12 @@ import SwiftUI
 
 struct MainView: View {
 	// MARK: - PROPERTIES
+	// MARK: Wrapper properties
+	@Environment(\.managedObjectContext) private var viewContext
+	
 	// MARK: View properties
 	var body: some View {
 		MIDISettingsList()
+			.environment(\.managedObjectContext, viewContext)
 	}
 }
