@@ -17,6 +17,7 @@ struct ProteusificApp: App {
 	var body: some Scene {
 		WindowGroup {
 			MainView()
+				.environment(\.managedObjectContext, persistenceController.container.viewContext)
 		}
 	}
 	
@@ -24,6 +25,6 @@ struct ProteusificApp: App {
 	// MARK: - METHODS
 	// MARK: Initializers
 	init() {
-		print("Available devices: \(MIDIManager.shared.availableDevices.compactMap({ $0.name }))")
+		print("Settings shared instance: \(Settings.current.objectID)")
 	}
 }

@@ -14,6 +14,7 @@ enum MIDIProperty {
 	case model
 	case name
 	case offline
+	case uniqueID
 	
 	private var id: CFString {
 		switch self {
@@ -27,6 +28,8 @@ enum MIDIProperty {
 			return kMIDIPropertyName
 		case .offline:
 			return kMIDIPropertyOffline
+		case .uniqueID:
+			return kMIDIPropertyUniqueID
 		}
 	}
 	
@@ -40,9 +43,16 @@ enum MIDIProperty {
 			let status = MIDIObjectGetStringProperty(midiObjectRef, id, &stringValue)
 			
 			guard status == noErr else {
-				let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: nil)
-				print("Error getting string property from objectRef \(midiObjectRef): \(error)")
-				return nil
+				switch status {
+				case kMIDIUnknownProperty:
+					// Don't log an error for this one
+					return nil
+					
+				default:
+					let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: nil)
+					print("Error getting string property from objectRef \(midiObjectRef): \(error)")
+					return nil
+				}
 			}
 			
 			guard let string = stringValue else {
@@ -51,7 +61,8 @@ enum MIDIProperty {
 			
 			return string.takeRetainedValue() as String
 			
-		case .offline:
+		case .offline,
+			 .uniqueID:
 			var intValue: Int32 = 0
 			let status = MIDIObjectGetIntegerProperty(midiObjectRef, id, &intValue)
 			
@@ -88,5 +99,9 @@ extension MIDIObject {
 		}
 		
 		return offline == 0
+	}
+	
+	var uniqueID: Int32? {
+		return MIDIProperty.uniqueID.value(from: objectRef) as? Int32
 	}
 }
