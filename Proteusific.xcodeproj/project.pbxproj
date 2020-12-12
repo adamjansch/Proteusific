@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,10 @@
 		374B2D0B257D6B0600BE9ACA /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */; };
 		374B2D19257D718D00BE9ACA /* MIDIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2D18257D718D00BE9ACA /* MIDIDevice.swift */; };
 		37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */; };
+		37B0B1CB2583CA540031F765 /* MIDIOutputPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0B1CA2583CA540031F765 /* MIDIOutputPort.swift */; };
+		37B0B1D02583E9520031F765 /* MIDIEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0B1CF2583E9520031F765 /* MIDIEntity.swift */; };
+		37B0B1D825840E550031F765 /* MIDIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0B1D725840E550031F765 /* MIDIEndpoint.swift */; };
+		37B0B1DE25855F490031F765 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 37B0B1DD25855F490031F765 /* AudioKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +78,9 @@
 		374B2D0C257D6B2300BE9ACA /* Proteusific.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Proteusific.entitlements; sourceTree = "<group>"; };
 		374B2D18257D718D00BE9ACA /* MIDIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIDevice.swift; sourceTree = "<group>"; };
 		37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentContainer+Utilities.swift"; sourceTree = "<group>"; };
+		37B0B1CA2583CA540031F765 /* MIDIOutputPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIOutputPort.swift; sourceTree = "<group>"; };
+		37B0B1CF2583E9520031F765 /* MIDIEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIEntity.swift; sourceTree = "<group>"; };
+		37B0B1D725840E550031F765 /* MIDIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIEndpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37B0B1DE25855F490031F765 /* AudioKit in Frameworks */,
 				374B2D0B257D6B0600BE9ACA /* CoreMIDI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +267,9 @@
 			isa = PBXGroup;
 			children = (
 				374B2D18257D718D00BE9ACA /* MIDIDevice.swift */,
+				37B0B1D725840E550031F765 /* MIDIEndpoint.swift */,
+				37B0B1CF2583E9520031F765 /* MIDIEntity.swift */,
+				37B0B1CA2583CA540031F765 /* MIDIOutputPort.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,6 +306,9 @@
 			dependencies = (
 			);
 			name = Proteusific;
+			packageProductDependencies = (
+				37B0B1DD25855F490031F765 /* AudioKit */,
+			);
 			productName = Proteusific;
 			productReference = 374B2CC9257D006C00BE9ACA /* Proteusific.app */;
 			productType = "com.apple.product-type.application";
@@ -366,6 +380,9 @@
 				Base,
 			);
 			mainGroup = 374B2CC0257D006C00BE9ACA;
+			packageReferences = (
+				37B0B1DC25855F490031F765 /* XCRemoteSwiftPackageReference "AudioKit" */,
+			);
 			productRefGroup = 374B2CCA257D006C00BE9ACA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -415,11 +432,14 @@
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
 				3746849B257EB64A00CC131C /* MIDIDeviceSelectorList.swift in Sources */,
+				37B0B1D825840E550031F765 /* MIDIEndpoint.swift in Sources */,
 				374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */,
+				37B0B1CB2583CA540031F765 /* MIDIOutputPort.swift in Sources */,
 				374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */,
 				374B2D19257D718D00BE9ACA /* MIDIDevice.swift in Sources */,
 				37294A6F257FDC280045BB8E /* MIDISettingsMIDIDeviceRow.swift in Sources */,
 				37294A99258125DB0045BB8E /* Settings+CoreDataClass.swift in Sources */,
+				37B0B1D02583E9520031F765 /* MIDIEntity.swift in Sources */,
 				37294A5E257FD9B20045BB8E /* MIDISettingsList.swift in Sources */,
 				374B2D05257D697300BE9ACA /* MIDIManager.swift in Sources */,
 				37294A59257FA1330045BB8E /* MIDIDeviceSelectorRow.swift in Sources */,
@@ -748,6 +768,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		37B0B1DC25855F490031F765 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit";
+			requirement = {
+				branch = "v5-main";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		37B0B1DD25855F490031F765 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37B0B1DC25855F490031F765 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		374B2CD7257D006D00BE9ACA /* Proteusific.xcdatamodeld */ = {

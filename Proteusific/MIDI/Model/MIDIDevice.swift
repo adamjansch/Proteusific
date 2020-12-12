@@ -8,15 +8,13 @@
 import Foundation
 import CoreMIDI
 
-struct MIDIDevice: MIDIObject, Identifiable, Equatable {
+final class MIDIDevice: MIDIObject {
 	// MARK: - PROPERTIES
 	// MARK: MIDIObject properties
 	let objectRef: MIDIObjectRef
 	
-	// MARK: Identifiable properties
-	var id: MIDIObjectRef {
-		return objectRef
-	}
+	// MARK: Stored properties
+	private(set) lazy var entities: [MIDIEntity] = retrieveEntities()
 	
 	// MARK: Computed properties
 	var manufacturer: String? {
@@ -25,5 +23,23 @@ struct MIDIDevice: MIDIObject, Identifiable, Equatable {
 	
 	var model: String? {
 		return MIDIProperty.model.value(from: objectRef) as? String
+	}
+	
+	
+	// MARK: - METHODS
+	// MARK: Initialisers
+	init(objectRef: MIDIObjectRef) {
+		self.objectRef = objectRef
+	}
+	
+	// MARK: MIDI methods
+	private func retrieveEntities() -> [MIDIEntity] {
+		let entityIndexes = 0 ..< MIDIDeviceGetNumberOfEntities(objectRef)
+		let entities: [MIDIEntity] = entityIndexes.map({ entityIndex in
+			let entityRef = MIDIDeviceGetEntity(objectRef, entityIndex)
+			return MIDIEntity(objectRef: entityRef, device: self)
+		})
+		
+		return entities
 	}
 }

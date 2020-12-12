@@ -77,7 +77,7 @@ enum MIDIProperty {
 	}
 }
 
-protocol MIDIObject {
+protocol MIDIObject: Equatable, Identifiable {
 	var objectRef: MIDIObjectRef { get }
 	var displayName: String? { get }
 	var name: String? { get }
@@ -103,5 +103,17 @@ extension MIDIObject {
 	
 	var uniqueID: Int32? {
 		return MIDIProperty.uniqueID.value(from: objectRef) as? Int32
+	}
+}
+
+extension MIDIObject {
+	// MARK: Equatable
+	static func == (lhs: Self, rhs: Self) -> Bool {
+		return lhs.objectRef == rhs.objectRef
+	}
+	
+	// MARK: Identifiable
+	var id: MIDIObjectRef {
+		return objectRef
 	}
 }
