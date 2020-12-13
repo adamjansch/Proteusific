@@ -1,13 +1,15 @@
 //
-//  MIDIDeviceSelectorList.swift
+//  EndpointSelectorList.swift
 //  Proteusific
 //
 //  Created by Adam Jansch on 07/12/2020.
 //
 
 import SwiftUI
+import AudioKit
+import CoreMIDI
 
-struct MIDIDeviceSelectorList: View {
+struct EndpointSelectorList: View {
 	// MARK: - PROPERTIES
 	// MARK: Wrapper properties
 	@EnvironmentObject private var settings: Settings
@@ -19,12 +21,18 @@ struct MIDIDeviceSelectorList: View {
 	var body: some View {
 		List {
 			Section {
-				ForEach(MIDIManager.shared.availableDevices) { device in
-					MIDIDeviceSelectorRow(setting: setting, device: device)
+				ForEach(setting.endpointInfos) { destination in
+					EndpointSelectorRow(setting: setting, endpointInfo: destination)
 				}
 			}
 		}
 		.listStyle(InsetGroupedListStyle())
 		.navigationBarTitle(setting.navigationBarTitle)
+	}
+}
+
+extension EndpointInfo: Identifiable {
+	public var id: MIDIObjectRef {
+		return midiEndpointRef
 	}
 }

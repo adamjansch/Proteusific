@@ -1,51 +1,45 @@
 //
-//  MIDIDeviceSelectorRow.swift
+//  EndpointSelectorRow.swift
 //  Proteusific
 //
 //  Created by Adam Jansch on 08/12/2020.
 //
 
 import SwiftUI
+import AudioKit
 
-struct MIDIDeviceSelectorRow: View {
+struct EndpointSelectorRow: View {
 	// MARK: - PROPERTIES
 	// MARK: Wrapper properties
 	@EnvironmentObject private var settings: Settings
 	
 	// MARK: Stored properties
 	let setting: MIDISettingsList.Setting
-	let device: MIDIDevice
+	let endpointInfo: EndpointInfo
 	
 	// MARK: Computed properties
-	private var selectedDevice: MIDIDevice? {
+	private var selectedEndpointInfo: EndpointInfo? {
 		switch setting {
 		case .midiInDevice:
-			return settings.midiInDevice
+			return settings.midiInEndpointInfo
 		case .midiOutDevice:
-			return settings.midiOutDevice
+			return settings.midiOutEndpointInfo
 		}
 	}
 	
 	// MARK: View properties
 	var body: some View {
-		let isSelected = (selectedDevice == device)
-		let displayName = device.displayName ?? device.name ?? "<nil>"
+		let isSelected = (selectedEndpointInfo == endpointInfo)
+		let nameComponents = [endpointInfo.manufacturer, endpointInfo.displayName].filter({ $0.isEmpty == false })
+		let displayName = nameComponents.joined(separator: " ")
 		
 		HStack {
 			Button(displayName, action: {
-				let deviceUniqueID: NSNumber?
-				switch device.uniqueID {
-				case .some(let uniqueID):
-					deviceUniqueID = NSNumber(value: uniqueID)
-				default:
-					deviceUniqueID = nil
-				}
-				
 				switch setting {
 				case .midiInDevice:
-					settings.midiInDeviceID = deviceUniqueID
+					settings.midiInEndpointInfo = endpointInfo
 				case .midiOutDevice:
-					settings.midiOutDeviceID = deviceUniqueID
+					settings.midiOutEndpointInfo = endpointInfo
 				}
 				
 				PersistenceController.shared.container.saveContext()

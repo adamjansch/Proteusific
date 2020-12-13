@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AudioKit
 
 struct MIDISettingsList: View {
 	// MARK: - ENUMS
@@ -63,6 +64,15 @@ struct MIDISettingsList: View {
 				return "MIDI In"
 			case .midiOutDevice:
 				return "MIDI Out"
+			}
+		}
+		
+		var endpointInfos: [EndpointInfo] {
+			switch self {
+			case .midiInDevice:
+				return MIDI.sharedInstance.inputInfos
+			case .midiOutDevice:
+				return MIDI.sharedInstance.destinationInfos
 			}
 		}
 	}
