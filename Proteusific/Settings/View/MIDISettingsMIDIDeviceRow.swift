@@ -19,15 +19,15 @@ struct MIDISettingsMIDIDeviceRow: MIDISettingsRow {
 	private var deviceName: String {
 		switch setting {
 		case .midiInDevice:
-			return settings.midiInDevice?.displayName ?? settings.midiInDevice?.name ?? "None"
+			return settings.midiInEndpointInfo?.displayName ?? "None"
 		case .midiOutDevice:
-			return settings.midiOutDevice?.displayName ?? settings.midiOutDevice?.name ?? "None"
+			return settings.midiOutEndpointInfo?.displayName ?? "None"
 		}
 	}
 	
 	// MARK: View properties
 	var body: some View {
-		NavigationLink(destination: MIDIDeviceSelectorList(setting: setting).environmentObject(settings)) {
+		NavigationLink(destination: EndpointSelectorList(setting: setting).environmentObject(settings)) {
 			HStack {
 				Text(setting.title)
 				Spacer()

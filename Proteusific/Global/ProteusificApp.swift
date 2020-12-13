@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AudioKit
 
 @main
 struct ProteusificApp: App {
@@ -26,5 +27,9 @@ struct ProteusificApp: App {
 	// MARK: Initializers
 	init() {
 		print("Settings shared instance: \(Settings.current.objectID)")
+		print("MIDI Sources:      \(MIDI.sharedInstance.inputInfos)")
+		print("MIDI Destinations: \(MIDI.sharedInstance.destinationInfos)")
+		
+		
 	}
 }
