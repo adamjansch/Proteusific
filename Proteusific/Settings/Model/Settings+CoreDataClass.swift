@@ -34,56 +34,56 @@ public class Settings: NSManagedObject {
 	// MARK: Computed properties
 	var midiInEndpointInfo: EndpointInfo? {
 		get {
-			guard let deviceID = midiInDeviceID else {
+			guard let uid = midiInUID else {
 				return nil
 			}
 			
-			return MIDI.sharedInstance.inputInfos.first(where: { $0.midiUniqueID == deviceID.int32Value })
+			return MIDI.sharedInstance.inputInfos.first(where: { $0.midiUniqueID == uid.int32Value })
 		}
 		set {
 			guard let endpointInfo = newValue else {
-				midiInDeviceID = nil
+				midiInUID = nil
 				return
 			}
 			
 			switch endpointInfo.midiUniqueID {
 			case 0:
-				midiInDeviceID = nil
+				midiInUID = nil
 			default:
-				midiInDeviceID = NSNumber(value: endpointInfo.midiUniqueID)
+				midiInUID = NSNumber(value: endpointInfo.midiUniqueID)
 			}
 		}
 	}
 	
 	var midiOutEndpointInfo: EndpointInfo? {
 		get {
-			guard let deviceID = midiOutDeviceID else {
+			guard let uid = midiOutUID else {
 				return nil
 			}
 			
-			return MIDI.sharedInstance.destinationInfos.first(where: { $0.midiUniqueID == deviceID.int32Value })
+			return MIDI.sharedInstance.destinationInfos.first(where: { $0.midiUniqueID == uid.int32Value })
 		}
 		set {
 			// First, close the output using the current output unique ID (if present)
-			if let outputUniqueID = midiOutDeviceID {
-				MIDI.sharedInstance.closeOutput(uid: outputUniqueID.int32Value)
+			if let uid = midiOutUID {
+				MIDI.sharedInstance.closeOutput(uid: uid.int32Value)
 			}
 			
 			guard let endpointInfo = newValue else {
-				midiOutDeviceID = nil
+				midiOutUID = nil
 				return
 			}
 			
 			switch endpointInfo.midiUniqueID {
 			case 0:
-				midiOutDeviceID = nil
+				midiOutUID = nil
 			default:
-				midiOutDeviceID = NSNumber(value: endpointInfo.midiUniqueID)
+				midiOutUID = NSNumber(value: endpointInfo.midiUniqueID)
 			}
 			
 			// Last, open the output using the current output unique ID (if present)
-			if let outputUniqueID = midiOutDeviceID {
-				MIDI.sharedInstance.openOutput(uid: outputUniqueID.int32Value)
+			if let uid = midiOutUID {
+				MIDI.sharedInstance.openOutput(uid: uid.int32Value)
 			}
 		}
 	}

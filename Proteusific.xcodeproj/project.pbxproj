@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37218C7725866C64005B4B61 /* Proteus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37218C7625866C64005B4B61 /* Proteus.swift */; };
+		37218C822586B6A6005B4B61 /* Proteus+SysExMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */; };
 		37294A59257FA1330045BB8E /* EndpointSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A58257FA1330045BB8E /* EndpointSelectorRow.swift */; };
 		37294A5E257FD9B20045BB8E /* MIDISettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A5D257FD9B20045BB8E /* MIDISettingsList.swift */; };
-		37294A6F257FDC280045BB8E /* MIDISettingsMIDIDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A6E257FDC280045BB8E /* MIDISettingsMIDIDeviceRow.swift */; };
+		37294A6F257FDC280045BB8E /* MIDISettingsMIDIConnectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A6E257FDC280045BB8E /* MIDISettingsMIDIConnectionRow.swift */; };
 		37294A87257FF36D0045BB8E /* MIDISettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A86257FF36D0045BB8E /* MIDISettingsRow.swift */; };
 		37294A99258125DB0045BB8E /* Settings+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37294A98258125DB0045BB8E /* Settings+CoreDataClass.swift */; };
 		37468492257E9DA400CC131C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37468491257E9DA400CC131C /* MainView.swift */; };
@@ -45,9 +47,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37218C7625866C64005B4B61 /* Proteus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proteus.swift; sourceTree = "<group>"; };
+		37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Proteus+SysExMessage.swift"; sourceTree = "<group>"; };
 		37294A58257FA1330045BB8E /* EndpointSelectorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointSelectorRow.swift; sourceTree = "<group>"; };
 		37294A5D257FD9B20045BB8E /* MIDISettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISettingsList.swift; sourceTree = "<group>"; };
-		37294A6E257FDC280045BB8E /* MIDISettingsMIDIDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISettingsMIDIDeviceRow.swift; sourceTree = "<group>"; };
+		37294A6E257FDC280045BB8E /* MIDISettingsMIDIConnectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISettingsMIDIConnectionRow.swift; sourceTree = "<group>"; };
 		37294A86257FF36D0045BB8E /* MIDISettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISettingsRow.swift; sourceTree = "<group>"; };
 		37294A98258125DB0045BB8E /* Settings+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Settings+CoreDataClass.swift"; sourceTree = "<group>"; };
 		37468491257E9DA400CC131C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -98,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37218C7525866BC3005B4B61 /* Proteus */ = {
+			isa = PBXGroup;
+			children = (
+				37218C7625866C64005B4B61 /* Proteus.swift */,
+				37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */,
+			);
+			path = Proteus;
+			sourceTree = "<group>";
+		};
 		37294A76257FEC630045BB8E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +172,7 @@
 				374B2D0C257D6B2300BE9ACA /* Proteusific.entitlements */,
 				374B2CFF257D68C800BE9ACA /* Global */,
 				37468490257E9D7A00CC131C /* Main */,
+				37218C7525866BC3005B4B61 /* Proteus */,
 				37294A76257FEC630045BB8E /* Settings */,
 				37294A77257FEC820045BB8E /* Endpoint Selector */,
 				37B0B1B72581361F0031F765 /* Toolbox */,
@@ -235,7 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				37294A5D257FD9B20045BB8E /* MIDISettingsList.swift */,
-				37294A6E257FDC280045BB8E /* MIDISettingsMIDIDeviceRow.swift */,
+				37294A6E257FDC280045BB8E /* MIDISettingsMIDIConnectionRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -386,15 +400,17 @@
 				37294A87257FF36D0045BB8E /* MIDISettingsRow.swift in Sources */,
 				37468492257E9DA400CC131C /* MainView.swift in Sources */,
 				37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */,
+				37218C7725866C64005B4B61 /* Proteus.swift in Sources */,
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
 				3746849B257EB64A00CC131C /* EndpointSelectorList.swift in Sources */,
 				374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */,
 				374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */,
-				37294A6F257FDC280045BB8E /* MIDISettingsMIDIDeviceRow.swift in Sources */,
+				37294A6F257FDC280045BB8E /* MIDISettingsMIDIConnectionRow.swift in Sources */,
 				37294A99258125DB0045BB8E /* Settings+CoreDataClass.swift in Sources */,
 				37294A5E257FD9B20045BB8E /* MIDISettingsList.swift in Sources */,
 				37294A59257FA1330045BB8E /* EndpointSelectorRow.swift in Sources */,
+				37218C822586B6A6005B4B61 /* Proteus+SysExMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

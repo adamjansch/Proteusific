@@ -20,9 +20,9 @@ struct EndpointSelectorRow: View {
 	// MARK: Computed properties
 	private var selectedEndpointInfo: EndpointInfo? {
 		switch setting {
-		case .midiInDevice:
+		case .midiInConnection:
 			return settings.midiInEndpointInfo
-		case .midiOutDevice:
+		case .midiOutConnection:
 			return settings.midiOutEndpointInfo
 		}
 	}
@@ -36,9 +36,9 @@ struct EndpointSelectorRow: View {
 		HStack {
 			Button(displayName, action: {
 				switch setting {
-				case .midiInDevice:
+				case .midiInConnection:
 					settings.midiInEndpointInfo = endpointInfo
-				case .midiOutDevice:
+				case .midiOutConnection:
 					settings.midiOutEndpointInfo = endpointInfo
 				}
 				
