@@ -12,7 +12,7 @@ struct MIDISettingsList: View {
 	// MARK: - ENUMS
 	// MARK: Data source enums
 	private enum SettingsGroup: Int, Identifiable, CaseIterable {
-		case midiDevices
+		case midiConnections
 		
 		
 		// MARK: - PROPERTIES
@@ -24,22 +24,22 @@ struct MIDISettingsList: View {
 		// MARK: Computed properties
 		var settings: [Setting] {
 			switch self {
-			case .midiDevices:
-				return [.midiInDevice, .midiOutDevice]
+			case .midiConnections:
+				return [.midiInConnection, .midiOutConnection]
 			}
 		}
 		
 		var headerTitle: String {
 			switch self {
-			case .midiDevices:
-				return "MIDI Devices"
+			case .midiConnections:
+				return "MIDI Connections"
 			}
 		}
 	}
 	
 	enum Setting: Int, Identifiable {
-		case midiInDevice
-		case midiOutDevice
+		case midiInConnection
+		case midiOutConnection
 		
 		
 		// MARK: - PROPERTIES
@@ -51,27 +51,27 @@ struct MIDISettingsList: View {
 		// MARK: Computed properties
 		var navigationBarTitle: String {
 			switch self {
-			case .midiInDevice:
-				return "MIDI In Device"
-			case .midiOutDevice:
-				return "MIDI Out Device"
+			case .midiInConnection:
+				return "MIDI In Connection"
+			case .midiOutConnection:
+				return "MIDI Out Connection"
 			}
 		}
 		
 		var title: String {
 			switch self {
-			case .midiInDevice:
+			case .midiInConnection:
 				return "MIDI In"
-			case .midiOutDevice:
+			case .midiOutConnection:
 				return "MIDI Out"
 			}
 		}
 		
 		var endpointInfos: [EndpointInfo] {
 			switch self {
-			case .midiInDevice:
+			case .midiInConnection:
 				return MIDI.sharedInstance.inputInfos
-			case .midiOutDevice:
+			case .midiOutConnection:
 				return MIDI.sharedInstance.destinationInfos
 			}
 		}
@@ -87,9 +87,21 @@ struct MIDISettingsList: View {
 		NavigationView {
 			List {
 				ForEach(SettingsGroup.allCases) { section in
-					Section(header: Text(section.headerTitle)) {
+					let footer = HStack {
+						Spacer()
+						Button("Connect", action: {
+							do {
+								try Proteus.shared.retrieveDeviceInfo()
+								
+							} catch {
+								print("Error connecting to device: \(error)")
+							}
+						})
+					}
+					
+					Section(header: Text(section.headerTitle), footer: footer) {
 						ForEach(section.settings) { setting in
-							MIDISettingsMIDIDeviceRow(setting: setting)
+							MIDISettingsMIDIConnectionRow(setting: setting)
 								.environmentObject(settings)
 						}
 					}

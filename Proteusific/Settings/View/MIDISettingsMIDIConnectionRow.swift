@@ -1,5 +1,5 @@
 //
-//  MIDISettingsMIDIDeviceRow.swift
+//  MIDISettingsMIDIConnectionRow.swift
 //  Proteusific
 //
 //  Created by Adam Jansch on 08/12/2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MIDISettingsMIDIDeviceRow: MIDISettingsRow {
+struct MIDISettingsMIDIConnectionRow: MIDISettingsRow {
 	// MARK: - PROPERTIES
 	// MARK: Wrapper properties
 	@EnvironmentObject private var settings: Settings
@@ -16,11 +16,11 @@ struct MIDISettingsMIDIDeviceRow: MIDISettingsRow {
 	let setting: MIDISettingsList.Setting
 	
 	// MARK: Computed properties
-	private var deviceName: String {
+	private var endpointName: String {
 		switch setting {
-		case .midiInDevice:
+		case .midiInConnection:
 			return settings.midiInEndpointInfo?.displayName ?? "None"
-		case .midiOutDevice:
+		case .midiOutConnection:
 			return settings.midiOutEndpointInfo?.displayName ?? "None"
 		}
 	}
@@ -31,7 +31,7 @@ struct MIDISettingsMIDIDeviceRow: MIDISettingsRow {
 			HStack {
 				Text(setting.title)
 				Spacer()
-				Text(deviceName)
+				Text(endpointName)
 					.foregroundColor(.gray)
 			}
 		}
