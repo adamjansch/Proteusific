@@ -7,6 +7,7 @@
 
 import Foundation
 import AudioKit
+import CoreMIDI
 
 final class Proteus {
 	// MARK: - ENUMS
@@ -31,6 +32,16 @@ final class Proteus {
 	// MARK: - METHODS
 	// MARK: Initializers
 	private init() {}
+	
+	deinit {
+		MIDI.sharedInstance.removeListener(self)
+	}
+	
+	// MARK: Configuration method
+	func configure() {
+		MIDI.sharedInstance.clearListeners()
+		MIDI.sharedInstance.addListener(self)
+	}
 	
 	// MARK: MIDI methods
 	func retrieveDeviceInfo() throws {

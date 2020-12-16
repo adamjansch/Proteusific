@@ -39,5 +39,7 @@ struct ProteusificApp: App {
 		   MIDI.sharedInstance.destinationInfos.contains(where: { uid.int32Value == $0.midiUniqueID }) {
 			MIDI.sharedInstance.openOutput(uid: uid.int32Value)
 		}
+		
+		Proteus.shared.configure()
 	}
 }
