@@ -14,7 +14,7 @@ struct MainView: View {
 	
 	// MARK: View properties
 	var body: some View {
-		MIDISettingsList()
+		DeviceList()
 			.environment(\.managedObjectContext, viewContext)
 	}
 }
