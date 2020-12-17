@@ -25,6 +25,7 @@
 		374B2CE4257D006D00BE9ACA /* ProteusificTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CE3257D006D00BE9ACA /* ProteusificTests.swift */; };
 		374B2CEF257D006D00BE9ACA /* ProteusificUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CEE257D006D00BE9ACA /* ProteusificUITests.swift */; };
 		374B2D0B257D6B0600BE9ACA /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */; };
+		37A44F92258B7E6400D58526 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44F91258B7E6400D58526 /* DeviceList.swift */; };
 		37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */; };
 		37B0B1DE25855F490031F765 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 37B0B1DD25855F490031F765 /* AudioKit */; };
 		37CE585D258A88C2000411FC /* Proteus+MIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE585C258A88C2000411FC /* Proteus+MIDIListener.swift */; };
@@ -75,6 +76,7 @@
 		374B2CF0257D006D00BE9ACA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		374B2D0C257D6B2300BE9ACA /* Proteusific.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Proteusific.entitlements; sourceTree = "<group>"; };
+		37A44F91258B7E6400D58526 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentContainer+Utilities.swift"; sourceTree = "<group>"; };
 		37CE585C258A88C2000411FC /* Proteus+MIDIListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Proteus+MIDIListener.swift"; sourceTree = "<group>"; };
 		37CE5881258AB06F000411FC /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -237,6 +239,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		37A44F90258B7E4C00D58526 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37A44F91258B7E6400D58526 /* DeviceList.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		37B0B1B72581361F0031F765 /* Toolbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				37CE5873258AAFAE000411FC /* Model */,
+				37A44F90258B7E4C00D58526 /* View */,
 			);
 			path = Device;
 			sourceTree = "<group>";
@@ -425,6 +436,7 @@
 				37294A87257FF36D0045BB8E /* MIDISettingsRow.swift in Sources */,
 				37468492257E9DA400CC131C /* MainView.swift in Sources */,
 				37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */,
+				37A44F92258B7E6400D58526 /* DeviceList.swift in Sources */,
 				37218C7725866C64005B4B61 /* Proteus.swift in Sources */,
 				37CE585D258A88C2000411FC /* Proteus+MIDIListener.swift in Sources */,
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
