@@ -9,6 +9,23 @@ import AudioKit
 import CoreMIDI
 
 extension Proteus: MIDIListener {
+	func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+		do {
+			switch currentSysexMessage {
+			case .deviceInquiry:
+				currentSysexMessage = nil
+				try handleDeviceIdentity(data: data)
+				
+			default:
+				currentSysexMessage = nil
+				print("receivedMIDISystemCommand - data: \(data); portID: \(String(describing: portID)); offset: \(offset)")
+			}
+			
+		} catch {
+			currentMIDIInError = error
+		}
+	}
+	
 	func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
 		// Not used
 		print("receivedMIDINoteOn - noteNumber: \(noteNumber); velocity: \(velocity); channel: \(channel); portID: \(String(describing: portID)); offset: \(offset)")
@@ -41,10 +58,6 @@ extension Proteus: MIDIListener {
 	
 	func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
 		print("receivedMIDIProgramChange - program: \(program); channel: \(channel); portID: \(String(describing: portID)); offset: \(offset)")
-	}
-	
-	func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("receivedMIDISystemCommand - data: \(data); portID: \(String(describing: portID)); offset: \(offset)")
 	}
 	
 	func receivedMIDISetupChange() {

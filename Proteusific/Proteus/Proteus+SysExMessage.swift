@@ -10,18 +10,20 @@ import AudioKit
 extension Proteus {
 	// MARK: - ENUMS
 	// MARK: MIDI enums
-	enum SysexMessage {
+	enum SysExMessage {
 		case deviceInquiry(deviceID: MIDIByte?)
 		case presetDump(deviceID: MIDIByte)
 		
 		static let allBroadcastID: MIDIByte = 127
-		private static let sysExMessageByte: MIDIByte = 0xF0
+		static let sysExMessageByte: MIDIByte = 0xF0
+		static let sysExHeaderByte: MIDIByte = 0x7E
 		private static let eox: MIDIByte = 0xF7
-		private static let proteusHeader: [MIDIByte] = [
+		
+		private static let proteusSysExHeader: [MIDIByte] = [
 			sysExMessageByte,
 			0x18,	// EMU ID
 			0x0F,	// Proteus ID
-			0x7F,	// Device ID - may be changed later
+			0x7F,	// Device ID - should be changed later
 			0x55,	// Special Editor designator byte
 		]
 		
@@ -39,7 +41,7 @@ extension Proteus {
 				]
 				
 			case .presetDump(let deviceID):
-				var messageHeader = Self.proteusHeader
+				var messageHeader = Self.proteusSysExHeader
 				messageHeader[3] = deviceID
 				
 				return messageHeader + [

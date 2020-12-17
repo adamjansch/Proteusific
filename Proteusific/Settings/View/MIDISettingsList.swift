@@ -90,12 +90,15 @@ struct MIDISettingsList: View {
 					let footer = HStack {
 						Spacer()
 						Button("Connect", action: {
-							do {
-								try Proteus.shared.retrieveDeviceInfo()
-								
-							} catch {
-								print("Error connecting to device: \(error)")
-							}
+							Proteus.shared.requestDeviceIdentity(completion: { result in
+								switch result {
+								case .failure(let error):
+									print("Error requesting device identity: \(error)")
+									
+								case .success:
+									break
+								}
+							})
 						})
 					}
 					
