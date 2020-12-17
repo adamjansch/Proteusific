@@ -27,6 +27,9 @@
 		374B2D0B257D6B0600BE9ACA /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */; };
 		37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */; };
 		37B0B1DE25855F490031F765 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 37B0B1DD25855F490031F765 /* AudioKit */; };
+		37CE585D258A88C2000411FC /* Proteus+MIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE585C258A88C2000411FC /* Proteus+MIDIListener.swift */; };
+		37CE5882258AB06F000411FC /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE5881258AB06F000411FC /* Device+CoreDataClass.swift */; };
+		37CE588A258AB593000411FC /* Proteus+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE5889258AB593000411FC /* Proteus+Types.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,9 @@
 		374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		374B2D0C257D6B2300BE9ACA /* Proteusific.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Proteusific.entitlements; sourceTree = "<group>"; };
 		37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentContainer+Utilities.swift"; sourceTree = "<group>"; };
+		37CE585C258A88C2000411FC /* Proteus+MIDIListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Proteus+MIDIListener.swift"; sourceTree = "<group>"; };
+		37CE5881258AB06F000411FC /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
+		37CE5889258AB593000411FC /* Proteus+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Proteus+Types.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,8 @@
 			children = (
 				37218C7625866C64005B4B61 /* Proteus.swift */,
 				37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */,
+				37CE585C258A88C2000411FC /* Proteus+MIDIListener.swift */,
+				37CE5889258AB593000411FC /* Proteus+Types.swift */,
 			);
 			path = Proteus;
 			sourceTree = "<group>";
@@ -173,6 +181,7 @@
 				374B2CFF257D68C800BE9ACA /* Global */,
 				37468490257E9D7A00CC131C /* Main */,
 				37218C7525866BC3005B4B61 /* Proteus */,
+				37CE5872258AAFA6000411FC /* Device */,
 				37294A76257FEC630045BB8E /* Settings */,
 				37294A77257FEC820045BB8E /* Endpoint Selector */,
 				37B0B1B72581361F0031F765 /* Toolbox */,
@@ -258,6 +267,22 @@
 			isa = PBXGroup;
 			children = (
 				37294A98258125DB0045BB8E /* Settings+CoreDataClass.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37CE5872258AAFA6000411FC /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				37CE5873258AAFAE000411FC /* Model */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		37CE5873258AAFAE000411FC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37CE5881258AB06F000411FC /* Device+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -401,13 +426,16 @@
 				37468492257E9DA400CC131C /* MainView.swift in Sources */,
 				37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */,
 				37218C7725866C64005B4B61 /* Proteus.swift in Sources */,
+				37CE585D258A88C2000411FC /* Proteus+MIDIListener.swift in Sources */,
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
+				37CE588A258AB593000411FC /* Proteus+Types.swift in Sources */,
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
 				3746849B257EB64A00CC131C /* EndpointSelectorList.swift in Sources */,
 				374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */,
 				374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */,
 				37294A6F257FDC280045BB8E /* MIDISettingsMIDIConnectionRow.swift in Sources */,
 				37294A99258125DB0045BB8E /* Settings+CoreDataClass.swift in Sources */,
+				37CE5882258AB06F000411FC /* Device+CoreDataClass.swift in Sources */,
 				37294A5E257FD9B20045BB8E /* MIDISettingsList.swift in Sources */,
 				37294A59257FA1330045BB8E /* EndpointSelectorRow.swift in Sources */,
 				37218C822586B6A6005B4B61 /* Proteus+SysExMessage.swift in Sources */,
@@ -573,7 +601,7 @@
 				DEVELOPMENT_TEAM = VG27CYE64F;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Proteusific/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -598,7 +626,7 @@
 				DEVELOPMENT_TEAM = VG27CYE64F;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Proteusific/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
