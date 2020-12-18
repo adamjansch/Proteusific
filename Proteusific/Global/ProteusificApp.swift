@@ -30,16 +30,6 @@ struct ProteusificApp: App {
 		print("MIDI Destinations: \(MIDI.sharedInstance.destinationInfos)")
 		
 		// MIDI configuration
-		if let uid = Settings.current.midiInUID,
-		   MIDI.sharedInstance.inputInfos.contains(where: { uid.int32Value == $0.midiUniqueID }) {
-			MIDI.sharedInstance.openInput(uid: uid.int32Value)
-		}
-		
-		if let uid = Settings.current.midiOutUID,
-		   MIDI.sharedInstance.destinationInfos.contains(where: { uid.int32Value == $0.midiUniqueID }) {
-			MIDI.sharedInstance.openOutput(uid: uid.int32Value)
-		}
-		
 		Proteus.shared.configure()
 	}
 }

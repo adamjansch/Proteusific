@@ -10,20 +10,20 @@ import CoreMIDI
 
 extension Proteus: MIDIListener {
 	func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		do {
-			switch currentSysexMessage {
-			case .deviceInquiry:
-				currentSysexMessage = nil
-				try handleDeviceIdentity(data: data)
-				
-			default:
-				currentSysexMessage = nil
-				print("receivedMIDISystemCommand - data: \(data); portID: \(String(describing: portID)); offset: \(offset)")
-			}
-			
-		} catch {
-			currentMIDIInError = error
-		}
+//		do {
+//			switch currentSysexMessage {
+//			case .deviceInquiry:
+//				currentSysexMessage = nil
+//				try handleDeviceIdentity(data: data)
+//				
+//			default:
+//				currentSysexMessage = nil
+//				print("receivedMIDISystemCommand - data: \(data); portID: \(String(describing: portID)); offset: \(offset)")
+//			}
+//			
+//		} catch {
+//			currentMIDIInError = error
+//		}
 	}
 	
 	func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {

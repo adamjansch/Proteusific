@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AudioKit
+import CoreMIDI
 
 struct AddDeviceMIDIPortsForm: View {
 	// MARK: - ENUMS
@@ -59,7 +60,8 @@ struct AddDeviceMIDIPortsForm: View {
 			})
 			
 			let syncButton = Button("Sync", action: {
-				print("Attempt sync")
+				syncButtonDisabled = true
+				attemptSync()
 			})
 			.disabled(syncButtonDisabled)
 			
@@ -100,8 +102,83 @@ struct AddDeviceMIDIPortsForm: View {
 	
 	
 	// MARK: - METHODS
-	// MARK: Utility methods
+	// MARK: UI methods
 	private func updateSyncButtonEnabledState() {
 		syncButtonDisabled = (selectedMIDIInEndpointInfo == nil) || (selectedMIDIOutEndpointInfo == nil)
+	}
+	
+	// MARK: Utility methods
+	private func attemptSync() {
+		guard let selectedMIDIInEndpointInfo = selectedMIDIInEndpointInfo,
+			  let selectedMIDIOutEndpointInfo = selectedMIDIOutEndpointInfo else {
+			// The Sync button is disabled if either of these properties
+			// is `nil`, so we shouldn't need any handling here.
+			return
+		}
+		
+		let combinedEndpointInfo = BiEndpointInfo(in: selectedMIDIInEndpointInfo, out: selectedMIDIOutEndpointInfo)
+		MIDI.sharedInstance.addListener(self)
+		
+		Proteus.shared.requestDeviceIdentity(endpointInfo: combinedEndpointInfo, completion: { result in
+			switch result {
+			case .failure(let error):
+				print("Error requesting device identity: \(error)")
+				updateSyncButtonEnabledState()
+				
+			case .success:
+				break
+			}
+		})
+	}
+}
+
+
+// MARK: - PROTOCOL CONFORMANCE
+extension AddDeviceMIDIPortsForm: MIDIListener {
+	// MARK: MIDIListener
+	func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+		//MIDI.sharedInstance.removeListener(self)
+		
+		print(data)
+	}
+	
+	func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Note On")
+	}
+	
+	func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Note Off")
+	}
+	
+	func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI CC")
+	}
+	
+	func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Aftertouch")
+	}
+	
+	func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Aftertouch")
+	}
+	
+	func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Pitch Wheel")
+	}
+	
+	func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Program Change")
+	}
+	
+	func receivedMIDISetupChange() {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Setup Change")
+	}
+	
+	func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Property Change")
+	}
+	
+	func receivedMIDINotification(notification: MIDINotification) {
+		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Notification")
 	}
 }
