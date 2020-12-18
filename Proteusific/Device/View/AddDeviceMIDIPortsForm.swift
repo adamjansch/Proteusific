@@ -139,7 +139,7 @@ extension AddDeviceMIDIPortsForm: MIDIListener {
 	func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
 		//MIDI.sharedInstance.removeListener(self)
 		
-		print(data)
+		//print(data)
 	}
 	
 	func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {

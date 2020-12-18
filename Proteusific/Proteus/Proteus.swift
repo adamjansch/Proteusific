@@ -29,6 +29,8 @@ final class Proteus {
 	private static var midiOperationQueue = DispatchQueue(label: midiOperationQueueLabel, qos: .userInitiated)
 	
 	// MARK: Stored properties
+	var pendingSysExMessages: [SysExMessage] = []
+	
 	var currentDevice: Device? {
 		didSet {
 			let midi = MIDI.sharedInstance
@@ -55,18 +57,6 @@ final class Proteus {
 				midi.closeInput()
 				midi.closeOutput()
 			}
-		}
-	}
-	
-	var currentSysexMessage: SysExMessage?
-	var currentMIDIInError: Swift.Error? {
-		didSet {
-			guard let midiInError = currentMIDIInError else {
-				return
-			}
-			
-			// Do something with error here
-			print("MIDI in error: \(midiInError)")
 		}
 	}
 	
@@ -155,7 +145,7 @@ final class Proteus {
 			throw Error.sysExMessageCreationFailed(sysexMessage: deviceIdentityRequestMessage)
 		}
 		
-		currentSysexMessage = deviceIdentityRequestMessage
+		pendingSysExMessages.append(deviceIdentityRequestMessage)
 		MIDI.sharedInstance.sendMessage(deviceInquiryMessage.data)
 	}
 }
