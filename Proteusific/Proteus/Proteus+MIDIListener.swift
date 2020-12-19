@@ -19,8 +19,7 @@ extension Proteus: MIDIListener {
 			return
 		}
 		
-		// HANDLE PENDING MESSAGE HERE
-		
+		pendingSysExMessage.responseAction(.success(data))
 		pendingSysExMessages.removeAll(where: { $0 == pendingSysExMessage })
 	}
 	

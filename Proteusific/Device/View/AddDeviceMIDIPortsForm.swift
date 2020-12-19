@@ -119,15 +119,21 @@ struct AddDeviceMIDIPortsForm: View {
 		let combinedEndpointInfo = BiEndpointInfo(in: selectedMIDIInEndpointInfo, out: selectedMIDIOutEndpointInfo)
 		MIDI.sharedInstance.addListener(self)
 		
-		Proteus.shared.requestDeviceIdentity(endpointInfo: combinedEndpointInfo, completion: { result in
+		Proteus.shared.requestDeviceIdentity(endpointInfo: combinedEndpointInfo, responseAction: { result in
 			switch result {
 			case .failure(let error):
-				print("Error requesting device identity: \(error)")
+				print("Error: \(error.localizedDescription)")
+				// DISPLAY ERROR ALERT?
+				
 				updateSyncButtonEnabledState()
 				
-			case .success:
-				break
+			case .success(let midiResponse):
+				print("MIDI response: \(midiResponse)")
+				
+				// WHAT IS THE NEXT STEP?
 			}
+			
+			MIDI.sharedInstance.removeListener(self)
 		})
 	}
 }

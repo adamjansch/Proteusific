@@ -7,6 +7,8 @@
 
 import AudioKit
 
+typealias MIDIResponseAction = (Result<[MIDIByte], Error>) -> Void
+
 extension Proteus {
 	// MARK: - ENUMS
 	// MARK: MIDI enums
@@ -48,8 +50,8 @@ extension Proteus {
 		
 		
 		// MARK: - CASES
-		case deviceIdentity
-		case presetDumpClosedLoop
+		case deviceIdentity(responseAction: MIDIResponseAction)
+		case presetDumpClosedLoop(responseAction: MIDIResponseAction)
 		
 		
 		// MARK: - PROPERTIES
@@ -90,6 +92,14 @@ extension Proteus {
 					0x00, 0x00, // Preset ROM ID
 					Self.eoxByte
 				]
+			}
+		}
+		
+		var responseAction: MIDIResponseAction {
+			switch self {
+			case .deviceIdentity(let responseAction),
+				 .presetDumpClosedLoop(let responseAction):
+				return responseAction
 			}
 		}
 		
@@ -145,5 +155,11 @@ extension Proteus.SysExMessage: Identifiable {
 		case .presetDumpClosedLoop:
 			return [Self.sysExSpecialEditorByte] + requestCommandBytes
 		}
+	}
+}
+
+extension Proteus.SysExMessage: Equatable {
+	static func == (lhs: Proteus.SysExMessage, rhs: Proteus.SysExMessage) -> Bool {
+		return lhs.id == rhs.id
 	}
 }

@@ -16,7 +16,8 @@ final class Proteus {
 	// MARK: Error enum
 	enum Error: Swift.Error {
 		case incompatibleSysExMessage(data: [MIDIByte])
-		case sysExMessageCreationFailed(sysexMessage: SysExMessage)
+		case selfNil
+		case sysExMessageCreationFailed(sysExMessage: SysExMessage)
 	}
 	
 	
@@ -87,7 +88,7 @@ final class Proteus {
 	}
 	
 	// MARK: MIDI methods
-	func requestDeviceIdentity(endpointInfo: BiEndpointInfo? = nil, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+	func requestDeviceIdentity(endpointInfo: BiEndpointInfo? = nil, responseAction: @escaping MIDIResponseAction) {
 		print("Attempting device info retrieval...")
 		
 		// If endpoint info is provided then we need to override the current device
@@ -106,22 +107,20 @@ final class Proteus {
 		
 		Self.midiOperationQueue.async { [weak self] in
 			guard let strongSelf = self else {
+				responseAction(.failure(Error.selfNil))
 				return
 			}
 			
-			do {
-				try strongSelf.sendDeviceInquiry()
-				// This call should be picked up in `receivedMIDISystemCommand()`
-				
-				DispatchQueue.main.async {
-					completion(.success(()))
-				}
-				
-			} catch {
-				DispatchQueue.main.async {
-					completion(.failure(error))
-				}
+			let deviceIdentityRequestMessage = SysExMessage.deviceIdentity(responseAction: responseAction)
+			let deviceIdentityRequestCommand = deviceIdentityRequestMessage.requestCommand
+			
+			guard let deviceInquiryMessage = MIDISysExMessage(bytes: deviceIdentityRequestCommand) else {
+				responseAction(.failure(Error.sysExMessageCreationFailed(sysExMessage: deviceIdentityRequestMessage)))
+				return
 			}
+			
+			strongSelf.pendingSysExMessages.append(deviceIdentityRequestMessage)
+			MIDI.sharedInstance.sendMessage(deviceInquiryMessage.data)
 		}
 	}
 	
@@ -135,17 +134,5 @@ final class Proteus {
 //		case .none:
 //			let device = Device(deviceIdentity: deviceIdentity, name: nil)
 //		}
-	}
-	
-	private func sendDeviceInquiry() throws {
-		let deviceIdentityRequestMessage = SysExMessage.deviceIdentity
-		let deviceIdentityRequestCommand = deviceIdentityRequestMessage.requestCommand
-		
-		guard let deviceInquiryMessage = MIDISysExMessage(bytes: deviceIdentityRequestCommand) else {
-			throw Error.sysExMessageCreationFailed(sysexMessage: deviceIdentityRequestMessage)
-		}
-		
-		pendingSysExMessages.append(deviceIdentityRequestMessage)
-		MIDI.sharedInstance.sendMessage(deviceInquiryMessage.data)
 	}
 }
