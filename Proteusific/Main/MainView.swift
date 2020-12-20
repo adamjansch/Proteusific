@@ -14,7 +14,7 @@ struct MainView: View {
 	
 	// MARK: View properties
 	var body: some View {
-		DeviceList()
+		DevicesList()
 			.environment(\.managedObjectContext, viewContext)
 	}
 }

@@ -1,5 +1,5 @@
 //
-//  DeviceList.swift
+//  DevicesList.swift
 //  Proteusific
 //
 //  Created by Adam Jansch on 17/12/2020.
@@ -7,13 +7,15 @@
 
 import SwiftUI
 
-struct DeviceList: View {
+struct DevicesList: View {
 	// MARK: - PROPERTIES
 	// MARK: Wrapper properties
 	@FetchRequest(
 		sortDescriptors: [],
 		animation: .default)
 	private var devices: FetchedResults<Device>
+	
+	@State private var showAddDeviceForm = false
 	
 	// MARK: View properties
 	var body: some View {
@@ -35,7 +37,10 @@ struct DeviceList: View {
 				.navigationBarItems(
 					trailing:
 						Button("Add", action: {
-							print("Open Add Device flow situation")
+							showAddDeviceForm = true
+						})
+						.sheet(isPresented: $showAddDeviceForm, content: {
+							AddDeviceMIDIPortsForm(showAddDeviceForm: $showAddDeviceForm)
 						})
 				)
 				

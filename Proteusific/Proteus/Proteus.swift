@@ -9,12 +9,56 @@ import Foundation
 import AudioKit
 import CoreMIDI
 
+typealias BiEndpointInfo = (in: EndpointInfo, out: EndpointInfo)
+
 final class Proteus {
 	// MARK: - ENUMS
 	// MARK: Error enum
-	enum Error: Swift.Error {
+	enum Error: Swift.Error, Identifiable {
 		case incompatibleSysExMessage(data: [MIDIByte])
-		case sysExMessageCreationFailed(sysexMessage: SysExMessage)
+		case other(error: Swift.Error)
+		case selfNil
+		case sysExMessageCreationFailed(sysExMessage: SysExMessage)
+		
+		// MARK: - PROPERTIES
+		// MARK: Identifiable properties
+		var id: String {
+			switch self {
+			case .incompatibleSysExMessage:
+				return "Incompatible SysEx Message"
+			case .other:
+				return "Other"
+			case .selfNil:
+				return "Self Nil"
+			case .sysExMessageCreationFailed:
+				return "SysEx Message Creation Failed"
+			}
+		}
+		
+		// MARK: Computed properties
+		var debugMessage: String {
+			switch self {
+			case .incompatibleSysExMessage(let data):
+				return "Incompatible SysEx message received: \(data)"
+			case .other(let error):
+				return "Other error encountered: \(error.localizedDescription)"
+			case .selfNil:
+				return "Self Nil"
+			case .sysExMessageCreationFailed(let sysExMessage):
+				return "SysEx message creation failed: \(sysExMessage)"
+			}
+		}
+		
+		var alertMessage: String {
+			switch self {
+			case .incompatibleSysExMessage:
+				return "Incompatible System Exclusive message received."
+			case .sysExMessageCreationFailed:
+				return "System Exclusive message creation failed."
+			default:
+				return "General error encountered."
+			}
+		}
 	}
 	
 	
@@ -27,17 +71,45 @@ final class Proteus {
 	private static var midiOperationQueue = DispatchQueue(label: midiOperationQueueLabel, qos: .userInitiated)
 	
 	// MARK: Stored properties
-	private var deviceID: MIDIByte = SysExMessage.allBroadcastID
-	var currentSysexMessage: SysExMessage?
+	var pendingSysExMessages: [SysExMessage] = []
 	
-	var currentMIDIInError: Swift.Error? {
+	var currentDevice: Device? {
 		didSet {
-			guard let midiInError = currentMIDIInError else {
-				return
-			}
+			let midi = MIDI.sharedInstance
 			
-			// Do something with error here
-			print("MIDI in error: \(midiInError)")
+			switch currentDevice {
+			case .some(let device):
+				if let inEndpointUID = device.inEndpointUID,
+				   midi.inputInfos.contains(where: { inEndpointUID == $0.midiUniqueID }) {
+					midi.openInput(uid: inEndpointUID)
+					
+				} else {
+					midi.closeInput()
+				}
+				
+				if let outEndpointUID = device.outEndpointUID,
+				   midi.destinationInfos.contains(where: { outEndpointUID == $0.midiUniqueID }) {
+					midi.openOutput(uid: outEndpointUID)
+					
+				} else {
+					midi.closeOutput()
+				}
+				
+			case .none:
+				midi.closeInput()
+				midi.closeOutput()
+			}
+		}
+	}
+	
+	// MARK: Computed properties
+	var currentDeviceID: MIDIByte {
+		switch currentDevice?.deviceID {
+		case .some(let deviceID):
+			return MIDIByte(deviceID)
+			
+		case .none:
+			return SysExMessage.allBroadcastID
 		}
 	}
 	
@@ -57,51 +129,39 @@ final class Proteus {
 	}
 	
 	// MARK: MIDI methods
-	func requestDeviceIdentity(completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+	func requestDeviceIdentity(endpointInfo: BiEndpointInfo? = nil, responseAction: @escaping MIDIResponseAction) {
 		print("Attempting device info retrieval...")
+		
+		// If endpoint info is provided then we need to override the current device
+		// (very likely because we are trying to create a new device).
+		if let endpointInfo = endpointInfo {
+			let midi = MIDI.sharedInstance
+			
+			//  Close current input and output
+			midi.closeInput()
+			midi.closeOutput()
+			
+			// Open input and output based on provided endpoint infos
+			midi.openInput(uid: endpointInfo.in.midiUniqueID)
+			midi.openOutput(uid: endpointInfo.out.midiUniqueID)
+		}
 		
 		Self.midiOperationQueue.async { [weak self] in
 			guard let strongSelf = self else {
+				responseAction(.failure(Error.selfNil))
 				return
 			}
 			
-			do {
-				try strongSelf.sendDeviceInquiry()
-				// This call should be picked up in `receivedMIDISystemCommand()`
-				
-				DispatchQueue.main.async {
-					completion(.success(()))
-				}
-				
-			} catch {
-				DispatchQueue.main.async {
-					completion(.failure(error))
-				}
+			let deviceIdentityRequestMessage = SysExMessage.deviceIdentity(responseAction: responseAction)
+			let deviceIdentityRequestCommand = deviceIdentityRequestMessage.requestCommand
+			
+			guard let deviceInquiryMessage = MIDISysExMessage(bytes: deviceIdentityRequestCommand) else {
+				responseAction(.failure(Error.sysExMessageCreationFailed(sysExMessage: deviceIdentityRequestMessage)))
+				return
 			}
+			
+			strongSelf.pendingSysExMessages.append(deviceIdentityRequestMessage)
+			MIDI.sharedInstance.sendMessage(deviceInquiryMessage.data)
 		}
-	}
-	
-	func handleDeviceIdentity(data: [MIDIByte]) throws {
-		let deviceIdentity = try DeviceIdentity(data: data)
-		
-//		switch Device.fetch(with: deviceIdentity) {
-//		case .some(let matchingDevice):
-//			
-//			
-//		case .none:
-//			let device = Device(deviceIdentity: deviceIdentity, name: nil)
-//		}
-	}
-	
-	private func sendDeviceInquiry() throws {
-		let deviceInquirySysexMessage = SysExMessage.deviceInquiry(deviceID: deviceID)
-		let deviceInquirySysexMessageMIDIBytes = deviceInquirySysexMessage.midiBytes
-		
-		guard let deviceInquiryMessage = MIDISysExMessage(bytes: deviceInquirySysexMessageMIDIBytes) else {
-			throw Error.sysExMessageCreationFailed(sysexMessage: deviceInquirySysexMessage)
-		}
-		
-		currentSysexMessage = deviceInquirySysexMessage
-		MIDI.sharedInstance.sendMessage(deviceInquiryMessage.data)
 	}
 }

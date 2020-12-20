@@ -8,11 +8,51 @@
 
 import CoreData
 import AudioKit
+import CoreMIDI
 
 public class Device: NSManagedObject {
 	// MARK: - PROPERTIES
 	// MARK: Type properties
 	static let name = "Device"
+	
+	// MARK: Computed properties
+	var inEndpointUID: MIDIUniqueID? {
+		get {
+			switch storedInEndpointUID {
+			case .some(let storedInEndpointUID):
+				return storedInEndpointUID.int32Value
+			case .none:
+				return nil
+			}
+		}
+		set {
+			switch newValue {
+			case .some(let inEndpointUID):
+				storedInEndpointUID = NSNumber(value: inEndpointUID)
+			case .none:
+				storedInEndpointUID = nil
+			}
+		}
+	}
+	
+	var outEndpointUID: MIDIUniqueID? {
+		get {
+			switch storedOutEndpointUID {
+			case .some(let storedOutEndpointUID):
+				return storedOutEndpointUID.int32Value
+			case .none:
+				return nil
+			}
+		}
+		set {
+			switch newValue {
+			case .some(let outEndpointUID):
+				storedOutEndpointUID = NSNumber(value: outEndpointUID)
+			case .none:
+				storedOutEndpointUID = nil
+			}
+		}
+	}
 	
 	
 	// MARK: - METHODS

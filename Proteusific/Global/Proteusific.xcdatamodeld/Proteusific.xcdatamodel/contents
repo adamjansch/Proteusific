@@ -6,17 +6,14 @@
         <attribute name="familyID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="familyMemberID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="softwareVersion" optional="YES" attributeType="String"/>
+        <attribute name="storedInEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
+        <attribute name="storedOutEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
-    <entity name="Settings" representedClassName=".Settings" syncable="YES" codeGenerationType="category">
-        <attribute name="midiInUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
-        <attribute name="midiOutUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
-    </entity>
     <elements>
+        <element name="Device" positionX="-63" positionY="0" width="128" height="134"/>
         <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-        <element name="Settings" positionX="-63" positionY="-9" width="128" height="59"/>
-        <element name="Device" positionX="-63" positionY="0" width="128" height="104"/>
     </elements>
 </model>
