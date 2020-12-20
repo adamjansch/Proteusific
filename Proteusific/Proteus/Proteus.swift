@@ -14,10 +14,51 @@ typealias BiEndpointInfo = (in: EndpointInfo, out: EndpointInfo)
 final class Proteus {
 	// MARK: - ENUMS
 	// MARK: Error enum
-	enum Error: Swift.Error {
+	enum Error: Swift.Error, Identifiable {
 		case incompatibleSysExMessage(data: [MIDIByte])
+		case other(error: Swift.Error)
 		case selfNil
 		case sysExMessageCreationFailed(sysExMessage: SysExMessage)
+		
+		// MARK: - PROPERTIES
+		// MARK: Identifiable properties
+		var id: String {
+			switch self {
+			case .incompatibleSysExMessage:
+				return "Incompatible SysEx Message"
+			case .other:
+				return "Other"
+			case .selfNil:
+				return "Self Nil"
+			case .sysExMessageCreationFailed:
+				return "SysEx Message Creation Failed"
+			}
+		}
+		
+		// MARK: Computed properties
+		var debugMessage: String {
+			switch self {
+			case .incompatibleSysExMessage(let data):
+				return "Incompatible SysEx message received: \(data)"
+			case .other(let error):
+				return "Other error encountered: \(error.localizedDescription)"
+			case .selfNil:
+				return "Self Nil"
+			case .sysExMessageCreationFailed(let sysExMessage):
+				return "SysEx message creation failed: \(sysExMessage)"
+			}
+		}
+		
+		var alertMessage: String {
+			switch self {
+			case .incompatibleSysExMessage:
+				return "Incompatible System Exclusive message received."
+			case .sysExMessageCreationFailed:
+				return "System Exclusive message creation failed."
+			default:
+				return "General error encountered."
+			}
+		}
 	}
 	
 	
@@ -122,17 +163,5 @@ final class Proteus {
 			strongSelf.pendingSysExMessages.append(deviceIdentityRequestMessage)
 			MIDI.sharedInstance.sendMessage(deviceInquiryMessage.data)
 		}
-	}
-	
-	func handleDeviceIdentity(data: [MIDIByte]) throws {
-		let deviceIdentity = try DeviceIdentity(data: data)
-		
-//		switch Device.fetch(with: deviceIdentity) {
-//		case .some(let matchingDevice):
-//			
-//			
-//		case .none:
-//			let device = Device(deviceIdentity: deviceIdentity, name: nil)
-//		}
 	}
 }

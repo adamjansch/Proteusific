@@ -48,7 +48,8 @@ struct AddDeviceMIDIPortsForm: View {
 	// MARK: Wrapper properties
 	@State private var selectedMIDIInEndpointInfo: EndpointInfo?
 	@State private var selectedMIDIOutEndpointInfo: EndpointInfo?
-	@State private var syncButtonDisabled: Bool = true
+	@State private var syncButtonDisabled = true
+	@State private var requestDeviceIdentityError: Proteus.Error?
 	
 	@Binding var showAddDeviceForm: Bool
 	
@@ -97,6 +98,9 @@ struct AddDeviceMIDIPortsForm: View {
 			.padding(.top, 24.0)
 			.navigationBarTitle("Add Device", displayMode: .inline)
 			.navigationBarItems(leading: cancelButton, trailing: syncButton)
+			.alert(item: $requestDeviceIdentityError) { error in
+				Alert(title: Text("Synchronisation Error"), message: Text(error.alertMessage))
+			}
 		}
 	}
 	
@@ -117,74 +121,30 @@ struct AddDeviceMIDIPortsForm: View {
 		}
 		
 		let combinedEndpointInfo = BiEndpointInfo(in: selectedMIDIInEndpointInfo, out: selectedMIDIOutEndpointInfo)
-		MIDI.sharedInstance.addListener(self)
 		
 		Proteus.shared.requestDeviceIdentity(endpointInfo: combinedEndpointInfo, responseAction: { result in
+			let handleError: (Proteus.Error) -> Void = { error in
+				print("Error Requesting Device Identity: \(error.debugMessage)")
+				requestDeviceIdentityError = error
+				updateSyncButtonEnabledState()
+			}
+			
 			switch result {
 			case .failure(let error):
-				print("Error: \(error.localizedDescription)")
-				// DISPLAY ERROR ALERT?
-				
-				updateSyncButtonEnabledState()
+				handleError(error)
 				
 			case .success(let midiResponse):
 				print("MIDI response: \(midiResponse)")
 				
-				// WHAT IS THE NEXT STEP?
+				do {
+					let deviceIdentity = try Proteus.DeviceIdentity(data: midiResponse)
+					
+					// MOVE TO NEXT VIEW, giving user option to create a new Device, or link this MIDI in/out port to an existing one
+					
+				} catch {
+					handleError(Proteus.Error.other(error: error))
+				}
 			}
-			
-			MIDI.sharedInstance.removeListener(self)
 		})
-	}
-}
-
-
-// MARK: - PROTOCOL CONFORMANCE
-extension AddDeviceMIDIPortsForm: MIDIListener {
-	// MARK: MIDIListener
-	func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		//MIDI.sharedInstance.removeListener(self)
-		
-		//print(data)
-	}
-	
-	func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Note On")
-	}
-	
-	func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Note Off")
-	}
-	
-	func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI CC")
-	}
-	
-	func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Aftertouch")
-	}
-	
-	func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Aftertouch")
-	}
-	
-	func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Pitch Wheel")
-	}
-	
-	func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Program Change")
-	}
-	
-	func receivedMIDISetupChange() {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Setup Change")
-	}
-	
-	func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Property Change")
-	}
-	
-	func receivedMIDINotification(notification: MIDINotification) {
-		print("AddDeviceMIDIPortsForm doesn't respond to MIDI Notification")
 	}
 }

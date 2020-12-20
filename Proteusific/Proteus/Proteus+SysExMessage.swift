@@ -7,7 +7,7 @@
 
 import AudioKit
 
-typealias MIDIResponseAction = (Result<[MIDIByte], Error>) -> Void
+typealias MIDIResponseAction = (Result<[MIDIByte], Proteus.Error>) -> Void
 
 extension Proteus {
 	// MARK: - ENUMS
