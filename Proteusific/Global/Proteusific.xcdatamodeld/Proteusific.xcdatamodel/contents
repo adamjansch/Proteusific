@@ -9,11 +9,7 @@
         <attribute name="storedInEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
         <attribute name="storedOutEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
     </entity>
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-    </entity>
     <elements>
         <element name="Device" positionX="-63" positionY="0" width="128" height="134"/>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
     </elements>
 </model>

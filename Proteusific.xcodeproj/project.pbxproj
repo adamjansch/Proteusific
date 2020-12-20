@@ -11,7 +11,6 @@
 		37218C822586B6A6005B4B61 /* Proteus+SysExMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */; };
 		37468492257E9DA400CC131C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37468491257E9DA400CC131C /* MainView.swift */; };
 		374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */; };
-		374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CCE257D006C00BE9ACA /* ContentView.swift */; };
 		374B2CD1257D006D00BE9ACA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 374B2CD0257D006D00BE9ACA /* Assets.xcassets */; };
 		374B2CD4257D006D00BE9ACA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 374B2CD3257D006D00BE9ACA /* Preview Assets.xcassets */; };
 		374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CD5257D006D00BE9ACA /* Persistence.swift */; };
@@ -54,7 +53,6 @@
 		37468491257E9DA400CC131C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		374B2CC9257D006C00BE9ACA /* Proteusific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proteusific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteusificApp.swift; sourceTree = "<group>"; };
-		374B2CCE257D006C00BE9ACA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		374B2CD0257D006D00BE9ACA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		374B2CD3257D006D00BE9ACA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		374B2CD5257D006D00BE9ACA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				374B2CCC257D006C00BE9ACA /* ProteusificApp.swift */,
-				374B2CCE257D006C00BE9ACA /* ContentView.swift */,
 				374B2CD5257D006D00BE9ACA /* Persistence.swift */,
 				374B2CD7257D006D00BE9ACA /* Proteusific.xcdatamodeld */,
 			);
@@ -397,7 +394,6 @@
 				37CE588A258AB593000411FC /* Proteus+Types.swift in Sources */,
 				37A44FD3258D4E5400D58526 /* Collection+Utilities.swift in Sources */,
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
-				374B2CCF257D006C00BE9ACA /* ContentView.swift in Sources */,
 				37A44FCB258CE61300D58526 /* EndpointInfo+Identifiable.swift in Sources */,
 				374B2CCD257D006C00BE9ACA /* ProteusificApp.swift in Sources */,
 				37CE5882258AB06F000411FC /* Device+CoreDataClass.swift in Sources */,
