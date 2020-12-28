@@ -46,60 +46,74 @@ struct AddDeviceMIDIPortsForm: View {
 	
 	// MARK: - PROPERTIES
 	// MARK: Wrapper properties
+	@State private var requestDeviceIdentityError: Proteus.Error?
+	@State private var retrievedDeviceIdentity: Proteus.DeviceIdentity?
 	@State private var selectedMIDIInEndpointInfo: EndpointInfo?
 	@State private var selectedMIDIOutEndpointInfo: EndpointInfo?
 	@State private var syncButtonDisabled = true
-	@State private var requestDeviceIdentityError: Proteus.Error?
 	
 	@Binding var showAddDeviceForm: Bool
 	
 	// MARK: View properties
 	var body: some View {
 		NavigationView {
-			let cancelButton = Button("Cancel", action: {
-				showAddDeviceForm = false
-			})
-			
-			let syncButton = Button("Sync", action: {
-				syncButtonDisabled = true
-				attemptSync()
-			})
-			.disabled(syncButtonDisabled)
-			
-			Form {
-				ForEach(ListSection.allCases) { section in
-					Section(header: Text(section.headerTitle)) {
-						ForEach(section.endpointInfos) { endpointInfo in
-							switch section {
-							case .midiInPorts:
-								AddDeviceMIDIPortsFormRow(endpointInfo: endpointInfo, selectedEndpointInfo: $selectedMIDIInEndpointInfo)
-									.onChange(of: selectedMIDIInEndpointInfo, perform: { selectedEndpointInfo in
-										guard selectedEndpointInfo == endpointInfo else {
-											return
-										}
-										
-										updateSyncButtonEnabledState()
-									})
-								
-							case .midiOutPorts:
-								AddDeviceMIDIPortsFormRow(endpointInfo: endpointInfo, selectedEndpointInfo: $selectedMIDIOutEndpointInfo)
-									.onChange(of: selectedMIDIOutEndpointInfo, perform: { selectedEndpointInfo in
-										guard selectedEndpointInfo == endpointInfo else {
-											return
-										}
-										
-										updateSyncButtonEnabledState()
-									})
+			VStack {
+				let cancelButton = Button("Cancel", action: {
+					showAddDeviceForm = false
+				})
+				
+				let syncButton = Button("Sync", action: {
+					syncButtonDisabled = true
+					attemptSync()
+				})
+				.disabled(syncButtonDisabled)
+				
+				Form {
+					ForEach(ListSection.allCases) { section in
+						Section(header: Text(section.headerTitle)) {
+							ForEach(section.endpointInfos) { endpointInfo in
+								switch section {
+								case .midiInPorts:
+									AddDeviceMIDIPortsFormRow(endpointInfo: endpointInfo, selectedEndpointInfo: $selectedMIDIInEndpointInfo)
+										.onChange(of: selectedMIDIInEndpointInfo, perform: { selectedEndpointInfo in
+											guard selectedEndpointInfo == endpointInfo else {
+												return
+											}
+											
+											updateSyncButtonEnabledState()
+										})
+									
+								case .midiOutPorts:
+									AddDeviceMIDIPortsFormRow(endpointInfo: endpointInfo, selectedEndpointInfo: $selectedMIDIOutEndpointInfo)
+										.onChange(of: selectedMIDIOutEndpointInfo, perform: { selectedEndpointInfo in
+											guard selectedEndpointInfo == endpointInfo else {
+												return
+											}
+											
+											updateSyncButtonEnabledState()
+										})
+								}
 							}
 						}
 					}
 				}
-			}
-			.padding(.top, 24.0)
-			.navigationBarTitle("Add Device", displayMode: .inline)
-			.navigationBarItems(leading: cancelButton, trailing: syncButton)
-			.alert(item: $requestDeviceIdentityError) { error in
-				Alert(title: Text("Synchronisation Error"), message: Text(error.alertMessage))
+				.padding(.top, 24.0)
+				.navigationBarTitle("Add Device", displayMode: .inline)
+				.navigationBarItems(leading: cancelButton, trailing: syncButton)
+				.alert(item: $requestDeviceIdentityError) { error in
+					Alert(title: Text("Synchronisation Error"), message: Text(error.alertMessage))
+				}
+				
+				NavigationLink(
+					destination: AddDeviceLinkDeviceForm(deviceIdentity: retrievedDeviceIdentity),
+					isActive: .constant(retrievedDeviceIdentity != nil),
+					label: {
+						EmptyView()
+					}
+				)
+				.onDisappear() {
+					updateSyncButtonEnabledState()
+				}
 			}
 		}
 	}
@@ -120,7 +134,7 @@ struct AddDeviceMIDIPortsForm: View {
 			return
 		}
 		
-		let combinedEndpointInfo = BiEndpointInfo(in: selectedMIDIInEndpointInfo, out: selectedMIDIOutEndpointInfo)
+		let combinedEndpointInfo = BiDirectionalEndpointInfo(in: selectedMIDIInEndpointInfo, out: selectedMIDIOutEndpointInfo)
 		
 		Proteus.shared.requestDeviceIdentity(endpointInfo: combinedEndpointInfo, responseAction: { result in
 			let handleError: (Proteus.Error) -> Void = { error in
@@ -138,8 +152,7 @@ struct AddDeviceMIDIPortsForm: View {
 				
 				do {
 					let deviceIdentity = try Proteus.DeviceIdentity(data: midiResponse)
-					
-					// MOVE TO NEXT VIEW, giving user option to create a new Device, or link this MIDI in/out port to an existing one
+					retrievedDeviceIdentity = deviceIdentity
 					
 				} catch {
 					handleError(Proteus.Error.other(error: error))

@@ -40,7 +40,10 @@ struct DevicesList: View {
 							showAddDeviceForm = true
 						})
 						.sheet(isPresented: $showAddDeviceForm, content: {
-							AddDeviceMIDIPortsForm(showAddDeviceForm: $showAddDeviceForm)
+							//AddDeviceMIDIPortsForm(showAddDeviceForm: $showAddDeviceForm)
+							
+							let viewModel = AddDeviceDiscoveryListModel()
+							AddDeviceDiscoveryList(viewModel: viewModel, showAddDeviceForm: $showAddDeviceForm)
 						})
 				)
 				
