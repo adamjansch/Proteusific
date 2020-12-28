@@ -7,8 +7,8 @@
 
 import AudioKit
 
-typealias MIDIResponseResult = Result<[MIDIByte], Proteus.Error>
-typealias MIDIResponseAction = (MIDIResponseResult) -> Void
+typealias MIDIResponseResult = Result<Proteus.DeviceIdentity, Proteus.Error>
+typealias MIDIResponseAction = (Result<[MIDIByte], Proteus.Error>) -> Void
 
 extension Proteus {
 	// MARK: - ENUMS

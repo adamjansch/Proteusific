@@ -11,11 +11,7 @@ import AudioKit
 final class AddDeviceDiscoveryListModel: ObservableObject {
 	// MARK: - PROPERTIES
 	// MARK: Stored properties
-	@Published private(set) var discoveredDeviceResults: [MIDIResponseResult]? {
-		didSet {
-			//discoveryCompleted = (discoveredDevices?.count == MIDI.sharedInstance.destinationInfos.count)
-		}
-	}
+	@Published private(set) var discoveredDeviceResults: [MIDIResponseResult]?
 	
 	// MARK: Wrapper properties
 	//@Binding var requestDeviceIdentityError: Proteus.Error? = nil
@@ -28,10 +24,11 @@ final class AddDeviceDiscoveryListModel: ObservableObject {
 		
 		let dispatchGroup = DispatchGroup()
 		
-		for destinationInfo in MIDI.sharedInstance.destinationInfos {
+		for (destinationInfoIndex, destinationInfo) in MIDI.sharedInstance.destinationInfos.enumerated() {
 			dispatchGroup.enter()
 			
-			let combinedEndpointInfo = BiDirectionalEndpointInfo(in: nil, out: destinationInfo)
+			let inputInfo = MIDI.sharedInstance.inputInfos[safe: destinationInfoIndex]
+			let combinedEndpointInfo = BiDirectionalEndpointInfo(in: inputInfo, out: destinationInfo)
 			
 			Proteus.shared.requestDeviceIdentity(endpointInfo: combinedEndpointInfo, responseAction: { [weak self] result in
 				guard let strongSelf = self else {
@@ -58,8 +55,12 @@ final class AddDeviceDiscoveryListModel: ObservableObject {
 						print("MIDI response: \(midiResponse)")
 						
 						do {
+							if strongSelf.discoveredDeviceResults == nil {
+								strongSelf.discoveredDeviceResults = []
+							}
+							
 							let deviceIdentity = try Proteus.DeviceIdentity(data: midiResponse)
-							strongSelf.discoveredDeviceResults?.append(.success(midiResponse))
+							strongSelf.discoveredDeviceResults?.append(.success(deviceIdentity))
 							
 						} catch {
 							handleError(Proteus.Error.other(error: error))

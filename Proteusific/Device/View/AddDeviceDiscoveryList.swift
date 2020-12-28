@@ -33,10 +33,8 @@ struct AddDeviceDiscoveryList: View {
 						Spacer()
 						
 					case false:
-						Text("Found \(discoveredDevices.count) Proteus modules")
-						
-						List {
-							
+						List(discoveredDevices) { device in
+							Text("Found \(device.softwareVersion) Proteus modules")
 						}
 						.listStyle(InsetGroupedListStyle())
 					}
