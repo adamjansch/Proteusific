@@ -41,7 +41,7 @@ struct DevicesList: View {
 						})
 						.sheet(isPresented: $showAddDeviceForm, content: {
 							let viewModel = AddDeviceDiscoveryListModel()
-							AddDeviceDiscoveryList(viewModel: viewModel, showAddDeviceForm: $showAddDeviceForm)
+							DeviceDiscoveryList(viewModel: viewModel, showAddDeviceForm: $showAddDeviceForm)
 						})
 				)
 				

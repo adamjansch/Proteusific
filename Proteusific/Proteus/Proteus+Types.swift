@@ -106,10 +106,13 @@ extension Proteus {
 		let familyMember: DeviceFamilyMember
 		let softwareVersion: String
 		
+		let sourceEndpointInfo: EndpointInfo?
+		let destinationEndpointInfo: EndpointInfo
+		
 		
 		// MARK: - METHODS
 		// MARK: Initialisers
-		init(data: [MIDIByte]) throws {
+		init(data: [MIDIByte], endpointInfo: BiDirectionalEndpointInfo) throws {
 			/*
 			BYTES (by index)
 			0:		Sysex message
@@ -136,6 +139,8 @@ extension Proteus {
 			self.familyID = UInt16(data[6...7].withUnsafeBytes({ $0.load(as: UInt16.self) }))
 			self.familyMember = familyMember
 			self.softwareVersion = String(data[10...13].map({ Character(UnicodeScalar($0)) }))
+			self.sourceEndpointInfo = endpointInfo.source
+			self.destinationEndpointInfo = endpointInfo.destination
 		}
 	}
 }

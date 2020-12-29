@@ -28,7 +28,7 @@ final class AddDeviceDiscoveryListModel: ObservableObject {
 			dispatchGroup.enter()
 			
 			let inputInfo = MIDI.sharedInstance.inputInfos[safe: destinationInfoIndex]
-			let combinedEndpointInfo = BiDirectionalEndpointInfo(in: inputInfo, out: destinationInfo)
+			let combinedEndpointInfo = BiDirectionalEndpointInfo(source: inputInfo, destination: destinationInfo)
 			
 			Proteus.shared.requestDeviceIdentity(endpointInfo: combinedEndpointInfo, responseAction: { [weak self] result in
 				guard let strongSelf = self else {
@@ -59,7 +59,7 @@ final class AddDeviceDiscoveryListModel: ObservableObject {
 								strongSelf.discoveredDeviceResults = []
 							}
 							
-							let deviceIdentity = try Proteus.DeviceIdentity(data: midiResponse)
+							let deviceIdentity = try Proteus.DeviceIdentity(data: midiResponse, endpointInfo: combinedEndpointInfo)
 							strongSelf.discoveredDeviceResults?.append(.success(deviceIdentity))
 							
 						} catch {

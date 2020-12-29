@@ -8,7 +8,7 @@
 import AudioKit
 import CoreMIDI
 
-typealias BiDirectionalEndpointInfo = (in: EndpointInfo?, out: EndpointInfo)
+typealias BiDirectionalEndpointInfo = (source: EndpointInfo?, destination: EndpointInfo)
 
 final class Proteus {
 	// MARK: - ENUMS
@@ -149,9 +149,9 @@ final class Proteus {
 			midi.closeOutput()
 			
 			// Open input and output based on provided endpoint infos
-			let inMIDIUniqueID = endpointInfo.in?.midiUniqueID ?? 0
+			let inMIDIUniqueID = endpointInfo.source?.midiUniqueID ?? 0
 			midi.openInput(uid: inMIDIUniqueID)
-			midi.openOutput(uid: endpointInfo.out.midiUniqueID)
+			midi.openOutput(uid: endpointInfo.destination.midiUniqueID)
 		}
 		
 		Self.midiOperationQueue.async { [weak self] in

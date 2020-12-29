@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		370DB68125991900007FB5DC /* AddDeviceDiscoveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370DB68025991900007FB5DC /* AddDeviceDiscoveryList.swift */; };
+		370DB68125991900007FB5DC /* DeviceDiscoveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */; };
 		37218C7725866C64005B4B61 /* Proteus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37218C7625866C64005B4B61 /* Proteus.swift */; };
 		37218C822586B6A6005B4B61 /* Proteus+SysExMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */; };
 		37468492257E9DA400CC131C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37468491257E9DA400CC131C /* MainView.swift */; };
@@ -28,6 +28,7 @@
 		37CE5882258AB06F000411FC /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE5881258AB06F000411FC /* Device+CoreDataClass.swift */; };
 		37CE588A258AB593000411FC /* Proteus+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE5889258AB593000411FC /* Proteus+Types.swift */; };
 		37E36B372599C1BE00E056D0 /* AddDeviceDiscoveryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E36B362599C1BE00E056D0 /* AddDeviceDiscoveryListModel.swift */; };
+		37E36B4E259A7F7800E056D0 /* DeviceDiscoveryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E36B4D259A7F7800E056D0 /* DeviceDiscoveryRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		370DB68025991900007FB5DC /* AddDeviceDiscoveryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceDiscoveryList.swift; sourceTree = "<group>"; };
+		370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryList.swift; sourceTree = "<group>"; };
 		37218C7625866C64005B4B61 /* Proteus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proteus.swift; sourceTree = "<group>"; };
 		37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Proteus+SysExMessage.swift"; sourceTree = "<group>"; };
 		37468491257E9DA400CC131C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -75,6 +76,7 @@
 		37CE5881258AB06F000411FC /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
 		37CE5889258AB593000411FC /* Proteus+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Proteus+Types.swift"; sourceTree = "<group>"; };
 		37E36B362599C1BE00E056D0 /* AddDeviceDiscoveryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceDiscoveryListModel.swift; sourceTree = "<group>"; };
+		37E36B4D259A7F7800E056D0 /* DeviceDiscoveryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,7 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				37A44F91258B7E6400D58526 /* DevicesList.swift */,
-				370DB68025991900007FB5DC /* AddDeviceDiscoveryList.swift */,
+				370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */,
+				37E36B4D259A7F7800E056D0 /* DeviceDiscoveryRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -403,7 +406,8 @@
 				37468492257E9DA400CC131C /* MainView.swift in Sources */,
 				37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */,
 				37A44F92258B7E6400D58526 /* DevicesList.swift in Sources */,
-				370DB68125991900007FB5DC /* AddDeviceDiscoveryList.swift in Sources */,
+				37E36B4E259A7F7800E056D0 /* DeviceDiscoveryRow.swift in Sources */,
+				370DB68125991900007FB5DC /* DeviceDiscoveryList.swift in Sources */,
 				37218C7725866C64005B4B61 /* Proteus.swift in Sources */,
 				37CE585D258A88C2000411FC /* Proteus+MIDIListener.swift in Sources */,
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
