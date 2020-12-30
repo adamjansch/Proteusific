@@ -93,7 +93,7 @@ extension Proteus {
 	
 	// MARK: - STRUCTS
 	// MARK: DeviceIdentity
-	struct DeviceIdentity: Identifiable {
+	struct DeviceIdentity: Identifiable, Equatable {
 		// MARK: - PROPERTIES
 		// MARK: Identifiable properties
 		var id: MIDIByte {

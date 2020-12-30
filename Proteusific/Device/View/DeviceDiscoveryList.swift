@@ -31,7 +31,7 @@ struct DeviceDiscoveryList: View {
 	
 	// MARK: - PROPERTIES
 	// MARK: Wrapper properties
-	@ObservedObject var viewModel: AddDeviceDiscoveryListModel
+	@ObservedObject var viewModel: DeviceDiscoveryListModel
 	@Binding var showAddDeviceForm: Bool
 	
 	@State private var selectedDevice: Proteus.DeviceIdentity?
@@ -51,33 +51,39 @@ struct DeviceDiscoveryList: View {
 		
 		NavigationView {
 			VStack {
-				if let discoveredDeviceResults = viewModel.discoveredDeviceResults {
-					// Filter out the `failure()` results
-					let discoveredDevices = discoveredDeviceResults.compactMap({ try? $0.get() })
+				// Filter out the `failure()` results
+				let discoveredDevices = viewModel.discoveredDeviceResults.compactMap({ try? $0.get() })
+				
+				switch (viewModel.discoveryCompleted, discoveredDevices.isEmpty) {
+				case (false, _):
+					Text("Discovering Proteus devices...")
+					ProgressView()
 					
-					switch discoveredDevices.isEmpty {
-					case true:
-						Text("No Proteus modules have been detected")
-							.padding(24.0)
-						
-						Spacer()
-						
-					case false:
-						List {
-							ForEach(ListSection.allCases) { section in
-								Section(header: Text(section.headerTitle)) {
-									ForEach(discoveredDevices) { device in
-										DeviceDiscoveryRow(device: device, selectedDevice: $selectedDevice)
-									}
+				case (true, true):
+					Text("No Proteus devices have been detected")
+						.padding(24.0)
+					
+					Spacer()
+					
+				case (true, false):
+					List {
+						ForEach(ListSection.allCases) { section in
+							Section(header: Text(section.headerTitle)) {
+								ForEach(discoveredDevices) { device in
+									DeviceDiscoveryRow(device: device, selectedDevice: $selectedDevice)
+										.onChange(of: selectedDevice, perform: { device in
+											guard selectedDevice == device else {
+												return
+											}
+											
+											addButtonDisabled = false
+										})
 								}
 							}
 						}
-						.listStyle(InsetGroupedListStyle())
-						.padding(EdgeInsets(top: 24.0, leading: 0.0, bottom: 0.0, trailing: 0.0))
 					}
-					
-				} else {
-					ProgressView()
+					.listStyle(InsetGroupedListStyle())
+					.padding(EdgeInsets(top: 24.0, leading: 0.0, bottom: 0.0, trailing: 0.0))
 				}
 			}
 			.navigationBarTitle("Add Device", displayMode: .inline)

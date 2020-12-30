@@ -40,7 +40,7 @@ struct DevicesList: View {
 							showAddDeviceForm = true
 						})
 						.sheet(isPresented: $showAddDeviceForm, content: {
-							let viewModel = AddDeviceDiscoveryListModel()
+							let viewModel = DeviceDiscoveryListModel()
 							DeviceDiscoveryList(viewModel: viewModel, showAddDeviceForm: $showAddDeviceForm)
 						})
 				)

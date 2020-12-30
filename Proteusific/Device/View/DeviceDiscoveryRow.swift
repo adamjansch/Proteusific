@@ -22,7 +22,7 @@ struct DeviceDiscoveryRow: View {
 			
 		}, label: {
 			HStack {
-				let isSelected = (selectedDevice?.id == device.id)
+				let isSelected = (selectedDevice == device)
 				
 				VStack(alignment: .leading, spacing: 8.0) {
 					HStack(alignment: .bottom, spacing: 8.0) {
