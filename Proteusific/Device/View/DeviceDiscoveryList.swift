@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AudioKit
 
 struct DeviceDiscoveryList: View {
 	// MARK: - ENUMS
@@ -58,7 +59,10 @@ struct DeviceDiscoveryList: View {
 				switch (viewModel.discoveryCompleted, discoveredDevices.isEmpty) {
 				case (false, _):
 					Text("Discovering Proteus devices...")
-					ProgressView()
+						.padding(24.0)
+					
+					SegmentedActivityIndicator(completedSegmentCount: viewModel.discoveredDeviceResults.count, maxSegmentCount: MIDI.sharedInstance.destinationInfos.count)
+						.frame(width: SegmentedActivityIndicator.defaultWidth, height: SegmentedActivityIndicator.defaultWidth, alignment: .center)
 					
 				case (true, true):
 					Text("No Proteus devices have been detected")
@@ -117,5 +121,13 @@ struct DeviceDiscoveryList: View {
 		} catch {
 			requestDeviceIdentityError = .other(error: error)
 		}
+	}
+	
+	// MARK: Utility methods
+	private func segmentDegrees(for index: Int) -> (start: Double, end: Double) {
+		let segmentDegrees = 360 / MIDI.sharedInstance.destinationInfos.count
+		let startDegree = ((segmentDegrees * index) + 270) % 360
+		let endDegree = ((segmentDegrees * (index + 1)) + 270) % 360
+		return (start: Double(startDegree), end: Double(endDegree))
 	}
 }
