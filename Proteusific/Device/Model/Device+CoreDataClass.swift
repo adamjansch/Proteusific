@@ -16,6 +16,15 @@ public class Device: NSManagedObject {
 	static let name = "Device"
 	
 	// MARK: Computed properties
+	var familyMember: Proteus.DeviceFamilyMember {
+		get {
+			return Proteus.DeviceFamilyMember(rawValue: MIDIWord(storedFamilyMember)) ?? .unknown
+		}
+		set {
+			storedFamilyMember = Int32(newValue.rawValue)
+		}
+	}
+	
 	var inEndpointUID: MIDIUniqueID? {
 		get {
 			switch storedInEndpointUID {
@@ -67,7 +76,7 @@ public class Device: NSManagedObject {
 		let matchingDevices = allDevices.filter({
 			guard $0.deviceID == deviceIdentity.deviceID,
 				  $0.familyID == deviceIdentity.familyID,
-				  $0.familyMemberID == deviceIdentity.familyMemberID else {
+				  $0.familyMember == deviceIdentity.familyMember else {
 				return false
 			}
 			
@@ -83,7 +92,7 @@ public class Device: NSManagedObject {
 		
 		deviceID = Int16(deviceIdentity.deviceID)
 		familyID = Int32(deviceIdentity.familyID)
-		familyMemberID = Int32(deviceIdentity.familyMemberID)
+		familyMember = deviceIdentity.familyMember
 		softwareVersion = deviceIdentity.softwareVersion
 		customName = name
 	}

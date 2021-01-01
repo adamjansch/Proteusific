@@ -5,11 +5,10 @@
 //  Created by Adam Jansch on 13/12/2020.
 //
 
-import Foundation
 import AudioKit
 import CoreMIDI
 
-typealias BiEndpointInfo = (in: EndpointInfo, out: EndpointInfo)
+typealias BiDirectionalEndpointInfo = (source: EndpointInfo?, destination: EndpointInfo)
 
 final class Proteus {
 	// MARK: - ENUMS
@@ -19,6 +18,7 @@ final class Proteus {
 		case other(error: Swift.Error)
 		case selfNil
 		case sysExMessageCreationFailed(sysExMessage: SysExMessage)
+		case sysExMessageResponseTimedOut(sysExMessage: SysExMessage)
 		
 		// MARK: - PROPERTIES
 		// MARK: Identifiable properties
@@ -32,6 +32,8 @@ final class Proteus {
 				return "Self Nil"
 			case .sysExMessageCreationFailed:
 				return "SysEx Message Creation Failed"
+			case .sysExMessageResponseTimedOut:
+				return "SysEx Message Response Timed Out"
 			}
 		}
 		
@@ -46,6 +48,8 @@ final class Proteus {
 				return "Self Nil"
 			case .sysExMessageCreationFailed(let sysExMessage):
 				return "SysEx message creation failed: \(sysExMessage)"
+			case .sysExMessageResponseTimedOut(let sysExMessage):
+				return "SysEx message response timed out: \(sysExMessage)"
 			}
 		}
 		
@@ -55,6 +59,8 @@ final class Proteus {
 				return "Incompatible System Exclusive message received."
 			case .sysExMessageCreationFailed:
 				return "System Exclusive message creation failed."
+			case .sysExMessageResponseTimedOut:
+				return "System Exclusive message response timed out."
 			default:
 				return "General error encountered."
 			}
@@ -67,8 +73,9 @@ final class Proteus {
 	static let shared = Proteus()
 	
 	// MARK: Type properties
-	private static var midiOperationQueueLabel = "MIDIOperationQueue"
-	private static var midiOperationQueue = DispatchQueue(label: midiOperationQueueLabel, qos: .userInitiated)
+	private static let messageTimeoutDuration: TimeInterval = 1.0
+	private static let midiOperationQueueLabel = "MIDIOperationQueue"
+	static let midiOperationQueue = DispatchQueue(label: midiOperationQueueLabel, qos: .utility)
 	
 	// MARK: Stored properties
 	var pendingSysExMessages: [SysExMessage] = []
@@ -128,8 +135,13 @@ final class Proteus {
 		MIDI.sharedInstance.addListener(self)
 	}
 	
-	// MARK: MIDI methods
-	func requestDeviceIdentity(endpointInfo: BiEndpointInfo? = nil, responseAction: @escaping MIDIResponseAction) {
+	// MARK: Device methods
+	func requestDeviceIdentity(endpointInfo: BiDirectionalEndpointInfo? = nil, responseAction: @escaping MIDIResponseAction) {
+		/*
+		WARNING! This method is designed to work synchronously. DO NOT CALL THIS FROM THE MAIN THREAD.
+		(I would use Proteus.midiOperationQueue...)
+		*/
+		
 		print("Attempting device info retrieval...")
 		
 		// If endpoint info is provided then we need to override the current device
@@ -137,31 +149,39 @@ final class Proteus {
 		if let endpointInfo = endpointInfo {
 			let midi = MIDI.sharedInstance
 			
-			//  Close current input and output
-			midi.closeInput()
-			midi.closeOutput()
+			//  Clear endpoints
+			midi.clearEndpoints()
 			
 			// Open input and output based on provided endpoint infos
-			midi.openInput(uid: endpointInfo.in.midiUniqueID)
-			midi.openOutput(uid: endpointInfo.out.midiUniqueID)
+			let inMIDIUniqueID = endpointInfo.source?.midiUniqueID ?? 0
+			midi.openInput(uid: inMIDIUniqueID)
+			midi.openOutput(uid: endpointInfo.destination.midiUniqueID)
 		}
 		
-		Self.midiOperationQueue.async { [weak self] in
-			guard let strongSelf = self else {
-				responseAction(.failure(Error.selfNil))
-				return
-			}
+		let deviceIdentityRequestMessage = SysExMessage.deviceIdentity(responseAction: responseAction)
+		let deviceIdentityRequestCommand = deviceIdentityRequestMessage.requestCommand
+		
+		guard let deviceInquiryMessage = MIDISysExMessage(bytes: deviceIdentityRequestCommand) else {
+			responseAction(.failure(Error.sysExMessageCreationFailed(sysExMessage: deviceIdentityRequestMessage)))
+			return
+		}
+		
+		pendingSysExMessages.append(deviceIdentityRequestMessage)
+		MIDI.sharedInstance.sendMessage(deviceInquiryMessage.data)
+		
+		sleep(UInt32(Self.messageTimeoutDuration))
+		
+		switch pendingSysExMessages.firstIndex(of: deviceIdentityRequestMessage) {
+		case .some(let requestMessageIndex):
+			// We've waited for a response but not received one after the timeout duration.
+			// Remove the sys ex message from the array and complete with error.
+			pendingSysExMessages.remove(at: requestMessageIndex)
+			responseAction(.failure(Error.sysExMessageResponseTimedOut(sysExMessage: deviceIdentityRequestMessage)))
 			
-			let deviceIdentityRequestMessage = SysExMessage.deviceIdentity(responseAction: responseAction)
-			let deviceIdentityRequestCommand = deviceIdentityRequestMessage.requestCommand
-			
-			guard let deviceInquiryMessage = MIDISysExMessage(bytes: deviceIdentityRequestCommand) else {
-				responseAction(.failure(Error.sysExMessageCreationFailed(sysExMessage: deviceIdentityRequestMessage)))
-				return
-			}
-			
-			strongSelf.pendingSysExMessages.append(deviceIdentityRequestMessage)
-			MIDI.sharedInstance.sendMessage(deviceInquiryMessage.data)
+		case .none:
+			// If the request message is no longer in the array then
+			// assume it was removed because a response was received.
+			break
 		}
 	}
 }

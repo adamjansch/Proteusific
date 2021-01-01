@@ -7,6 +7,7 @@
 
 import AudioKit
 
+typealias MIDIResponseResult = Result<Proteus.DeviceIdentity, Proteus.Error>
 typealias MIDIResponseAction = (Result<[MIDIByte], Proteus.Error>) -> Void
 
 extension Proteus {

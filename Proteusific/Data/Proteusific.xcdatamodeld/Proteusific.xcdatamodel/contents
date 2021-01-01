@@ -4,8 +4,8 @@
         <attribute name="customName" optional="YES" attributeType="String"/>
         <attribute name="deviceID" attributeType="Integer 16" minValueString="0" maxValueString="127" defaultValueString="127" usesScalarValueType="YES"/>
         <attribute name="familyID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="familyMemberID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="softwareVersion" optional="YES" attributeType="String"/>
+        <attribute name="storedFamilyMember" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="storedInEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
         <attribute name="storedOutEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
     </entity>

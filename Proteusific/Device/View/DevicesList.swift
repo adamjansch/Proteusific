@@ -29,7 +29,7 @@ struct DevicesList: View {
 				
 				List {
 					ForEach(devices) { device in
-						Text("Device: \(device.deviceID)")
+						Text("Device: \(device.familyMember.name)")
 					}
 				}
 				.listStyle(InsetGroupedListStyle())
@@ -40,7 +40,8 @@ struct DevicesList: View {
 							showAddDeviceForm = true
 						})
 						.sheet(isPresented: $showAddDeviceForm, content: {
-							AddDeviceMIDIPortsForm(showAddDeviceForm: $showAddDeviceForm)
+							let viewModel = DeviceDiscoveryListModel()
+							DeviceDiscoveryList(viewModel: viewModel, showAddDeviceForm: $showAddDeviceForm)
 						})
 				)
 				
