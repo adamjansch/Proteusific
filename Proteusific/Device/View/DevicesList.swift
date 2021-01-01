@@ -29,7 +29,7 @@ struct DevicesList: View {
 				
 				List {
 					ForEach(devices) { device in
-						Text("Device: \(device.deviceID)")
+						Text("Device: \(device.familyMember.name)")
 					}
 				}
 				.listStyle(InsetGroupedListStyle())

@@ -31,6 +31,7 @@ struct DeviceDiscoveryList: View {
 	
 	// MARK: - PROPERTIES
 	// MARK: Wrapper properties
+	@Environment(\.managedObjectContext) private var viewContext
 	@ObservedObject var viewModel: DeviceDiscoveryListModel
 	@Binding var showAddDeviceForm: Bool
 	
@@ -45,7 +46,7 @@ struct DeviceDiscoveryList: View {
 		})
 		
 		let addButton = Button("Add", action: {
-			
+			addSelectedDevice()
 		})
 		.disabled(addButtonDisabled)
 		
@@ -94,6 +95,27 @@ struct DeviceDiscoveryList: View {
 		}
 		.onAppear() {
 			viewModel.beginDeviceDiscovery()
+		}
+	}
+	
+	
+	// MARK: - METHODS
+	// MARK: Add methods
+	private func addSelectedDevice() {
+		guard let selectedDevice = selectedDevice else {
+			print("Couldn't Add Devce: `selectedDevice` is `nil`")
+			return
+		}
+		
+		let newDevice = Device(deviceIdentity: selectedDevice, name: "")
+		Proteus.shared.currentDevice = newDevice
+		
+		do {
+			try viewContext.save()
+			showAddDeviceForm = false
+			
+		} catch {
+			requestDeviceIdentityError = .other(error: error)
 		}
 	}
 }
