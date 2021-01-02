@@ -19,6 +19,8 @@
 		374B2CE4257D006D00BE9ACA /* ProteusificTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CE3257D006D00BE9ACA /* ProteusificTests.swift */; };
 		374B2CEF257D006D00BE9ACA /* ProteusificUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CEE257D006D00BE9ACA /* ProteusificUITests.swift */; };
 		374B2D0B257D6B0600BE9ACA /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */; };
+		3756BE8425A11AC800142EFB /* AppInfoBannerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */; };
+		3756BE8F25A11BB200142EFB /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756BE8E25A11BB200142EFB /* AppInfo.swift */; };
 		3795813B259FBF580002A00A /* SegmentedActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3795813A259FBF580002A00A /* SegmentedActivityIndicator.swift */; };
 		37A44F92258B7E6400D58526 /* DevicesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44F91258B7E6400D58526 /* DevicesList.swift */; };
 		37A44FCB258CE61300D58526 /* EndpointInfo+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44FCA258CE61300D58526 /* EndpointInfo+Identifiable.swift */; };
@@ -30,6 +32,10 @@
 		37CE588A258AB593000411FC /* Proteus+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE5889258AB593000411FC /* Proteus+Types.swift */; };
 		37E36B372599C1BE00E056D0 /* DeviceDiscoveryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E36B362599C1BE00E056D0 /* DeviceDiscoveryListModel.swift */; };
 		37E36B4E259A7F7800E056D0 /* DeviceDiscoveryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E36B4D259A7F7800E056D0 /* DeviceDiscoveryRow.swift */; };
+		37EAD26325A0D25700FB47FD /* AppInfoAcknowledgementsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EAD26225A0D25700FB47FD /* AppInfoAcknowledgementsList.swift */; };
+		37EAD26C25A10C0A00FB47FD /* Acknowledgements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EAD26B25A10C0A00FB47FD /* Acknowledgements.swift */; };
+		37EAD27125A10F9200FB47FD /* App.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37EAD27025A10F9200FB47FD /* App.xcassets */; };
+		37EF90C425A09C3B00000D23 /* AppInfoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF90C325A09C3B00000D23 /* AppInfoList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +75,8 @@
 		374B2CF0257D006D00BE9ACA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		374B2D0C257D6B2300BE9ACA /* Proteusific.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Proteusific.entitlements; sourceTree = "<group>"; };
+		3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoBannerRow.swift; sourceTree = "<group>"; };
+		3756BE8E25A11BB200142EFB /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		3795813A259FBF580002A00A /* SegmentedActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedActivityIndicator.swift; sourceTree = "<group>"; };
 		37A44F91258B7E6400D58526 /* DevicesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesList.swift; sourceTree = "<group>"; };
 		37A44FCA258CE61300D58526 /* EndpointInfo+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EndpointInfo+Identifiable.swift"; sourceTree = "<group>"; };
@@ -79,6 +87,10 @@
 		37CE5889258AB593000411FC /* Proteus+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Proteus+Types.swift"; sourceTree = "<group>"; };
 		37E36B362599C1BE00E056D0 /* DeviceDiscoveryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryListModel.swift; sourceTree = "<group>"; };
 		37E36B4D259A7F7800E056D0 /* DeviceDiscoveryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryRow.swift; sourceTree = "<group>"; };
+		37EAD26225A0D25700FB47FD /* AppInfoAcknowledgementsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoAcknowledgementsList.swift; sourceTree = "<group>"; };
+		37EAD26B25A10C0A00FB47FD /* Acknowledgements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Acknowledgements.swift; sourceTree = "<group>"; };
+		37EAD27025A10F9200FB47FD /* App.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = App.xcassets; sourceTree = "<group>"; };
+		37EF90C325A09C3B00000D23 /* AppInfoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +168,7 @@
 				374EB55F259082DF00E9BBCE /* Data */,
 				37468490257E9D7A00CC131C /* Main */,
 				37218C7525866BC3005B4B61 /* Proteus */,
+				37EF90C125A09C1D00000D23 /* App */,
 				37CE5872258AAFA6000411FC /* Device */,
 				37B0B1B72581361F0031F765 /* Toolbox */,
 				374B2CD0257D006D00BE9ACA /* Assets.xcassets */,
@@ -279,6 +292,35 @@
 			path = "View Model";
 			sourceTree = "<group>";
 		};
+		37EAD26A25A10BB900FB47FD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3756BE8E25A11BB200142EFB /* AppInfo.swift */,
+				37EAD26B25A10C0A00FB47FD /* Acknowledgements.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37EF90C125A09C1D00000D23 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				37EF90C225A09C2C00000D23 /* View */,
+				37EAD26A25A10BB900FB47FD /* Model */,
+				37EAD27025A10F9200FB47FD /* App.xcassets */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		37EF90C225A09C2C00000D23 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37EF90C325A09C3B00000D23 /* AppInfoList.swift */,
+				3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */,
+				37EAD26225A0D25700FB47FD /* AppInfoAcknowledgementsList.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,6 +432,7 @@
 			files = (
 				374B2CD4257D006D00BE9ACA /* Preview Assets.xcassets in Resources */,
 				374B2CD1257D006D00BE9ACA /* Assets.xcassets in Resources */,
+				37EAD27125A10F9200FB47FD /* App.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,14 +460,19 @@
 				37468492257E9DA400CC131C /* MainView.swift in Sources */,
 				37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */,
 				37A44F92258B7E6400D58526 /* DevicesList.swift in Sources */,
+				3756BE8F25A11BB200142EFB /* AppInfo.swift in Sources */,
 				37E36B4E259A7F7800E056D0 /* DeviceDiscoveryRow.swift in Sources */,
+				37EAD26325A0D25700FB47FD /* AppInfoAcknowledgementsList.swift in Sources */,
 				370DB68125991900007FB5DC /* DeviceDiscoveryList.swift in Sources */,
+				37EF90C425A09C3B00000D23 /* AppInfoList.swift in Sources */,
 				37218C7725866C64005B4B61 /* Proteus.swift in Sources */,
+				37EAD26C25A10C0A00FB47FD /* Acknowledgements.swift in Sources */,
 				37CE585D258A88C2000411FC /* Proteus+MIDIListener.swift in Sources */,
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
 				37CE588A258AB593000411FC /* Proteus+Types.swift in Sources */,
 				37A44FD3258D4E5400D58526 /* Collection+Utilities.swift in Sources */,
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
+				3756BE8425A11AC800142EFB /* AppInfoBannerRow.swift in Sources */,
 				3795813B259FBF580002A00A /* SegmentedActivityIndicator.swift in Sources */,
 				37E36B372599C1BE00E056D0 /* DeviceDiscoveryListModel.swift in Sources */,
 				37A44FCB258CE61300D58526 /* EndpointInfo+Identifiable.swift in Sources */,
@@ -599,6 +647,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.adamjansch.Proteusific;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -624,6 +673,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.adamjansch.Proteusific;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;

@@ -34,7 +34,7 @@ struct DeviceDiscoveryList: View {
 	// MARK: Wrapper properties
 	@Environment(\.managedObjectContext) private var viewContext
 	@ObservedObject var viewModel: DeviceDiscoveryListModel
-	@Binding var showAddDeviceForm: Bool
+	@Binding var showAddDeviceList: Bool
 	
 	@State private var selectedDevice: Proteus.DeviceIdentity?
 	@State private var requestDeviceIdentityError: Proteus.Error?
@@ -43,7 +43,7 @@ struct DeviceDiscoveryList: View {
 	// MARK: View properties
 	var body: some View {
 		let cancelButton = Button("Cancel", action: {
-			showAddDeviceForm = false
+			showAddDeviceList = false
 		})
 		
 		let addButton = Button("Add", action: {
@@ -116,7 +116,7 @@ struct DeviceDiscoveryList: View {
 		
 		do {
 			try viewContext.save()
-			showAddDeviceForm = false
+			showAddDeviceList = false
 			
 		} catch {
 			requestDeviceIdentityError = .other(error: error)

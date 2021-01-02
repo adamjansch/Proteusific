@@ -11,6 +11,15 @@ import AudioKit
 @main
 struct ProteusificApp: App {
 	// MARK: - PROPERTIES
+	// MARK: Type properties
+	static var isDebug: Bool {
+		#if DEBUG
+			return true
+		#else
+			return false
+		#endif
+	}
+	
 	// MARK: Stored properties
 	let persistenceController = PersistenceController.shared
 	
