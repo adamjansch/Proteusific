@@ -15,7 +15,8 @@ struct DevicesList: View {
 		animation: .default)
 	private var devices: FetchedResults<Device>
 	
-	@State private var showAddDeviceForm = false
+	@State private var showAddDeviceList = false
+	@State private var showAppInfoList = false
 	
 	// MARK: View properties
 	var body: some View {
@@ -34,26 +35,33 @@ struct DevicesList: View {
 				}
 				.listStyle(InsetGroupedListStyle())
 				.navigationBarTitle("Devices", displayMode: .inline)
-				.navigationBarItems(
-					trailing:
-						Button("Add", action: {
-							showAddDeviceForm = true
-						})
-						.sheet(isPresented: $showAddDeviceForm, content: {
-							let viewModel = DeviceDiscoveryListModel()
-							DeviceDiscoveryList(viewModel: viewModel, showAddDeviceForm: $showAddDeviceForm)
-						})
+				.navigationBarItems(trailing:
+					Button("Add", action: {
+						showAddDeviceList = true
+					})
+					.sheet(isPresented: $showAddDeviceList, content: {
+						let viewModel = DeviceDiscoveryListModel()
+						DeviceDiscoveryList(viewModel: viewModel, showAddDeviceList: $showAddDeviceList)
+					})
 				)
 				
 				HStack {
-					Button("App Info", action: {
-						print("Open Infos")
+					Button(action: {
+						showAppInfoList = true
+					}, label: {
+						Image(systemName: "info.circle.fill")
+							.font(.system(size: 24.0))
 					})
+					.sheet(isPresented: $showAppInfoList, content: {
+						AppInfoList(showAppInfoList: $showAppInfoList)
+					})
+					
 					Spacer()
 				}
 				.padding(16.0)
 			})
 			.background(Color(.systemGroupedBackground))
+			.edgesIgnoringSafeArea(.bottom)
 		}
 	}
 }
