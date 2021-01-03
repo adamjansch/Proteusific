@@ -1,5 +1,5 @@
 //
-//  DevicesList.swift
+//  DeviceList.swift
 //  Proteusific
 //
 //  Created by Adam Jansch on 17/12/2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DevicesList: View {
+struct DeviceList: View {
 	// MARK: - PROPERTIES
 	// MARK: Wrapper properties
 	@FetchRequest(
@@ -26,13 +26,17 @@ struct DevicesList: View {
 					Text("You have no Devices!\nAdd a Device using the \"Add\" button above.")
 						.multilineTextAlignment(.center)
 						.padding(32.0)
+					
+					NavigationLink(destination: DeviceDetailView(), isActive: .constant(true)) {
+						EmptyView()
+					}
 				}
 				
 				List {
 					ForEach(devices) { device in
-						//NavigationLink() {
+						NavigationLink(destination: DeviceDetailView()) {
 							DeviceRow(device: device)
-						//}
+						}
 					}
 				}
 				.listStyle(InsetGroupedListStyle())
