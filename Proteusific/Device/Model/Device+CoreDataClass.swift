@@ -78,6 +78,10 @@ final public class Device: NSManagedObject {
 		}
 	}
 	
+	var name: String {
+		return customName ?? familyMember.name
+	}
+	
 	
 	// MARK: - METHODS
 	// MARK: Type methods

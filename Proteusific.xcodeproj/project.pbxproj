@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37071A8325A25A370014B8B3 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071A8225A25A370014B8B3 /* DeviceDetailView.swift */; };
 		370DB68125991900007FB5DC /* DeviceDiscoveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */; };
 		37218C7725866C64005B4B61 /* Proteus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37218C7625866C64005B4B61 /* Proteus.swift */; };
 		37218C822586B6A6005B4B61 /* Proteus+SysExMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */; };
@@ -24,7 +25,7 @@
 		3756BE8425A11AC800142EFB /* AppInfoBannerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */; };
 		3756BE8F25A11BB200142EFB /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756BE8E25A11BB200142EFB /* AppInfo.swift */; };
 		3795813B259FBF580002A00A /* SegmentedActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3795813A259FBF580002A00A /* SegmentedActivityIndicator.swift */; };
-		37A44F92258B7E6400D58526 /* DevicesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44F91258B7E6400D58526 /* DevicesList.swift */; };
+		37A44F92258B7E6400D58526 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44F91258B7E6400D58526 /* DeviceList.swift */; };
 		37A44FCB258CE61300D58526 /* EndpointInfo+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44FCA258CE61300D58526 /* EndpointInfo+Identifiable.swift */; };
 		37A44FD3258D4E5400D58526 /* Collection+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44FD2258D4E5400D58526 /* Collection+Utilities.swift */; };
 		37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37071A8225A25A370014B8B3 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryList.swift; sourceTree = "<group>"; };
 		37218C7625866C64005B4B61 /* Proteus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proteus.swift; sourceTree = "<group>"; };
 		37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Proteus+SysExMessage.swift"; sourceTree = "<group>"; };
@@ -82,7 +84,7 @@
 		3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoBannerRow.swift; sourceTree = "<group>"; };
 		3756BE8E25A11BB200142EFB /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		3795813A259FBF580002A00A /* SegmentedActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedActivityIndicator.swift; sourceTree = "<group>"; };
-		37A44F91258B7E6400D58526 /* DevicesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesList.swift; sourceTree = "<group>"; };
+		37A44F91258B7E6400D58526 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		37A44FCA258CE61300D58526 /* EndpointInfo+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EndpointInfo+Identifiable.swift"; sourceTree = "<group>"; };
 		37A44FD2258D4E5400D58526 /* Collection+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Utilities.swift"; sourceTree = "<group>"; };
 		37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentContainer+Utilities.swift"; sourceTree = "<group>"; };
@@ -261,8 +263,9 @@
 		37A44F90258B7E4C00D58526 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				37A44F91258B7E6400D58526 /* DevicesList.swift */,
+				37A44F91258B7E6400D58526 /* DeviceList.swift */,
 				37569BA325A219E200D1D3E9 /* DeviceRow.swift */,
+				37071A8225A25A370014B8B3 /* DeviceDetailView.swift */,
 				370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */,
 				37E36B4D259A7F7800E056D0 /* DeviceDiscoveryRow.swift */,
 			);
@@ -481,10 +484,11 @@
 			files = (
 				37468492257E9DA400CC131C /* MainView.swift in Sources */,
 				37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */,
-				37A44F92258B7E6400D58526 /* DevicesList.swift in Sources */,
+				37A44F92258B7E6400D58526 /* DeviceList.swift in Sources */,
 				3756BE8F25A11BB200142EFB /* AppInfo.swift in Sources */,
 				37E36B4E259A7F7800E056D0 /* DeviceDiscoveryRow.swift in Sources */,
 				37EAD26325A0D25700FB47FD /* AppInfoAcknowledgementsList.swift in Sources */,
+				37071A8325A25A370014B8B3 /* DeviceDetailView.swift in Sources */,
 				370DB68125991900007FB5DC /* DeviceDiscoveryList.swift in Sources */,
 				37EF90C425A09C3B00000D23 /* AppInfoList.swift in Sources */,
 				37218C7725866C64005B4B61 /* Proteus.swift in Sources */,

@@ -111,7 +111,7 @@ struct DeviceDiscoveryList: View {
 			return
 		}
 		
-		let newDevice = Device(deviceIdentity: selectedDevice, name: "")
+		let newDevice = Device(deviceIdentity: selectedDevice, name: nil)
 		User.current?.currentDevice = newDevice
 		
 		do {
