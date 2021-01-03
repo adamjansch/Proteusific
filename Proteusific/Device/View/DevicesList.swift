@@ -30,7 +30,9 @@ struct DevicesList: View {
 				
 				List {
 					ForEach(devices) { device in
-						Text("Device: \(device.familyMember.name)")
+						//NavigationLink() {
+							DeviceRow(device: device)
+						//}
 					}
 				}
 				.listStyle(InsetGroupedListStyle())
