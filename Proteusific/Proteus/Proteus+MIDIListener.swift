@@ -10,7 +10,7 @@ import CoreMIDI
 
 extension Proteus: MIDIListener {
 	func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		if let currentDevice = currentDevice,
+		if let currentDevice = User.current?.currentDevice,
 		   currentDevice.sourceEndpointUID != portID {
 			return
 		}

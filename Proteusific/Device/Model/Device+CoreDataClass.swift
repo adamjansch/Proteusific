@@ -10,11 +10,8 @@ import CoreData
 import AudioKit
 import CoreMIDI
 
-public class Device: NSManagedObject {
+final public class Device: NSManagedObject {
 	// MARK: - PROPERTIES
-	// MARK: Type properties
-	static let name = "Device"
-	
 	// MARK: Computed properties
 	var familyMember: Proteus.DeviceFamilyMember {
 		get {
@@ -84,8 +81,24 @@ public class Device: NSManagedObject {
 	
 	// MARK: - METHODS
 	// MARK: Type methods
+	static func fetch(with uuid: UUID) throws -> Device? {
+		guard let entityName = entity().name else {
+			return nil
+		}
+		
+		let deviceFetchRequest = NSFetchRequest<Device>(entityName: entityName)
+		let deviceFetchPredicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
+		deviceFetchRequest.predicate = deviceFetchPredicate
+		
+		return try PersistenceController.shared.container.viewContext.fetch(deviceFetchRequest).first
+	}
+	
 	static func fetch(with deviceIdentity: Proteus.DeviceIdentity) -> Device? {
-		let devicesFetchRequest = NSFetchRequest<Device>(entityName: name)
+		guard let entityName = entity().name else {
+			return nil
+		}
+		
+		let devicesFetchRequest = NSFetchRequest<Device>(entityName: entityName)
 		
 		guard let allDevices = try? PersistenceController.shared.container.viewContext.fetch(devicesFetchRequest) else {
 			return nil
@@ -108,6 +121,7 @@ public class Device: NSManagedObject {
 	convenience init(deviceIdentity: Proteus.DeviceIdentity, name: String?) {
 		self.init(context: PersistenceController.shared.container.viewContext)
 		
+		uuid = UUID()
 		deviceID = Int16(deviceIdentity.deviceID)
 		familyID = Int32(deviceIdentity.familyID)
 		familyMember = deviceIdentity.familyMember

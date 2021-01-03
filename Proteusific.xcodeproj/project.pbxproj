@@ -20,6 +20,7 @@
 		374B2CEF257D006D00BE9ACA /* ProteusificUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B2CEE257D006D00BE9ACA /* ProteusificUITests.swift */; };
 		374B2D0B257D6B0600BE9ACA /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */; };
 		37569BA425A219E200D1D3E9 /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37569BA325A219E200D1D3E9 /* DeviceRow.swift */; };
+		37569BC425A23F2600D1D3E9 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37569BC325A23F2600D1D3E9 /* User+CoreDataClass.swift */; };
 		3756BE8425A11AC800142EFB /* AppInfoBannerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */; };
 		3756BE8F25A11BB200142EFB /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756BE8E25A11BB200142EFB /* AppInfo.swift */; };
 		3795813B259FBF580002A00A /* SegmentedActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3795813A259FBF580002A00A /* SegmentedActivityIndicator.swift */; };
@@ -77,6 +78,7 @@
 		374B2D0A257D6B0600BE9ACA /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		374B2D0C257D6B2300BE9ACA /* Proteusific.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Proteusific.entitlements; sourceTree = "<group>"; };
 		37569BA325A219E200D1D3E9 /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
+		37569BC325A23F2600D1D3E9 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoBannerRow.swift; sourceTree = "<group>"; };
 		3756BE8E25A11BB200142EFB /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		3795813A259FBF580002A00A /* SegmentedActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedActivityIndicator.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				37468490257E9D7A00CC131C /* Main */,
 				37218C7525866BC3005B4B61 /* Proteus */,
 				37EF90C125A09C1D00000D23 /* App */,
+				37569BB125A23EB100D1D3E9 /* User */,
 				37CE5872258AAFA6000411FC /* Device */,
 				37B0B1B72581361F0031F765 /* Toolbox */,
 				374B2CD0257D006D00BE9ACA /* Assets.xcassets */,
@@ -229,6 +232,22 @@
 				374B2CD5257D006D00BE9ACA /* Persistence.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		37569BB125A23EB100D1D3E9 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				37569BC225A23EEA00D1D3E9 /* Model */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		37569BC225A23EEA00D1D3E9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37569BC325A23F2600D1D3E9 /* User+CoreDataClass.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		37958139259FBDE30002A00A /* View */ = {
@@ -474,6 +493,7 @@
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
 				37CE588A258AB593000411FC /* Proteus+Types.swift in Sources */,
 				37A44FD3258D4E5400D58526 /* Collection+Utilities.swift in Sources */,
+				37569BC425A23F2600D1D3E9 /* User+CoreDataClass.swift in Sources */,
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
 				3756BE8425A11AC800142EFB /* AppInfoBannerRow.swift in Sources */,
 				3795813B259FBF580002A00A /* SegmentedActivityIndicator.swift in Sources */,

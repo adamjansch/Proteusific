@@ -14,7 +14,7 @@ struct DeviceRow: View {
 	
 	// MARK: View properties
 	var body: some View {
-		let rowBackground = (Proteus.shared.currentDevice == device) ? Color(.systemBlue) : Color(.systemGray5)
+		let rowBackground = (User.current?.currentDevice == device) ? Color(.systemBlue) : Color(.systemGray5)
 		
 		HStack {
 			VStack(alignment: .leading, spacing: 8.0) {
