@@ -20,7 +20,7 @@ extension Proteus {
 		case moPhatt = 0x07
 		case b3Turbo = 0x08
 		case xl1Turbo = 0x09
-		case moPhattTurbo = 0x0a
+		case turboPhatt = 0x0a
 		case planetEarth = 0x0b
 		case planetEarthTurbo = 0x0c
 		case xl7 = 0x0d
@@ -56,8 +56,8 @@ extension Proteus {
 				return "B-3 Turbo"
 			case .xl1Turbo:
 				return "XL-1 Turbo"
-			case .moPhattTurbo:
-				return "Mo'Phatt Turbo"
+			case .turboPhatt:
+				return "Turbo Phatt"
 			case .planetEarth:
 				return "Planet Earth"
 			case .planetEarthTurbo:
@@ -69,7 +69,7 @@ extension Proteus {
 			case .proteus2500:
 				return "Proteus 2500"
 			case .orbit3:
-				return "Orbit 3"
+				return "Orbit-3"
 			case .pk6:
 				return "PK-6"
 			case .xk6:
