@@ -80,37 +80,9 @@ final class Proteus {
 	// MARK: Stored properties
 	var pendingSysExMessages: [SysExMessage] = []
 	
-	var currentDevice: Device? {
-		didSet {
-			let midi = MIDI.sharedInstance
-			
-			switch currentDevice {
-			case .some(let device):
-				if let sourceEndpointUID = device.sourceEndpointUID,
-				   midi.inputInfos.contains(where: { sourceEndpointUID == $0.midiUniqueID }) {
-					midi.openInput(uid: sourceEndpointUID)
-					
-				} else {
-					midi.closeInput()
-				}
-				
-				if let destinationEndpointUID = device.destinationEndpointUID,
-				   midi.destinationInfos.contains(where: { destinationEndpointUID == $0.midiUniqueID }) {
-					midi.openOutput(uid: destinationEndpointUID)
-					
-				} else {
-					midi.closeOutput()
-				}
-				
-			case .none:
-				midi.clearEndpoints()
-			}
-		}
-	}
-	
 	// MARK: Computed properties
 	var currentDeviceID: MIDIByte {
-		switch currentDevice?.deviceID {
+		switch User.current?.currentDevice?.deviceID {
 		case .some(let deviceID):
 			return MIDIByte(deviceID)
 			

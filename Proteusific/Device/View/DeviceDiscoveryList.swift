@@ -112,7 +112,7 @@ struct DeviceDiscoveryList: View {
 		}
 		
 		let newDevice = Device(deviceIdentity: selectedDevice, name: "")
-		Proteus.shared.currentDevice = newDevice
+		User.current?.currentDevice = newDevice
 		
 		do {
 			try viewContext.save()
