@@ -33,7 +33,7 @@ E-mu MIDI sound modules supported by Proteusific:
 
 ## Getting Started
 
-Proteusific is a ready-to-run code project that requires the latest version of Xcode to compile. Fork this repository or download the code ZIP and open in Xcode, 
+Proteusific is a ready-to-run code project that requires the latest version of Xcode to compile. Fork this repository or download the code ZIP and open in Xcode. From there you can build to your iOS or Mac device. 
 
 ## Contributing
 
