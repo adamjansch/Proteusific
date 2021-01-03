@@ -86,25 +86,24 @@ final class Proteus {
 			
 			switch currentDevice {
 			case .some(let device):
-				if let inEndpointUID = device.inEndpointUID,
-				   midi.inputInfos.contains(where: { inEndpointUID == $0.midiUniqueID }) {
-					midi.openInput(uid: inEndpointUID)
+				if let sourceEndpointUID = device.sourceEndpointUID,
+				   midi.inputInfos.contains(where: { sourceEndpointUID == $0.midiUniqueID }) {
+					midi.openInput(uid: sourceEndpointUID)
 					
 				} else {
 					midi.closeInput()
 				}
 				
-				if let outEndpointUID = device.outEndpointUID,
-				   midi.destinationInfos.contains(where: { outEndpointUID == $0.midiUniqueID }) {
-					midi.openOutput(uid: outEndpointUID)
+				if let destinationEndpointUID = device.destinationEndpointUID,
+				   midi.destinationInfos.contains(where: { destinationEndpointUID == $0.midiUniqueID }) {
+					midi.openOutput(uid: destinationEndpointUID)
 					
 				} else {
 					midi.closeOutput()
 				}
 				
 			case .none:
-				midi.closeInput()
-				midi.closeOutput()
+				midi.clearEndpoints()
 			}
 		}
 	}

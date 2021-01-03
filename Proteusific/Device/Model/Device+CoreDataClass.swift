@@ -25,7 +25,7 @@ public class Device: NSManagedObject {
 		}
 	}
 	
-	var inEndpointUID: MIDIUniqueID? {
+	var sourceEndpointUID: MIDIUniqueID? {
 		get {
 			switch storedInEndpointUID {
 			case .some(let storedInEndpointUID):
@@ -44,7 +44,7 @@ public class Device: NSManagedObject {
 		}
 	}
 	
-	var outEndpointUID: MIDIUniqueID? {
+	var destinationEndpointUID: MIDIUniqueID? {
 		get {
 			switch storedOutEndpointUID {
 			case .some(let storedOutEndpointUID):
@@ -60,6 +60,24 @@ public class Device: NSManagedObject {
 			case .none:
 				storedOutEndpointUID = nil
 			}
+		}
+	}
+	
+	var sourceEndpointInfo: EndpointInfo? {
+		get {
+			return MIDI.sharedInstance.inputInfos.first(where: { $0.midiUniqueID == sourceEndpointUID })
+		}
+		set {
+			sourceEndpointUID = newValue?.midiUniqueID
+		}
+	}
+	
+	var destinationEndpointInfo: EndpointInfo? {
+		get {
+			return MIDI.sharedInstance.destinationInfos.first(where: { $0.midiUniqueID == destinationEndpointUID })
+		}
+		set {
+			destinationEndpointUID = newValue?.midiUniqueID
 		}
 	}
 	
@@ -95,5 +113,8 @@ public class Device: NSManagedObject {
 		familyMember = deviceIdentity.familyMember
 		softwareVersion = deviceIdentity.softwareVersion
 		customName = name
+		
+		sourceEndpointInfo = deviceIdentity.sourceEndpointInfo
+		destinationEndpointInfo = deviceIdentity.destinationEndpointInfo
 	}
 }

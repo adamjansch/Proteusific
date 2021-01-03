@@ -56,6 +56,5 @@ struct DeviceDiscoveryRow: View {
 				}
 			}
 		})
-		
 	}
 }
