@@ -49,30 +49,7 @@ final public class User: NSManagedObject {
 		set {
 			currentDeviceUUID = newValue?.uuid
 			try? PersistenceController.shared.container.viewContext.save()
-			
-			let midi = MIDI.sharedInstance
-			
-			switch newValue {
-			case .some(let device):
-				if let sourceEndpointUID = device.sourceEndpointUID,
-				   midi.inputInfos.contains(where: { sourceEndpointUID == $0.midiUniqueID }) {
-					midi.openInput(uid: sourceEndpointUID)
-					
-				} else {
-					midi.closeInput()
-				}
-				
-				if let destinationEndpointUID = device.destinationEndpointUID,
-				   midi.destinationInfos.contains(where: { destinationEndpointUID == $0.midiUniqueID }) {
-					midi.openOutput(uid: destinationEndpointUID)
-					
-				} else {
-					midi.closeOutput()
-				}
-				
-			case .none:
-				midi.clearEndpoints()
-			}
+			updateEndpoints(with: newValue)
 		}
 	}
 	
@@ -84,5 +61,32 @@ final public class User: NSManagedObject {
 		
 		self.init(context: dataContext)
 		self.uuid = UUID()
+	}
+	
+	// MARK: Utility methods
+	func updateEndpoints(with device: Device?) {
+		let midi = MIDI.sharedInstance
+		
+		switch device {
+		case .some(let device):
+			if let sourceEndpointUID = device.sourceEndpointUID,
+			   midi.inputInfos.contains(where: { sourceEndpointUID == $0.midiUniqueID }) {
+				midi.openInput(uid: sourceEndpointUID)
+				
+			} else {
+				midi.closeInput()
+			}
+			
+			if let destinationEndpointUID = device.destinationEndpointUID,
+			   midi.destinationInfos.contains(where: { destinationEndpointUID == $0.midiUniqueID }) {
+				midi.openOutput(uid: destinationEndpointUID)
+				
+			} else {
+				midi.closeOutput()
+			}
+			
+		case .none:
+			midi.clearEndpoints()
+		}
 	}
 }

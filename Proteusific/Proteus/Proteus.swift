@@ -155,4 +155,39 @@ final class Proteus {
 			break
 		}
 	}
+	
+	func retrievePatches(responseAction: @escaping MIDIResponseAction) {
+		/*
+		WARNING! This method is designed to work synchronously. DO NOT CALL THIS FROM THE MAIN THREAD.
+		(I would use Proteus.midiOperationQueue...)
+		*/
+		
+		print("Attempting device patch retrieval...")
+		
+		let presetDumpClosedLoopRequestMessage = SysExMessage.presetDumpClosedLoop(responseAction: responseAction)
+		let presetDumpClosedLoopRequestCommand = presetDumpClosedLoopRequestMessage.requestCommand
+		
+		guard let presetDumpClosedLoopMessage = MIDISysExMessage(bytes: presetDumpClosedLoopRequestCommand) else {
+			responseAction(.failure(Error.sysExMessageCreationFailed(sysExMessage: presetDumpClosedLoopRequestMessage)))
+			return
+		}
+		
+		pendingSysExMessages.append(presetDumpClosedLoopRequestMessage)
+		MIDI.sharedInstance.sendMessage(presetDumpClosedLoopMessage.data)
+		
+		sleep(UInt32(Self.messageTimeoutDuration))
+		
+		switch pendingSysExMessages.firstIndex(of: presetDumpClosedLoopRequestMessage) {
+		case .some(let requestMessageIndex):
+			// We've waited for a response but not received one after the timeout duration.
+			// Remove the sys ex message from the array and complete with error.
+			pendingSysExMessages.remove(at: requestMessageIndex)
+			responseAction(.failure(Error.sysExMessageResponseTimedOut(sysExMessage: presetDumpClosedLoopRequestMessage)))
+			
+		case .none:
+			// If the request message is no longer in the array then
+			// assume it was removed because a response was received.
+			break
+		}
+	}
 }

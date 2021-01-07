@@ -37,6 +37,9 @@ struct DeviceList: View {
 						NavigationLink(destination: DeviceDetailView()) {
 							DeviceRow(device: device)
 						}
+						.onTapGesture {
+							User.current?.currentDevice = device
+						}
 					}
 				}
 				.listStyle(InsetGroupedListStyle())
