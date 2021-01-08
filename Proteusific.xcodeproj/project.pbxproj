@@ -27,6 +27,7 @@
 		37569BC425A23F2600D1D3E9 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37569BC325A23F2600D1D3E9 /* User+CoreDataClass.swift */; };
 		3756BE8425A11AC800142EFB /* AppInfoBannerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */; };
 		3756BE8F25A11BB200142EFB /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756BE8E25A11BB200142EFB /* AppInfo.swift */; };
+		377DBADA25A8FE1A0091183F /* ROM+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DBAD925A8FE1A0091183F /* ROM+CoreDataClass.swift */; };
 		3795813B259FBF580002A00A /* SegmentedActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3795813A259FBF580002A00A /* SegmentedActivityIndicator.swift */; };
 		37A44F92258B7E6400D58526 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44F91258B7E6400D58526 /* DeviceList.swift */; };
 		37A44FCB258CE61300D58526 /* EndpointInfo+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44FCA258CE61300D58526 /* EndpointInfo+Identifiable.swift */; };
@@ -89,6 +90,7 @@
 		37569BC325A23F2600D1D3E9 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoBannerRow.swift; sourceTree = "<group>"; };
 		3756BE8E25A11BB200142EFB /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
+		377DBAD925A8FE1A0091183F /* ROM+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ROM+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3795813A259FBF580002A00A /* SegmentedActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedActivityIndicator.swift; sourceTree = "<group>"; };
 		37A44F91258B7E6400D58526 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		37A44FCA258CE61300D58526 /* EndpointInfo+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EndpointInfo+Identifiable.swift"; sourceTree = "<group>"; };
@@ -212,8 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				37218C7625866C64005B4B61 /* Proteus.swift */,
-				37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */,
 				37CE585C258A88C2000411FC /* Proteus+MIDIListener.swift */,
+				37218C812586B6A6005B4B61 /* Proteus+SysExMessage.swift */,
 				37CE5889258AB593000411FC /* Proteus+Types.swift */,
 			);
 			path = Proteus;
@@ -386,6 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				37CE5881258AB06F000411FC /* Device+CoreDataClass.swift */,
+				377DBAD925A8FE1A0091183F /* ROM+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				374B2CD9257D006D00BE9ACA /* Proteusific.xcdatamodeld in Sources */,
 				3756BE8425A11AC800142EFB /* AppInfoBannerRow.swift in Sources */,
 				3795813B259FBF580002A00A /* SegmentedActivityIndicator.swift in Sources */,
+				377DBADA25A8FE1A0091183F /* ROM+CoreDataClass.swift in Sources */,
 				37071AAB25A322F30014B8B3 /* MultiGrid.swift in Sources */,
 				37E36B372599C1BE00E056D0 /* DeviceDiscoveryListModel.swift in Sources */,
 				37A44FCB258CE61300D58526 /* EndpointInfo+Identifiable.swift in Sources */,

@@ -14,44 +14,9 @@ extension Proteus {
 	// MARK: - ENUMS
 	// MARK: MIDI enums
 	enum SysExMessage {
-		enum MessageType {
-			case universal
-			case proteus
-			
-			var sysExHeader: [MIDIByte] {
-				switch self {
-				case .universal:
-					return [
-						sysExMessageByte,
-						sysExHeaderByte,
-						Proteus.shared.currentDeviceID,
-						sysExGeneralInformationByte
-					]
-					
-				case .proteus:
-					return [
-						sysExMessageByte,
-						sysExEMUByte,
-						sysExProteusByte,
-						Proteus.shared.currentDeviceID,
-						sysExSpecialEditorByte
-					]
-				}
-			}
-			
-			var byteMatchMask: [Bool] {
-				switch self {
-				case .universal:
-					return [true, true, false, true, true]
-				case .proteus:
-					return [true, true, true, false, true, true]
-				}
-			}
-		}
-		
-		
 		// MARK: - CASES
 		case deviceIdentity(responseAction: MIDIResponseAction)
+		case hardwareConfiguration(responseAction: MIDIResponseAction)
 		case presetDumpClosedLoop(responseAction: MIDIResponseAction)
 		
 		
@@ -61,10 +26,10 @@ extension Proteus {
 		
 		static let sysExMessageByte: MIDIByte = 0xF0
 		static let sysExHeaderByte: MIDIByte = 0x7E
+		static let sysExEMUByte: MIDIByte = 0x18
+		static let sysExProteusByte: MIDIByte = 0x0F
+		static let sysExSpecialEditorByte: MIDIByte = 0x55
 		private static let sysExGeneralInformationByte: MIDIByte = 0x06
-		private static let sysExSpecialEditorByte: MIDIByte = 0x55
-		private static let sysExEMUByte: MIDIByte = 0x18
-		private static let sysExProteusByte: MIDIByte = 0x0F
 		private static let eoxByte: MIDIByte = 0xF7
 		
 		// MARK: Computed properties
@@ -73,7 +38,8 @@ extension Proteus {
 			case .deviceIdentity:
 				return .universal
 				
-			case .presetDumpClosedLoop:
+			case .hardwareConfiguration,
+				 .presetDumpClosedLoop:
 				return .proteus
 			}
 		}
@@ -82,12 +48,13 @@ extension Proteus {
 			let sysExHeader = messageType.sysExHeader
 			
 			switch self {
-			case .deviceIdentity:
+			case .deviceIdentity,
+				 .hardwareConfiguration:
 				return sysExHeader + requestCommandBytes + [Self.eoxByte]
 				
 			case .presetDumpClosedLoop:
 				return sysExHeader + [
-					0x11,		// Command: Preset Dump
+					Command.presetDumpRequest.byte,		// Command: Preset Dump
 					0x02,		// Subcommand: Preset Dump Request (Closed Loop)
 					0x7F, 0x7F,	// Preset number
 					0x00, 0x00, // Preset ROM ID
@@ -96,9 +63,20 @@ extension Proteus {
 			}
 		}
 		
+		var expectsMultipleMessages: Bool {
+			switch self {
+			case .deviceIdentity,
+				 .hardwareConfiguration:
+				return false
+			case .presetDumpClosedLoop:
+				return true
+			}
+		}
+		
 		var responseAction: MIDIResponseAction {
 			switch self {
 			case .deviceIdentity(let responseAction),
+				 .hardwareConfiguration(let responseAction),
 				 .presetDumpClosedLoop(let responseAction):
 				return responseAction
 			}
@@ -108,8 +86,10 @@ extension Proteus {
 			switch self {
 			case .deviceIdentity:
 				return [0x01]
+			case .hardwareConfiguration:
+				return [Command.hardwareConfigurationRequest.byte]
 			case .presetDumpClosedLoop:
-				return [0x10, 0x01]
+				return [Command.presetDumpRequest.byte, 0x01]
 			}
 		}
 		
@@ -117,8 +97,10 @@ extension Proteus {
 			switch self {
 			case .deviceIdentity:
 				return [0x02]
+			case .hardwareConfiguration:
+				return [Command.hardwareConfigurationResponse.byte]
 			case .presetDumpClosedLoop:
-				return [0x11, 0x02]
+				return [Command.presetDumpResponse.byte, 0x02]
 			}
 		}
 		
@@ -126,9 +108,9 @@ extension Proteus {
 		// MARK: - METHODS
 		// MARK: Type methods
 		func matches(data: [MIDIByte]) -> Bool {
+			let matchMessage = messageType.sysExHeader + responseCommandBytes
+			
 			for (dataByteIndex, dataByte) in data.enumerated() {
-				let matchMessage = messageType.sysExHeader + responseCommandBytes
-				
 				guard let shouldMatchByte = messageType.byteMatchMask[safe: dataByteIndex],
 					  shouldMatchByte,
 					  let matchByte = matchMessage[safe: dataByteIndex] else {
@@ -153,7 +135,8 @@ extension Proteus.SysExMessage: Identifiable {
 		switch self {
 		case .deviceIdentity:
 			return [Self.sysExGeneralInformationByte] + requestCommandBytes
-		case .presetDumpClosedLoop:
+		case .hardwareConfiguration,
+			 .presetDumpClosedLoop:
 			return [Self.sysExSpecialEditorByte] + requestCommandBytes
 		}
 	}
@@ -162,5 +145,55 @@ extension Proteus.SysExMessage: Identifiable {
 extension Proteus.SysExMessage: Equatable {
 	static func == (lhs: Proteus.SysExMessage, rhs: Proteus.SysExMessage) -> Bool {
 		return lhs.id == rhs.id
+	}
+}
+
+
+// MARK: - ENUMS
+extension Proteus.SysExMessage {
+	enum MessageType {
+		case universal
+		case proteus
+		
+		var sysExHeader: [MIDIByte] {
+			switch self {
+			case .universal:
+				return [
+					sysExMessageByte,
+					sysExHeaderByte,
+					Proteus.shared.currentDeviceID,
+					sysExGeneralInformationByte
+				]
+				
+			case .proteus:
+				return [
+					sysExMessageByte,
+					sysExEMUByte,
+					sysExProteusByte,
+					Proteus.shared.currentDeviceID,
+					sysExSpecialEditorByte
+				]
+			}
+		}
+		
+		var byteMatchMask: [Bool] {
+			switch self {
+			case .universal:
+				return [true, true, false, true, true]
+			case .proteus:
+				return [true, true, true, false, true, true]
+			}
+		}
+	}
+	
+	enum Command: MIDIByte {
+		case hardwareConfigurationResponse = 0x09
+		case hardwareConfigurationRequest = 0x0A
+		case presetDumpResponse = 0x10
+		case presetDumpRequest = 0x11
+		
+		var byte: MIDIByte {
+			return rawValue
+		}
 	}
 }
