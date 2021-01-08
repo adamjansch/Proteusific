@@ -143,4 +143,76 @@ extension Proteus {
 			self.destinationEndpointInfo = endpointInfo.destination
 		}
 	}
+	
+	struct HardwareConfiguation {
+		let userPresetCount: UInt16
+		let roms: [ROM]
+		
+		// MARK: - METHODS
+		// MARK: Initialisers
+		init(data: [MIDIByte]) throws {
+			/*
+			BYTES (by index)
+			0:		Sysex message
+			1:		EMU ID
+			2:		Proteus ID
+			3:		Device ID
+			4:		Special Editor byte
+			5:		Command
+			6:		General Information byte count
+			7-8:	General Information bytes { Preset count }
+			9:		ROM count
+			10:		SIMM Information byte count
+			
+			End:	EOX
+			*/
+			
+			guard data[0] == SysExMessage.sysExMessageByte,
+				  data[1] == SysExMessage.sysExEMUByte,
+				  data[2] == SysExMessage.sysExProteusByte,
+				  data[4] == SysExMessage.sysExSpecialEditorByte,
+				  data[5] == SysExMessage.Command.hardwareConfigurationResponse.byte else {
+				throw Error.incompatibleSysExMessage(data: data)
+			}
+			
+			var byteOffset = 6
+			let generalInfoByteCount = data[byteOffset]
+			byteOffset += 1
+			
+			self.userPresetCount = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
+			byteOffset += Int(generalInfoByteCount)
+			
+			let romCount = data[byteOffset]
+			byteOffset += 1
+			
+			//let romInformationByteCount = data[byteOffset]
+			byteOffset += 1
+			
+			var roms: [ROM] = []
+			
+			for _ in 0..<romCount {
+				let romID = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
+				byteOffset += 2
+				
+				let romPresetCount = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
+				byteOffset += 2
+				
+				let romInstrumentCount = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
+				byteOffset += 2
+				
+				let rom = ROM(id: romID, presetCount: romPresetCount, instrumentCount: romInstrumentCount)
+				roms.append(rom)
+			}
+			
+			self.roms = roms
+		}
+	}
+}
+
+extension Proteus.HardwareConfiguation {
+	struct ROM {
+		let id: UInt16
+		let presetCount: UInt16
+		let instrumentCount: UInt16
+	}
 }

@@ -54,11 +54,28 @@ struct DeviceDetailView: View {
 		VStack {
 			TabView(selection: $tabSelection) {
 				ForEach(Tab.allCases) { tab in
-					Text(tab.title)
-						.tabItem {
-							Image(systemName: tab.imageSystemName)
-							Text(tab.title)
-						}
+					switch tab {
+					case .multis:
+						MultiGrid()
+							.tabItem {
+								Image(systemName: tab.imageSystemName)
+								Text(tab.title)
+							}
+						
+					case .patches:
+						PatchGrid()
+							.tabItem {
+								Image(systemName: tab.imageSystemName)
+								Text(tab.title)
+							}
+						
+					case .master:
+						MasterView()
+							.tabItem {
+								Image(systemName: tab.imageSystemName)
+								Text(tab.title)
+							}
+					}
 				}
 			}
 		}

@@ -39,6 +39,11 @@ struct ProteusificApp: App {
 		print("MIDI Destinations: \(MIDI.sharedInstance.destinationInfos)")
 		
 		// MIDI configuration
+		if let currentUser = User.current,
+		   let currentDevice = currentUser.currentDevice {
+			currentUser.updateEndpoints(with: currentDevice)
+		}
+		
 		Proteus.shared.configure()
 	}
 }
