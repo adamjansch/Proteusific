@@ -90,6 +90,91 @@ extension Proteus {
 		}
 	}
 	
+	enum SIMM: Int32 {
+		case none = 			0
+		case composer = 		1
+		case holyGrailPiano = 	2
+		case protozoa = 		3
+		case constructionYard =	4
+		case definitiveB3 =		5
+		case extremeLeadV1 =	6
+							//	7
+		case orchestralV1 =		8
+		case orchestralV2 =		9
+		case siedlaczek =		10
+		case worldExpedition =	11
+		case soundOfTheZR =		12
+		case purePhatt =		13
+		case extremeLeadXL7 =	14
+		case purePhattMP7 =		15
+		case beatGarden =		16
+		case popCollection =	17
+		case extremeLeadV2 =	18
+		case purePhattMK6 =		19
+		case composerP2500 =	20
+		case ensoniqProject =	21
+		case soundsOfTheZRHalo = 22
+		case vintageCollection = 23
+		case proteanDrums =		24
+		
+		var id: Int32 {
+			return rawValue
+		}
+		
+		var name: String {
+			switch self {
+			case .none:
+				return ""
+			case .composer:
+				return "Composer"
+			case .holyGrailPiano:
+				return "Holy Grail Piano"
+			case .protozoa:
+				return "Protozoa"
+			case .constructionYard:
+				return "Construction Yard"
+			case .definitiveB3:
+				return "Definitive B-3"
+			case .extremeLeadV1:
+				return "Extreme Lead V1"
+			case .orchestralV1:
+				return "Orchestral V1"
+			case .orchestralV2:
+				return "Orchestral V2"
+			case .siedlaczek:
+				return "Siedlaczek"
+			case .worldExpedition:
+				return "World Expedition"
+			case .soundOfTheZR:
+				return "Sound of the ZR"
+			case .purePhatt:
+				return "Pure Phatt"
+			case .extremeLeadXL7:
+				return "Extreme Lead (XL-7)"
+			case .purePhattMP7:
+				return "Pure Phatt (MP-7)"
+			case .beatGarden:
+				return "Beat Garden"
+			case .popCollection:
+				return "Pop Collection"
+			case .extremeLeadV2:
+				return "Extreme Lead V2"
+			case .purePhattMK6:
+				return "Pure Phatt (MK-6)"
+			case .composerP2500:
+				return "Composer (Proteus 2500)"
+			case .ensoniqProject:
+				return "Ensoniq Project"
+			case .soundsOfTheZRHalo:
+				return "Sound of the ZR (Halo)"
+			case .vintageCollection:
+				return "Vintage Collection"
+			case .proteanDrums:
+				return "Protean Drums"
+			}
+		}
+	}
+	
 	
 	// MARK: - STRUCTS
 	// MARK: DeviceIdentity

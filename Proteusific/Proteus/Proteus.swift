@@ -171,13 +171,13 @@ final class Proteus {
 	}
 	
 	/*
-	func retrievePatches(responseAction: @escaping MIDIResponseAction) {
+	func retrievePresets(responseAction: @escaping MIDIResponseAction) {
 		/*
 		WARNING! This method is designed to work synchronously. DO NOT CALL THIS FROM THE MAIN THREAD.
 		(I would use Proteus.midiOperationQueue...)
 		*/
 		
-		print("Attempting device patch retrieval...")
+		print("Attempting device preset retrieval...")
 		
 		send(sysExMessage: .presetDumpClosedLoop(responseAction: responseAction), responseAction: responseAction)
 	}

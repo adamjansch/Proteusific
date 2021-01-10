@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37071A8325A25A370014B8B3 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071A8225A25A370014B8B3 /* DeviceDetailView.swift */; };
-		37071AA125A321F60014B8B3 /* PatchGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071AA025A321F60014B8B3 /* PatchGrid.swift */; };
+		37071AA125A321F60014B8B3 /* PresetGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071AA025A321F60014B8B3 /* PresetGrid.swift */; };
 		37071AAB25A322F30014B8B3 /* MultiGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071AAA25A322F30014B8B3 /* MultiGrid.swift */; };
 		37071AB525A3232D0014B8B3 /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071AB425A3232D0014B8B3 /* MasterView.swift */; };
 		370DB68125991900007FB5DC /* DeviceDiscoveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */; };
@@ -64,7 +64,7 @@
 
 /* Begin PBXFileReference section */
 		37071A8225A25A370014B8B3 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
-		37071AA025A321F60014B8B3 /* PatchGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchGrid.swift; sourceTree = "<group>"; };
+		37071AA025A321F60014B8B3 /* PresetGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetGrid.swift; sourceTree = "<group>"; };
 		37071AAA25A322F30014B8B3 /* MultiGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGrid.swift; sourceTree = "<group>"; };
 		37071AB425A3232D0014B8B3 /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
 		370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryList.swift; sourceTree = "<group>"; };
@@ -162,18 +162,18 @@
 			path = Discovery;
 			sourceTree = "<group>";
 		};
-		37071A9325A321830014B8B3 /* Patch */ = {
+		37071A9325A321830014B8B3 /* Preset */ = {
 			isa = PBXGroup;
 			children = (
 				37071A9425A321A80014B8B3 /* View */,
 			);
-			path = Patch;
+			path = Preset;
 			sourceTree = "<group>";
 		};
 		37071A9425A321A80014B8B3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				37071AA025A321F60014B8B3 /* PatchGrid.swift */,
+				37071AA025A321F60014B8B3 /* PresetGrid.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -378,7 +378,7 @@
 				37071A9025A3213C0014B8B3 /* Main */,
 				37071A9225A321610014B8B3 /* Discovery */,
 				37071AA825A322C80014B8B3 /* Multi */,
-				37071A9325A321830014B8B3 /* Patch */,
+				37071A9325A321830014B8B3 /* Preset */,
 				37071AB225A3230C0014B8B3 /* Master */,
 			);
 			path = Device;
@@ -577,7 +577,7 @@
 				370DB68125991900007FB5DC /* DeviceDiscoveryList.swift in Sources */,
 				37EF90C425A09C3B00000D23 /* AppInfoList.swift in Sources */,
 				37218C7725866C64005B4B61 /* Proteus.swift in Sources */,
-				37071AA125A321F60014B8B3 /* PatchGrid.swift in Sources */,
+				37071AA125A321F60014B8B3 /* PresetGrid.swift in Sources */,
 				37EAD26C25A10C0A00FB47FD /* Acknowledgements.swift in Sources */,
 				37CE585D258A88C2000411FC /* Proteus+MIDIListener.swift in Sources */,
 				374B2CD6257D006D00BE9ACA /* Persistence.swift in Sources */,
