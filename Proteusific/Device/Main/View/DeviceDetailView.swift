@@ -12,7 +12,7 @@ struct DeviceDetailView: View {
 	// MARK: Data source enums
 	private enum Tab: Int, CaseIterable, Identifiable {
 		case multis
-		case patches
+		case presets
 		case master
 		
 		var id: Int {
@@ -23,8 +23,8 @@ struct DeviceDetailView: View {
 			switch self {
 			case .multis:
 				return "Multis"
-			case .patches:
-				return "Patches"
+			case .presets:
+				return "Presets"
 			case .master:
 				return "Master"
 			}
@@ -34,7 +34,7 @@ struct DeviceDetailView: View {
 			switch self {
 			case .multis:
 				return "square.grid.3x3.fill"
-			case .patches:
+			case .presets:
 				return "square.dashed.inset.fill"
 			case .master:
 				return "slider.horizontal.below.rectangle"
@@ -62,8 +62,8 @@ struct DeviceDetailView: View {
 								Text(tab.title)
 							}
 						
-					case .patches:
-						PatchGrid()
+					case .presets:
+						PresetGrid()
 							.tabItem {
 								Image(systemName: tab.imageSystemName)
 								Text(tab.title)
