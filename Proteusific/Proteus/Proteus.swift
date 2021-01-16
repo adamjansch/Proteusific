@@ -147,8 +147,8 @@ final class Proteus {
 		if let endpointInfo = endpointInfo {
 			let midi = MIDI.sharedInstance
 			
-			//  Clear endpoints
-			midi.clearEndpoints()
+			//  Close all inputs and outputs
+			midi.closeAllInputsAndOutputs()
 			
 			// Open input and output based on provided endpoint infos
 			let inMIDIUniqueID = endpointInfo.source?.midiUniqueID ?? 0
