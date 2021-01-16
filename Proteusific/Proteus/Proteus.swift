@@ -147,8 +147,8 @@ final class Proteus {
 		if let endpointInfo = endpointInfo {
 			let midi = MIDI.sharedInstance
 			
-			//  Clear endpoints
-			midi.clearEndpoints()
+			//  Close all inputs and outputs
+			midi.closeAllInputsAndOutputs()
 			
 			// Open input and output based on provided endpoint infos
 			let inMIDIUniqueID = endpointInfo.source?.midiUniqueID ?? 0
@@ -170,8 +170,20 @@ final class Proteus {
 		send(sysExMessage: .hardwareConfiguration(responseAction: responseAction), responseAction: responseAction)
 	}
 	
+	func requestGenericNames(for objectType: ObjectType, from rom: ROM, responseAction: @escaping MIDIResponseAction) {
+		/*
+		WARNING! This method is designed to work synchronously. DO NOT CALL THIS FROM THE MAIN THREAD.
+		(I would use Proteus.midiOperationQueue...)
+		*/
+		
+		print("Attempting generic name retrieval...")
+		
+		let sysExMessage = SysExMessage.genericName(type: objectType, objectID: 1, romID: MIDIWord(rom.id), responseAction: responseAction)
+		send(sysExMessage: sysExMessage, responseAction: responseAction)
+	}
+	
 	/*
-	func retrievePresets(responseAction: @escaping MIDIResponseAction) {
+	func retrievePresetDump(responseAction: @escaping MIDIResponseAction) {
 		/*
 		WARNING! This method is designed to work synchronously. DO NOT CALL THIS FROM THE MAIN THREAD.
 		(I would use Proteus.midiOperationQueue...)

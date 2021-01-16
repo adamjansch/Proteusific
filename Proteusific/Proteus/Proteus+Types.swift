@@ -175,6 +175,20 @@ extension Proteus {
 		}
 	}
 	
+	enum ObjectType: MIDIByte {
+		case unknown = 0
+		case preset = 1
+		case instrument = 2
+		case arp = 3
+		case setup = 4
+		case demo = 5
+		case riff = 6
+		
+		var midiByte: MIDIByte {
+			return rawValue
+		}
+	}
+	
 	
 	// MARK: - STRUCTS
 	// MARK: DeviceIdentity
@@ -187,7 +201,7 @@ extension Proteus {
 		
 		// MARK: Stored properties
 		let deviceID: MIDIByte
-		let familyID: UInt16
+		let familyID: MIDIWord
 		let familyMember: DeviceFamilyMember
 		let softwareVersion: String
 		
@@ -217,11 +231,11 @@ extension Proteus {
 				throw Error.incompatibleSysExMessage(data: data)
 			}
 			
-			let familyMemberBytes = data[8...9].withUnsafeBytes({ $0.load(as: UInt16.self) })
+			let familyMemberBytes = data[8...9].withUnsafeBytes({ $0.load(as: MIDIWord.self) })
 			let familyMember = DeviceFamilyMember(rawValue: MIDIWord(familyMemberBytes)) ?? .unknown
 			
 			self.deviceID = data[2]
-			self.familyID = UInt16(data[6...7].withUnsafeBytes({ $0.load(as: UInt16.self) }))
+			self.familyID = MIDIWord(data[6...7].withUnsafeBytes({ $0.load(as: MIDIWord.self) }))
 			self.familyMember = familyMember
 			self.softwareVersion = String(data[10...13].map({ Character(UnicodeScalar($0)) }))
 			self.sourceEndpointInfo = endpointInfo.source
@@ -230,7 +244,7 @@ extension Proteus {
 	}
 	
 	struct HardwareConfiguation {
-		let userPresetCount: UInt16
+		let userPresetCount: MIDIWord
 		let roms: [ROM]
 		
 		// MARK: - METHODS
@@ -264,7 +278,8 @@ extension Proteus {
 			let generalInfoByteCount = data[byteOffset]
 			byteOffset += 1
 			
-			self.userPresetCount = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
+			let userPresetCountBytes = Array(data[byteOffset...byteOffset + 1])
+			self.userPresetCount = try MIDIWord(processedMIDIBytes: userPresetCountBytes)
 			byteOffset += Int(generalInfoByteCount)
 			
 			let romCount = data[byteOffset]
@@ -276,14 +291,17 @@ extension Proteus {
 			var roms: [ROM] = []
 			
 			for _ in 0..<romCount {
-				let romID = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
-				byteOffset += 2
+				let romIDBytes = Array(data[byteOffset...byteOffset + 1])
+				let romID = try MIDIWord(processedMIDIBytes: romIDBytes)
+				byteOffset += MIDIWord.byteCount
 				
-				let romPresetCount = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
-				byteOffset += 2
+				let romPresetCountBytes = Array(data[byteOffset...byteOffset + 1])
+				let romPresetCount = try MIDIWord(processedMIDIBytes: romPresetCountBytes)
+				byteOffset += MIDIWord.byteCount
 				
-				let romInstrumentCount = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
-				byteOffset += 2
+				let romInstrumentCountBytes = Array(data[byteOffset...byteOffset + 1])
+				let romInstrumentCount = try MIDIWord(processedMIDIBytes: romInstrumentCountBytes)
+				byteOffset += MIDIWord.byteCount
 				
 				let rom = ROM(id: romID, presetCount: romPresetCount, instrumentCount: romInstrumentCount)
 				roms.append(rom)

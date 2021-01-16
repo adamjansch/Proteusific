@@ -26,39 +26,7 @@ struct PresetGrid: View {
 			switch currentDeviceROMs.isEmpty {
 			case true:
 				Button("Retrieve Hardware Configuration", action: {
-					Proteus.midiOperationQueue.async {
-						Proteus.shared.requestHardwareConfiguration(responseAction: { result in
-							DispatchQueue.main.async {
-								do {
-									switch result {
-									case .failure(let error):
-										throw error
-										
-									case .success(let midiResponse):
-										guard let currentDevice = User.current?.currentDevice else {
-											return
-										}
-										
-										let hardwareConfiguration = try Proteus.HardwareConfiguation(data: midiResponse)
-										
-										for configurationROM in hardwareConfiguration.roms {
-											let rom = ROM(rom: configurationROM)
-											currentDevice.addToRoms(rom)
-										}
-										
-										currentDevice.userPresetCount = Int32(hardwareConfiguration.userPresetCount)
-										
-										try viewContext.save()
-										
-										// TODO: Collect preset names
-									}
-									
-								} catch {
-									print("Error: \(error)")
-								}
-							}
-						})
-					}
+					retrieveHardwareConfiguration()
 				})
 				
 			case false:
@@ -67,15 +35,15 @@ struct PresetGrid: View {
 				LazyVGrid(columns: columns, alignment: .leading) {
 					ForEach(currentDeviceROMs) { rom in
 						Section(header: Text("ROM 1 - " + rom.simm.name).font(.title)) {
-							let presentAction = {
-								print("Do it.")
+							let retrievePresetsAction = {
+								retrievePresets(for: rom)
 							}
 							
 							let romPresets: [String] = []
 							
 							switch romPresets.isEmpty {
 							case true:
-								Button(action: presentAction, label: {
+								Button(action: retrievePresetsAction, label: {
 									HStack {
 										Image(systemName: "square.and.arrow.down.fill")
 											.font(.system(size: 48.0))
@@ -98,6 +66,70 @@ struct PresetGrid: View {
 				
 				Spacer()
 			}
+		}
+	}
+	
+	
+	// MARK: - METHODS
+	// MARK: MIDI methods
+	private func retrieveHardwareConfiguration() {
+		Proteus.midiOperationQueue.async {
+			Proteus.shared.requestHardwareConfiguration(responseAction: { result in
+				DispatchQueue.main.async {
+					do {
+						switch result {
+						case .failure(let error):
+							throw error
+							
+						case .success(let midiResponse):
+							guard let currentDevice = User.current?.currentDevice else {
+								return
+							}
+							
+							let hardwareConfiguration = try Proteus.HardwareConfiguation(data: midiResponse)
+							
+							for configurationROM in hardwareConfiguration.roms {
+								let rom = ROM(rom: configurationROM)
+								currentDevice.addToRoms(rom)
+							}
+							
+							currentDevice.userPresetCount = Int32(hardwareConfiguration.userPresetCount)
+							
+							try viewContext.save()
+							
+							// TODO: Collect preset names
+						}
+						
+					} catch {
+						print("Error: \(error)")
+					}
+				}
+			})
+		}
+	}
+	
+	private func retrievePresets(for rom: ROM) {
+		Proteus.midiOperationQueue.async {
+			Proteus.shared.requestGenericNames(for: .preset, from: rom, responseAction: { result in
+				DispatchQueue.main.async {
+					do {
+						switch result {
+						case .failure(let error):
+							throw error
+							
+						case .success(let midiResponse):
+							guard let currentDevice = User.current?.currentDevice else {
+								return
+							}
+							
+							print("SUCCESS! \(midiResponse)")
+						}
+						
+					} catch {
+						print("Error: \(error)")
+					}
+				}
+			})
 		}
 	}
 }

@@ -66,27 +66,22 @@ final public class User: NSManagedObject {
 	// MARK: Utility methods
 	func updateEndpoints(with device: Device?) {
 		let midi = MIDI.sharedInstance
+		midi.closeAllInputsAndOutputs()
 		
-		switch device {
-		case .some(let device):
-			if let sourceEndpointUID = device.sourceEndpointUID,
-			   midi.inputInfos.contains(where: { sourceEndpointUID == $0.midiUniqueID }) {
-				midi.openInput(uid: sourceEndpointUID)
-				
-			} else {
-				midi.closeInput()
-			}
-			
-			if let destinationEndpointUID = device.destinationEndpointUID,
-			   midi.destinationInfos.contains(where: { destinationEndpointUID == $0.midiUniqueID }) {
-				midi.openOutput(uid: destinationEndpointUID)
-				
-			} else {
-				midi.closeOutput()
-			}
-			
-		case .none:
-			midi.clearEndpoints()
+		guard let newDevice = device else {
+			return
+		}
+		
+		// Update inputs
+		if let sourceEndpointUID = newDevice.sourceEndpointUID,
+		   midi.inputInfos.contains(where: { sourceEndpointUID == $0.midiUniqueID }) {
+			midi.openInput(uid: sourceEndpointUID)
+		}
+		
+		// Update outputs
+		if let destinationEndpointUID = newDevice.destinationEndpointUID,
+		   midi.destinationInfos.contains(where: { destinationEndpointUID == $0.midiUniqueID }) {
+			midi.openOutput(uid: destinationEndpointUID)
 		}
 	}
 }
