@@ -16,6 +16,18 @@ struct DeviceRow: View {
 	var body: some View {
 		let rowBackground = (User.current?.currentDevice == device) ? Color(.systemBlue) : Color(.systemGray5)
 		
+		let sourcePortText = Text("Source port:")
+			.foregroundColor(Color(.secondaryLabel))
+			.font(Font.body.weight(.regular))
+		
+		let destinationPortText = Text("Destination port:")
+			.foregroundColor(Color(.secondaryLabel))
+			.font(Font.body.weight(.regular))
+		
+		let notFoundText = Text("Not found")
+			.foregroundColor(Color(.systemRed))
+			.font(Font.body.weight(.regular))
+		
 		HStack {
 			VStack(alignment: .leading, spacing: 8.0) {
 				HStack(alignment: .bottom, spacing: 8.0) {
@@ -31,16 +43,36 @@ struct DeviceRow: View {
 				}
 				
 				VStack(alignment: .leading) {
-					if let sourceEndpointInfo = device.sourceEndpointInfo {
-						Text("Source port: " + sourceEndpointInfo.displayName)
-							.foregroundColor(Color(.secondaryLabel))
-							.font(Font.body.weight(.regular))
+					switch device.sourceEndpointInfo {
+					case .some(let sourceEndpointInfo):
+						HStack {
+							sourcePortText
+							Text(sourceEndpointInfo.displayName)
+								.foregroundColor(Color(.secondaryLabel))
+								.font(Font.body.weight(.regular))
+						}
+						
+					case .none:
+						HStack {
+							sourcePortText
+							notFoundText
+						}
 					}
 					
-					if let destinationEndpointInfo = device.sourceEndpointInfo {
-						Text("Destination port: " + destinationEndpointInfo.displayName)
-							.foregroundColor(Color(.secondaryLabel))
-							.font(Font.body.weight(.regular))
+					switch device.destinationEndpointInfo {
+					case .some(let destinationEndpointInfo):
+						HStack {
+							destinationPortText
+							Text(destinationEndpointInfo.displayName)
+								.foregroundColor(Color(.secondaryLabel))
+								.font(Font.body.weight(.regular))
+						}
+						
+					case .none:
+						HStack {
+							destinationPortText
+							notFoundText
+						}
 					}
 				}
 			}
