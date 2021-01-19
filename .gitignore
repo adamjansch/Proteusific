@@ -84,3 +84,8 @@ iOSInjectionProject/
 
 # Additional
 *.xcuserstate
+
+
+# Custom
+#
+Docs/
