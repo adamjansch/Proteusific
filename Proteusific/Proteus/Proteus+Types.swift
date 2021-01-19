@@ -279,7 +279,7 @@ extension Proteus {
 			byteOffset += 1
 			
 			let userPresetCountBytes = Array(data[byteOffset...byteOffset + 1])
-			self.userPresetCount = try MIDIWord(processedMIDIBytes: userPresetCountBytes)
+			self.userPresetCount = try MIDIWord(unprocessedMIDIBytes: userPresetCountBytes)
 			byteOffset += Int(generalInfoByteCount)
 			
 			let romCount = data[byteOffset]
@@ -296,11 +296,11 @@ extension Proteus {
 				byteOffset += MIDIWord.byteCount
 				
 				let romPresetCountBytes = Array(data[byteOffset...byteOffset + 1])
-				let romPresetCount = try MIDIWord(processedMIDIBytes: romPresetCountBytes)
+				let romPresetCount = try MIDIWord(unprocessedMIDIBytes: romPresetCountBytes)
 				byteOffset += MIDIWord.byteCount
 				
 				let romInstrumentCountBytes = Array(data[byteOffset...byteOffset + 1])
-				let romInstrumentCount = try MIDIWord(processedMIDIBytes: romInstrumentCountBytes)
+				let romInstrumentCount = try MIDIWord(unprocessedMIDIBytes: romInstrumentCountBytes)
 				byteOffset += MIDIWord.byteCount
 				
 				let rom = ROM(id: romID, presetCount: romPresetCount, instrumentCount: romInstrumentCount)

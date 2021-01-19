@@ -176,10 +176,27 @@ final class Proteus {
 		(I would use Proteus.midiOperationQueue...)
 		*/
 		
-		print("Attempting generic name retrieval...")
+		print("Attempting generic names retrieval...")
 		
-		let sysExMessage = SysExMessage.genericName(type: objectType, objectID: 1, romID: MIDIWord(rom.id), responseAction: responseAction)
-		send(sysExMessage: sysExMessage, responseAction: responseAction)
+		var nameCount: Int32
+		switch objectType {
+		case .preset:
+			nameCount = rom.presetCount
+		case .instrument:
+			nameCount = rom.instrumentCount
+		default:
+			return
+		}
+		
+		for nameIndex in 0..<nameCount {
+			let sysExMessage = SysExMessage.genericName(type: objectType, objectID: MIDIWord(nameIndex), romID: MIDIWord(rom.id), responseAction: responseAction)
+			send(sysExMessage: sysExMessage, responseAction: { result in
+				print(result)
+			})
+			
+			usleep(5000)
+			//Proteus.midiOperationQueue.
+		}
 	}
 	
 	/*
