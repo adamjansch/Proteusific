@@ -123,7 +123,9 @@ struct PresetGrid: View {
 							}
 							
 							let genericName = try Proteus.GenericName(data: midiResponse)
+							
 							print(genericName)
+							// TODO: Turn into Core Data object and save
 						}
 						
 					} catch {
