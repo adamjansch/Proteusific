@@ -1,8 +1,8 @@
 //
-//  Proteus+Types.swift
+//  Proteus+Enums.swift
 //  Proteusific
 //
-//  Created by Adam Jansch on 16/12/2020.
+//  Created by Adam Jansch on 20/01/2021.
 //
 
 import AudioKit
@@ -90,6 +90,40 @@ extension Proteus {
 		}
 	}
 	
+	enum ObjectType: MIDIByte {
+		case unknown = 0
+		case preset = 1
+		case instrument = 2
+		case arp = 3
+		case setup = 4
+		case demo = 5
+		case riff = 6
+		
+		var midiByte: MIDIByte {
+			return rawValue
+		}
+	}
+	
+	enum PresetCategory: String {
+		case unknown =		""
+		case ambient = 		"amb"
+		case arpeggiated =	"arp"
+		case bass =			"bas"
+		case bpm =			"bpm"
+		case brass =		"brs"
+		case guitar =		"gtr"
+		case hit =			"hit"
+		case keyboard =		"key"
+		case drumKit =		"kit"
+		case lead =			"led"
+		case pad =			"pad"
+		case rom =			"rom"
+		case sfx =			"sfx"
+		case strings =		"str"
+		case synthesizer =	"syn"
+		case vocals =		"vox"
+	}
+	
 	enum SIMM: Int32 {
 		case none = 			0
 		case composer = 		1
@@ -173,131 +207,5 @@ extension Proteus {
 				return "Protean Drums"
 			}
 		}
-	}
-	
-	
-	// MARK: - STRUCTS
-	// MARK: DeviceIdentity
-	struct DeviceIdentity: Identifiable, Equatable {
-		// MARK: - PROPERTIES
-		// MARK: Identifiable properties
-		var id: MIDIByte {
-			return deviceID
-		}
-		
-		// MARK: Stored properties
-		let deviceID: MIDIByte
-		let familyID: UInt16
-		let familyMember: DeviceFamilyMember
-		let softwareVersion: String
-		
-		let sourceEndpointInfo: EndpointInfo?
-		let destinationEndpointInfo: EndpointInfo
-		
-		
-		// MARK: - METHODS
-		// MARK: Initialisers
-		init(data: [MIDIByte], endpointInfo: BiDirectionalEndpointInfo) throws {
-			/*
-			BYTES (by index)
-			0:		Sysex message
-			1:		Sysex header byte 2
-			2:		Device ID
-			3:		General Information
-			4:		Command - should be 2
-			5:		Manufacturer Sysex ID
-			6-7:	Device family (14 bits, LSB first)
-			8-9:	Device family member (14 bits, LSB first)
-			10-13:	Software revision level (4 ASCII characters)
-			14:		EOX
-			*/
-			
-			guard data[0] == SysExMessage.sysExMessageByte,
-				  data[1] == SysExMessage.sysExHeaderByte else {
-				throw Error.incompatibleSysExMessage(data: data)
-			}
-			
-			let familyMemberBytes = data[8...9].withUnsafeBytes({ $0.load(as: UInt16.self) })
-			let familyMember = DeviceFamilyMember(rawValue: MIDIWord(familyMemberBytes)) ?? .unknown
-			
-			self.deviceID = data[2]
-			self.familyID = UInt16(data[6...7].withUnsafeBytes({ $0.load(as: UInt16.self) }))
-			self.familyMember = familyMember
-			self.softwareVersion = String(data[10...13].map({ Character(UnicodeScalar($0)) }))
-			self.sourceEndpointInfo = endpointInfo.source
-			self.destinationEndpointInfo = endpointInfo.destination
-		}
-	}
-	
-	struct HardwareConfiguation {
-		let userPresetCount: UInt16
-		let roms: [ROM]
-		
-		// MARK: - METHODS
-		// MARK: Initialisers
-		init(data: [MIDIByte]) throws {
-			/*
-			BYTES (by index)
-			0:		Sysex message
-			1:		EMU ID
-			2:		Proteus ID
-			3:		Device ID
-			4:		Special Editor byte
-			5:		Command
-			6:		General Information byte count
-			7-8:	General Information bytes { Preset count }
-			9:		ROM count
-			10:		SIMM Information byte count
-			
-			End:	EOX
-			*/
-			
-			guard data[0] == SysExMessage.sysExMessageByte,
-				  data[1] == SysExMessage.sysExEMUByte,
-				  data[2] == SysExMessage.sysExProteusByte,
-				  data[4] == SysExMessage.sysExSpecialEditorByte,
-				  data[5] == SysExMessage.Command.hardwareConfigurationResponse.byte else {
-				throw Error.incompatibleSysExMessage(data: data)
-			}
-			
-			var byteOffset = 6
-			let generalInfoByteCount = data[byteOffset]
-			byteOffset += 1
-			
-			self.userPresetCount = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
-			byteOffset += Int(generalInfoByteCount)
-			
-			let romCount = data[byteOffset]
-			byteOffset += 1
-			
-			//let romInformationByteCount = data[byteOffset]
-			byteOffset += 1
-			
-			var roms: [ROM] = []
-			
-			for _ in 0..<romCount {
-				let romID = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
-				byteOffset += 2
-				
-				let romPresetCount = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
-				byteOffset += 2
-				
-				let romInstrumentCount = UInt16(data[byteOffset]) + (UInt16(data[byteOffset + 1]) << 7)
-				byteOffset += 2
-				
-				let rom = ROM(id: romID, presetCount: romPresetCount, instrumentCount: romInstrumentCount)
-				roms.append(rom)
-			}
-			
-			self.roms = roms
-		}
-	}
-}
-
-extension Proteus.HardwareConfiguation {
-	struct ROM {
-		let id: UInt16
-		let presetCount: UInt16
-		let instrumentCount: UInt16
 	}
 }

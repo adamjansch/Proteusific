@@ -18,6 +18,7 @@ final class Proteus {
 		case other(error: Swift.Error)
 		case selfNil
 		case sysExMessageCreationFailed(sysExMessage: SysExMessage)
+		case sysExMessageObjectTypeNotFound(midiBytes: [MIDIByte])
 		case sysExMessageResponseTimedOut(sysExMessage: SysExMessage)
 		
 		// MARK: - PROPERTIES
@@ -32,6 +33,8 @@ final class Proteus {
 				return "Self Nil"
 			case .sysExMessageCreationFailed:
 				return "SysEx Message Creation Failed"
+			case .sysExMessageObjectTypeNotFound:
+				return "SysEx Message Object Type Not Found"
 			case .sysExMessageResponseTimedOut:
 				return "SysEx Message Response Timed Out"
 			}
@@ -48,6 +51,8 @@ final class Proteus {
 				return "Self Nil"
 			case .sysExMessageCreationFailed(let sysExMessage):
 				return "SysEx message creation failed: \(sysExMessage)"
+			case .sysExMessageObjectTypeNotFound(let midiBytes):
+				return "SysEx message object type not found: \(midiBytes)"
 			case .sysExMessageResponseTimedOut(let sysExMessage):
 				return "SysEx message response timed out: \(sysExMessage)"
 			}
@@ -59,6 +64,8 @@ final class Proteus {
 				return "Incompatible System Exclusive message received."
 			case .sysExMessageCreationFailed:
 				return "System Exclusive message creation failed."
+			case .sysExMessageObjectTypeNotFound:
+				return "System Exclusive object type not found."
 			case .sysExMessageResponseTimedOut:
 				return "System Exclusive message response timed out."
 			default:
@@ -170,8 +177,37 @@ final class Proteus {
 		send(sysExMessage: .hardwareConfiguration(responseAction: responseAction), responseAction: responseAction)
 	}
 	
+	func requestGenericNames(for objectType: ObjectType, from rom: ROM, responseAction: @escaping MIDIResponseAction) {
+		/*
+		WARNING! This method is designed to work synchronously. DO NOT CALL THIS FROM THE MAIN THREAD.
+		(I would use Proteus.midiOperationQueue...)
+		*/
+		
+		print("Attempting generic names retrieval...")
+		
+		var nameCount: Int32
+		switch objectType {
+		case .preset:
+			nameCount = rom.presetCount
+		case .instrument:
+			nameCount = rom.instrumentCount
+		default:
+			return
+		}
+		
+		for nameIndex in 127..<nameCount {
+			let sysExMessage = SysExMessage.genericName(type: objectType, objectID: MIDIWord(nameIndex), romID: MIDIWord(rom.id), responseAction: responseAction)
+			send(sysExMessage: sysExMessage, responseAction: { result in
+				print(result)
+			})
+			
+			usleep(5000)
+			//Proteus.midiOperationQueue.
+		}
+	}
+	
 	/*
-	func retrievePresets(responseAction: @escaping MIDIResponseAction) {
+	func retrievePresetDump(responseAction: @escaping MIDIResponseAction) {
 		/*
 		WARNING! This method is designed to work synchronously. DO NOT CALL THIS FROM THE MAIN THREAD.
 		(I would use Proteus.midiOperationQueue...)

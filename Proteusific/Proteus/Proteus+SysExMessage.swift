@@ -16,6 +16,7 @@ extension Proteus {
 	enum SysExMessage {
 		// MARK: - CASES
 		case deviceIdentity(responseAction: MIDIResponseAction)
+		case genericName(type: Proteus.ObjectType, objectID: MIDIWord, romID: MIDIWord, responseAction: MIDIResponseAction)
 		case hardwareConfiguration(responseAction: MIDIResponseAction)
 		case presetDumpClosedLoop(responseAction: MIDIResponseAction)
 		
@@ -30,7 +31,7 @@ extension Proteus {
 		static let sysExProteusByte: MIDIByte = 0x0F
 		static let sysExSpecialEditorByte: MIDIByte = 0x55
 		private static let sysExGeneralInformationByte: MIDIByte = 0x06
-		private static let eoxByte: MIDIByte = 0xF7
+		static let eoxByte: MIDIByte = 0xF7
 		
 		// MARK: Computed properties
 		var messageType: MessageType {
@@ -38,7 +39,8 @@ extension Proteus {
 			case .deviceIdentity:
 				return .universal
 				
-			case .hardwareConfiguration,
+			case .genericName,
+				 .hardwareConfiguration,
 				 .presetDumpClosedLoop:
 				return .proteus
 			}
@@ -51,6 +53,10 @@ extension Proteus {
 			case .deviceIdentity,
 				 .hardwareConfiguration:
 				return sysExHeader + requestCommandBytes + [Self.eoxByte]
+				
+			case .genericName(let objectType, let objectID, let romID, _):
+				let genericNameBytes: [MIDIByte] = [objectType.midiByte] + objectID.processedMIDIBytes + romID.processedMIDIBytes
+				return sysExHeader + requestCommandBytes + genericNameBytes + [Self.eoxByte]
 				
 			case .presetDumpClosedLoop:
 				return sysExHeader + [
@@ -66,6 +72,7 @@ extension Proteus {
 		var expectsMultipleMessages: Bool {
 			switch self {
 			case .deviceIdentity,
+				 .genericName,
 				 .hardwareConfiguration:
 				return false
 			case .presetDumpClosedLoop:
@@ -76,6 +83,7 @@ extension Proteus {
 		var responseAction: MIDIResponseAction {
 			switch self {
 			case .deviceIdentity(let responseAction),
+				 .genericName(_, _, _, let responseAction),
 				 .hardwareConfiguration(let responseAction),
 				 .presetDumpClosedLoop(let responseAction):
 				return responseAction
@@ -86,6 +94,8 @@ extension Proteus {
 			switch self {
 			case .deviceIdentity:
 				return [0x01]
+			case .genericName:
+				return [Command.genericNameRequest.byte]
 			case .hardwareConfiguration:
 				return [Command.hardwareConfigurationRequest.byte]
 			case .presetDumpClosedLoop:
@@ -97,6 +107,8 @@ extension Proteus {
 			switch self {
 			case .deviceIdentity:
 				return [0x02]
+			case .genericName:
+				return [Command.genericNameResponse.byte]
 			case .hardwareConfiguration:
 				return [Command.hardwareConfigurationResponse.byte]
 			case .presetDumpClosedLoop:
@@ -135,7 +147,8 @@ extension Proteus.SysExMessage: Identifiable {
 		switch self {
 		case .deviceIdentity:
 			return [Self.sysExGeneralInformationByte] + requestCommandBytes
-		case .hardwareConfiguration,
+		case .genericName,
+			 .hardwareConfiguration,
 			 .presetDumpClosedLoop:
 			return [Self.sysExSpecialEditorByte] + requestCommandBytes
 		}
@@ -189,6 +202,8 @@ extension Proteus.SysExMessage {
 	enum Command: MIDIByte {
 		case hardwareConfigurationResponse = 0x09
 		case hardwareConfigurationRequest = 0x0A
+		case genericNameResponse = 0x0B
+		case genericNameRequest = 0x0C
 		case presetDumpResponse = 0x10
 		case presetDumpRequest = 0x11
 		
