@@ -22,9 +22,15 @@ extension MIDIWord {
 	static let byteCount = 2
 	
 	// MARK: Computed properties
-	var midiBytes: [MIDIByte] {
+	var unprocessedMIDIBytes: [MIDIByte] {
 		let lsb = MIDIByte(truncatingIfNeeded: self)
 		let msb = MIDIByte(truncatingIfNeeded: self >> 8)
+		return [lsb, msb]
+	}
+	
+	var processedMIDIBytes: [MIDIByte] {
+		let lsb = MIDIByte(self) % 128
+		let msb = MIDIByte(self) / 128
 		return [lsb, msb]
 	}
 	

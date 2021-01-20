@@ -18,6 +18,7 @@ final class Proteus {
 		case other(error: Swift.Error)
 		case selfNil
 		case sysExMessageCreationFailed(sysExMessage: SysExMessage)
+		case sysExMessageObjectTypeNotFound(midiBytes: [MIDIByte])
 		case sysExMessageResponseTimedOut(sysExMessage: SysExMessage)
 		
 		// MARK: - PROPERTIES
@@ -32,6 +33,8 @@ final class Proteus {
 				return "Self Nil"
 			case .sysExMessageCreationFailed:
 				return "SysEx Message Creation Failed"
+			case .sysExMessageObjectTypeNotFound:
+				return "SysEx Message Object Type Not Found"
 			case .sysExMessageResponseTimedOut:
 				return "SysEx Message Response Timed Out"
 			}
@@ -48,6 +51,8 @@ final class Proteus {
 				return "Self Nil"
 			case .sysExMessageCreationFailed(let sysExMessage):
 				return "SysEx message creation failed: \(sysExMessage)"
+			case .sysExMessageObjectTypeNotFound(let midiBytes):
+				return "SysEx message object type not found: \(midiBytes)"
 			case .sysExMessageResponseTimedOut(let sysExMessage):
 				return "SysEx message response timed out: \(sysExMessage)"
 			}
@@ -59,6 +64,8 @@ final class Proteus {
 				return "Incompatible System Exclusive message received."
 			case .sysExMessageCreationFailed:
 				return "System Exclusive message creation failed."
+			case .sysExMessageObjectTypeNotFound:
+				return "System Exclusive object type not found."
 			case .sysExMessageResponseTimedOut:
 				return "System Exclusive message response timed out."
 			default:
@@ -188,7 +195,7 @@ final class Proteus {
 			return
 		}
 		
-		for nameIndex in 0..<nameCount {
+		for nameIndex in 127..<nameCount {
 			let sysExMessage = SysExMessage.genericName(type: objectType, objectID: MIDIWord(nameIndex), romID: MIDIWord(rom.id), responseAction: responseAction)
 			send(sysExMessage: sysExMessage, responseAction: { result in
 				print(result)

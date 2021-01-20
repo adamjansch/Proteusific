@@ -122,7 +122,8 @@ struct PresetGrid: View {
 								return
 							}
 							
-							print("SUCCESS! \(midiResponse)")
+							let genericName = try Proteus.GenericName(data: midiResponse)
+							print(genericName)
 						}
 						
 					} catch {

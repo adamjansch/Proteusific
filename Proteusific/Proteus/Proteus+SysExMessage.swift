@@ -31,7 +31,7 @@ extension Proteus {
 		static let sysExProteusByte: MIDIByte = 0x0F
 		static let sysExSpecialEditorByte: MIDIByte = 0x55
 		private static let sysExGeneralInformationByte: MIDIByte = 0x06
-		private static let eoxByte: MIDIByte = 0xF7
+		static let eoxByte: MIDIByte = 0xF7
 		
 		// MARK: Computed properties
 		var messageType: MessageType {
@@ -55,7 +55,7 @@ extension Proteus {
 				return sysExHeader + requestCommandBytes + [Self.eoxByte]
 				
 			case .genericName(let objectType, let objectID, let romID, _):
-				let genericNameBytes: [MIDIByte] = [objectType.midiByte] + objectID.midiBytes + romID.midiBytes
+				let genericNameBytes: [MIDIByte] = [objectType.midiByte] + objectID.processedMIDIBytes + romID.processedMIDIBytes
 				return sysExHeader + requestCommandBytes + genericNameBytes + [Self.eoxByte]
 				
 			case .presetDumpClosedLoop:
