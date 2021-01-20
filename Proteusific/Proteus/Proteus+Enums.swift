@@ -105,6 +105,7 @@ extension Proteus {
 	}
 	
 	enum PresetCategory: String {
+		case unknown =		""
 		case ambient = 		"amb"
 		case arpeggiated =	"arp"
 		case bass =			"bas"

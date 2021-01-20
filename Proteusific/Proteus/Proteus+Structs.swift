@@ -68,6 +68,8 @@ extension Proteus {
 		let type: ObjectType
 		let objectID: MIDIWord
 		let romID: MIDIWord
+		
+		let category: PresetCategory
 		let title: String
 		
 		
@@ -106,25 +108,31 @@ extension Proteus {
 			self.objectID = try MIDIWord(unprocessedMIDIBytes: Array(data[7...8]))
 			self.romID = try MIDIWord(unprocessedMIDIBytes: Array(data[9...10]))
 			
+			// Process the retrieved title to separate the category and actual title
 			switch data.firstIndex(of: SysExMessage.eoxByte) {
 			case .some(let eoxIndex):
-				let title = String(data[11..<eoxIndex].map({ Character(UnicodeScalar($0)) }))
-				self.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
+				let rawTitle = String(data[11..<eoxIndex].map({ Character(UnicodeScalar($0)) })).trimmingCharacters(in: .whitespacesAndNewlines)
+				let separatorIndex = rawTitle.index(rawTitle.startIndex, offsetBy: 3)
+				let separator = rawTitle[separatorIndex]
+				
+				if separator == ":" {
+					let categoryString = String(rawTitle[..<separatorIndex])
+					let category = PresetCategory(rawValue: categoryString) ?? .unknown
+					self.category = category
+					
+					let titleStartIndex = rawTitle.index(after: separatorIndex)
+					self.title = String(rawTitle[titleStartIndex..<rawTitle.endIndex])
+					
+				} else {
+					self.category = .unknown
+					self.title = rawTitle
+				}
 				
 			case .none:
+				self.category = .unknown
 				self.title = ""
 			}
 		}
-		
-		// MARK: Utility methods
-//		private func processTitle(_ title: String) -> (PresetCategory, String) {
-//			guard let separatorIndex = title.firstIndex(of: ":"),
-//				  separatorIndex == 3 else {
-//				
-//			}
-//			
-//			
-//		}
 	}
 }
 
