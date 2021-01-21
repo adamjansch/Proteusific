@@ -12,8 +12,11 @@ struct AppInfoBannerRow: View {
 	// MARK: View properties
 	var body: some View {
 		HStack(spacing: 12.0) {
-			Image(systemName: "info.circle.fill")
-				.cornerRadius(12.0)
+			let iconDimension: CGFloat = 96.0
+			
+			Image("AppIconRounded")
+				.resizable()
+				.frame(width: iconDimension, height: iconDimension)
 			
 			VStack(alignment: .leading, spacing: 6.0) {
 				Text("Proteusific")
