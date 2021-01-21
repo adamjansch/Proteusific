@@ -49,36 +49,40 @@ struct DeviceDetailView: View {
 	
 	// MARK: View properties
 	var body: some View {
-		let navigationTitle = User.current?.currentDevice?.name ?? "Device"
-		
-		VStack {
-			TabView(selection: $tabSelection) {
-				ForEach(Tab.allCases) { tab in
-					switch tab {
-					case .multis:
-						MultiGrid()
-							.tabItem {
-								Image(systemName: tab.imageSystemName)
-								Text(tab.title)
-							}
-						
-					case .presets:
-						PresetGrid()
-							.tabItem {
-								Image(systemName: tab.imageSystemName)
-								Text(tab.title)
-							}
-						
-					case .master:
-						MasterView()
-							.tabItem {
-								Image(systemName: tab.imageSystemName)
-								Text(tab.title)
-							}
+		switch User.current?.currentDevice?.name {
+		case .some(let deviceName):
+			VStack {
+				TabView(selection: $tabSelection) {
+					ForEach(Tab.allCases) { tab in
+						switch tab {
+						case .multis:
+							MultiGrid()
+								.tabItem {
+									Image(systemName: tab.imageSystemName)
+									Text(tab.title)
+								}
+							
+						case .presets:
+							PresetGrid()
+								.tabItem {
+									Image(systemName: tab.imageSystemName)
+									Text(tab.title)
+								}
+							
+						case .master:
+							MasterView()
+								.tabItem {
+									Image(systemName: tab.imageSystemName)
+									Text(tab.title)
+								}
+						}
 					}
 				}
 			}
+			.navigationBarTitle(deviceName, displayMode: .inline)
+			
+		case .none:
+			EmptyView()
 		}
-		.navigationBarTitle(navigationTitle, displayMode: .inline)
 	}
 }

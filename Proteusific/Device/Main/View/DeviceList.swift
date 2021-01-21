@@ -21,11 +21,20 @@ struct DeviceList: View {
 	// MARK: View properties
 	var body: some View {
 		NavigationView {
-			VStack(alignment: .center, spacing: 4.0, content: {
+			VStack(alignment: .center, spacing: 16.0, content: {
 				if devices.isEmpty {
+					let foregroundColor: UIColor = .systemGray
+					
+					Image(systemName: "pianokeys")
+						.padding(EdgeInsets(top: 32.0, leading: 0.0, bottom: 0.0, trailing: 0.0))
+						.foregroundColor(Color(foregroundColor))
+						.font(.system(size: 72.0))
+					
 					Text("You have no Devices!\nAdd a Device using the \"Add\" button above.")
 						.multilineTextAlignment(.center)
-						.padding(32.0)
+						.padding(EdgeInsets(top: 0.0, leading: 32.0, bottom: 0.0, trailing: 32.0))
+						.foregroundColor(Color(foregroundColor))
+						.font(.system(size: 21.0))
 					
 					NavigationLink(destination: DeviceDetailView(), isActive: .constant(true)) {
 						EmptyView()
