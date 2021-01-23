@@ -10,6 +10,7 @@ import SwiftUI
 enum AcknowledgementGroup: Int, CaseIterable, Identifiable {
 	case contributors
 	case code
+	case tools
 	
 	// MARK: Identifiable properties
 	var id: Int {
@@ -23,6 +24,8 @@ enum AcknowledgementGroup: Int, CaseIterable, Identifiable {
 			return "Contributors"
 		case .code:
 			return "Code"
+		case .tools:
+			return "Tools"
 		}
 	}
 	
@@ -32,6 +35,8 @@ enum AcknowledgementGroup: Int, CaseIterable, Identifiable {
 			return [.adamJansch]
 		case .code:
 			return [.audioKit]
+		case .tools:
+			return [.emuTools]
 		}
 	}
 }
@@ -40,6 +45,7 @@ enum AcknowledgementGroup: Int, CaseIterable, Identifiable {
 enum Acknowledgement: Int, Identifiable {
 	case adamJansch
 	case audioKit
+	case emuTools
 	
 	// MARK: Identifiable properties
 	var id: Int {
@@ -53,6 +59,8 @@ enum Acknowledgement: Int, Identifiable {
 			return "Creator"
 		case .audioKit:
 			return "iOS Library"
+		case .emuTools:
+			return "Firmware Updater"
 		}
 	}
 	
@@ -62,6 +70,8 @@ enum Acknowledgement: Int, Identifiable {
 			return "Adam Jansch"
 		case .audioKit:
 			return "AudioKit"
+		case .emuTools:
+			return "emu.tools"
 		}
 	}
 	
@@ -71,6 +81,8 @@ enum Acknowledgement: Int, Identifiable {
 			return "https://adamjansch.co.uk"
 		case .audioKit:
 			return "https://audiokit.io/"
+		case .emuTools:
+			return "https://www.emu.tools/"
 		}
 	}
 	
@@ -80,6 +92,8 @@ enum Acknowledgement: Int, Identifiable {
 			return Image("AJ logo")
 		case .audioKit:
 			return Image("AudioKit logo")
+		case .emuTools:
+			return nil
 		}
 	}
 }
