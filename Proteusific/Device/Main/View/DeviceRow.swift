@@ -16,11 +16,11 @@ struct DeviceRow: View {
 	var body: some View {
 		let rowBackground = (User.current?.currentDevice == device) ? Color(.systemBlue) : Color(.systemGray5)
 		
-		let sourcePortText = Text("Source port:")
+		let sourcePortText = Text("Input:")
 			.foregroundColor(Color(.secondaryLabel))
 			.font(Font.body.weight(.regular))
 		
-		let destinationPortText = Text("Destination port:")
+		let destinationPortText = Text("Output:")
 			.foregroundColor(Color(.secondaryLabel))
 			.font(Font.body.weight(.regular))
 		
