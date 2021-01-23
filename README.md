@@ -37,13 +37,21 @@ Proteusific is a ready-to-run code project that requires the latest version of X
 
 ## Contributing
 
+We are happy to accept coding contributions to Proteusific.
+
 If you would like to contribute to Proteusific, fork the project, make your changes, and submit a pull request back to this main repository. Please work from the ***develop*** branch.
 
-Proteusific is an open source project, made available under the MIT license (see below). It would be appreciated if any fixes/improvements made to the code are applied via pull request back to the original repository.
+### Branch Naming
+
+When naming branches in your fork please follow this structure: `<github username>/<id>`, using your own IDing system for `<id>`.
+
+As as example, I track the project in Trello so I use a Trello card's ID. Thus, I would name a branch like `adamjansch/20` (for Trello card ID 20).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Proteusific is an open source project, made available under the MIT license  - see the [LICENSE.md](LICENSE.md) file for details.
+
+It would be appreciated if any fixes/improvements made to the code are applied via pull request back to the original repository.
 
 ## Authors
 
