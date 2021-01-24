@@ -9,6 +9,75 @@ import AudioKit
 
 extension Proteus {
 	// MARK: - ENUMS
+	// MARK: Error enum
+	enum Error: Swift.Error, Identifiable {
+		case endpointInfoNil
+		case incompatibleSysExMessage(data: [MIDIByte])
+		case other(error: Swift.Error)
+		case selfNil
+		case sysExMessageCreationFailed(sysExMessage: SysExMessage)
+		case sysExMessageObjectTypeNotFound(midiBytes: [MIDIByte])
+		case sysExMessageResponseTimedOut(sysExMessage: SysExMessage)
+		
+		// MARK: - PROPERTIES
+		// MARK: Identifiable properties
+		var id: String {
+			switch self {
+			case .endpointInfoNil:
+				return "Endpoint Info Nil"
+			case .incompatibleSysExMessage:
+				return "Incompatible SysEx Message"
+			case .other:
+				return "Other"
+			case .selfNil:
+				return "Self Nil"
+			case .sysExMessageCreationFailed:
+				return "SysEx Message Creation Failed"
+			case .sysExMessageObjectTypeNotFound:
+				return "SysEx Message Object Type Not Found"
+			case .sysExMessageResponseTimedOut:
+				return "SysEx Message Response Timed Out"
+			}
+		}
+		
+		// MARK: Computed properties
+		var debugMessage: String {
+			switch self {
+			case .endpointInfoNil:
+				return "Endpoint Info Nil"
+			case .incompatibleSysExMessage(let data):
+				return "Incompatible SysEx message received: \(data)"
+			case .other(let error):
+				return "Other error encountered: \(error.localizedDescription)"
+			case .selfNil:
+				return "Self Nil"
+			case .sysExMessageCreationFailed(let sysExMessage):
+				return "SysEx message creation failed: \(sysExMessage)"
+			case .sysExMessageObjectTypeNotFound(let midiBytes):
+				return "SysEx message object type not found: \(midiBytes)"
+			case .sysExMessageResponseTimedOut(let sysExMessage):
+				return "SysEx message response timed out: \(sysExMessage)"
+			}
+		}
+		
+		var alertMessage: String {
+			switch self {
+			case .endpointInfoNil:
+				return "Endpoint Info could not be found."
+			case .incompatibleSysExMessage:
+				return "Incompatible System Exclusive message received."
+			case .sysExMessageCreationFailed:
+				return "System Exclusive message creation failed."
+			case .sysExMessageObjectTypeNotFound:
+				return "System Exclusive object type not found."
+			case .sysExMessageResponseTimedOut:
+				return "System Exclusive message response timed out."
+			default:
+				return "General error encountered."
+			}
+		}
+	}
+	
 	// MARK: DeviceFamily
 	enum DeviceFamilyMember: MIDIWord {
 		case unknown = 0x00
@@ -109,6 +178,7 @@ extension Proteus {
 		case ambient = 		"amb"
 		case arpeggiated =	"arp"
 		case bass =			"bas"
+		case beats =		"bts"
 		case bpm =			"bpm"
 		case brass =		"brs"
 		case guitar =		"gtr"
