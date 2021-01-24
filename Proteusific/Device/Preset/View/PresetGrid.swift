@@ -73,67 +73,63 @@ struct PresetGrid: View {
 	// MARK: - METHODS
 	// MARK: MIDI methods
 	private func retrieveHardwareConfiguration() {
-		Proteus.midiOperationQueue.async {
-			Proteus.shared.requestHardwareConfiguration(responseAction: { result in
-				DispatchQueue.main.async {
-					do {
-						switch result {
-						case .failure(let error):
-							throw error
-							
-						case .success(let midiResponse):
-							guard let currentDevice = User.current?.currentDevice else {
-								return
-							}
-							
-							let hardwareConfiguration = try Proteus.HardwareConfiguation(data: midiResponse)
-							
-							for configurationROM in hardwareConfiguration.roms {
-								let rom = ROM(rom: configurationROM)
-								currentDevice.addToRoms(rom)
-							}
-							
-							currentDevice.userPresetCount = Int32(hardwareConfiguration.userPresetCount)
-							
-							try viewContext.save()
-							
-							// TODO: Collect preset names
+		Proteus.shared.requestHardwareConfiguration(responseAction: { result in
+			DispatchQueue.main.async {
+				do {
+					switch result {
+					case .failure(let error):
+						throw error
+						
+					case .success(let payload):
+						guard let currentDevice = User.current?.currentDevice else {
+							return
 						}
 						
-					} catch {
-						print("Error: \(error)")
+						let hardwareConfiguration = try Proteus.HardwareConfiguation(data: payload.midiResponse)
+						
+						for configurationROM in hardwareConfiguration.roms {
+							let rom = ROM(rom: configurationROM)
+							currentDevice.addToRoms(rom)
+						}
+						
+						currentDevice.userPresetCount = Int32(hardwareConfiguration.userPresetCount)
+						
+						try viewContext.save()
+						
+						// TODO: Collect preset names
 					}
+					
+				} catch {
+					print("Error: \(error)")
 				}
-			})
-		}
+			}
+		})
 	}
 	
 	private func retrievePresets(for rom: ROM) {
-		Proteus.midiOperationQueue.async {
-			Proteus.shared.requestGenericNames(for: .preset, from: rom, responseAction: { result in
-				DispatchQueue.main.async {
-					do {
-						switch result {
-						case .failure(let error):
-							throw error
-							
-						case .success(let midiResponse):
-							guard let currentDevice = User.current?.currentDevice else {
-								return
-							}
-							
-							let genericName = try Proteus.GenericName(data: midiResponse)
-							
-							print(genericName)
-							// TODO: Turn into Core Data object and save
+		Proteus.shared.requestGenericNames(for: .preset, rom: rom, responseAction: { result in
+			DispatchQueue.main.async {
+				do {
+					switch result {
+					case .failure(let error):
+						throw error
+						
+					case .success(let midiPayload):
+						guard let currentDevice = User.current?.currentDevice else {
+							return
 						}
 						
-					} catch {
-						print("Error: \(error)")
+						let genericName = try Proteus.GenericName(data: midiPayload.0)
+						
+						print(genericName)
+						// TODO: Turn into Core Data object and save
 					}
+					
+				} catch {
+					print("Error: \(error)")
 				}
-			})
-		}
+			}
+		})
 	}
 }
 

@@ -29,8 +29,8 @@ extension MIDIWord {
 	}
 	
 	var processedMIDIBytes: [MIDIByte] {
-		let lsb = MIDIByte(self) % 128
-		let msb = MIDIByte(self) / 128
+		let lsb = MIDIByte(self % 128)
+		let msb = MIDIByte(self / 128)
 		return [lsb, msb]
 	}
 	

@@ -8,14 +8,14 @@
 import AudioKit
 
 typealias MIDIResponseResult = Result<Proteus.DeviceIdentity, Proteus.Error>
-typealias MIDIResponseAction = (Result<[MIDIByte], Proteus.Error>) -> Void
+typealias MIDIResponseAction = (Result<(midiResponse: [MIDIByte], endpointInfos: BiDirectionalEndpointInfo?), Proteus.Error>) -> Void
 
 extension Proteus {
 	// MARK: - ENUMS
 	// MARK: MIDI enums
 	enum SysExMessage {
 		// MARK: - CASES
-		case deviceIdentity(responseAction: MIDIResponseAction)
+		case deviceIdentity(endpointInfos: BiDirectionalEndpointInfo, responseAction: MIDIResponseAction)
 		case genericName(type: Proteus.ObjectType, objectID: MIDIWord, romID: MIDIWord, responseAction: MIDIResponseAction)
 		case hardwareConfiguration(responseAction: MIDIResponseAction)
 		case presetDumpClosedLoop(responseAction: MIDIResponseAction)
@@ -69,20 +69,9 @@ extension Proteus {
 			}
 		}
 		
-		var expectsMultipleMessages: Bool {
-			switch self {
-			case .deviceIdentity,
-				 .genericName,
-				 .hardwareConfiguration:
-				return false
-			case .presetDumpClosedLoop:
-				return true
-			}
-		}
-		
 		var responseAction: MIDIResponseAction {
 			switch self {
-			case .deviceIdentity(let responseAction),
+			case .deviceIdentity(_, let responseAction),
 				 .genericName(_, _, _, let responseAction),
 				 .hardwareConfiguration(let responseAction),
 				 .presetDumpClosedLoop(let responseAction):
@@ -157,7 +146,21 @@ extension Proteus.SysExMessage: Identifiable {
 
 extension Proteus.SysExMessage: Equatable {
 	static func == (lhs: Proteus.SysExMessage, rhs: Proteus.SysExMessage) -> Bool {
-		return lhs.id == rhs.id
+		switch (lhs, rhs) {
+		case (.deviceIdentity(let lhsEndpointInfos, _), .deviceIdentity(let rhsEndpointInfos, _)):
+			return lhs.id == rhs.id
+				&& lhsEndpointInfos.source?.id == rhsEndpointInfos.source?.id
+				&& lhsEndpointInfos.destination.id == rhsEndpointInfos.destination.id
+		
+		case (.genericName(let lhsType, let lhsObjectID, let lhsROMID, _), .genericName(let rhsType, let rhsObjectID, let rhsROMID, _)):
+			return lhs.id == rhs.id
+				&& lhsType == rhsType
+				&& lhsObjectID == rhsObjectID
+				&& lhsROMID == rhsROMID
+			
+		default:
+			return lhs.id == rhs.id
+		}
 	}
 }
 

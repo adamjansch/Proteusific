@@ -19,15 +19,20 @@ extension Proteus: MIDIListener {
 			return
 		}
 		
-		switch pendingSysExMessage.expectsMultipleMessages {
-		case false:
-			pendingSysExMessage.responseAction(.success(data))
-			pendingSysExMessages.removeAll(where: { $0 == pendingSysExMessage })
+		switch pendingSysExMessage {
+		case .deviceIdentity(let endpointInfos, _):
+			pendingSysExMessage.responseAction(.success((data, endpointInfos)))
 			
-		case true:
-			pendingSysExMessages.removeAll(where: { $0 == pendingSysExMessage })
-			
+		default:
+			pendingSysExMessage.responseAction(.success((data, nil)))
 		}
+		
+		pendingSysExMessages.removeAll(where: { $0 == pendingSysExMessage })
+		clearSysExResponseTimer()
+		
+		Proteus.midiOperationQueue.asyncAfter(deadline: .now() + 0.02, execute: { [weak self] in
+			self?.servicePendingSysExMessages(responseAction: nil)
+		})
 	}
 	
 	func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {

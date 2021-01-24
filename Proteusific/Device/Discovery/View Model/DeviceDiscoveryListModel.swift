@@ -19,51 +19,40 @@ final class DeviceDiscoveryListModel: ObservableObject {
 	func beginDeviceDiscovery() {
 		discoveredDeviceResults.removeAll()
 		
-		Proteus.midiOperationQueue.async { [weak self] in
-			let dispatchGroup = DispatchGroup()
-			
-			for (destinationInfoIndex, destinationInfo) in MIDI.sharedInstance.destinationInfos.enumerated() {
-				dispatchGroup.enter()
+		Proteus.shared.requestDeviceIdentities(responseAction: { result in
+			DispatchQueue.main.async { [weak self] in
+				guard let strongSelf = self else {
+					return
+				}
 				
-				let inputInfo = MIDI.sharedInstance.inputInfos[safe: destinationInfoIndex]
-				let combinedEndpointInfo = BiDirectionalEndpointInfo(source: inputInfo, destination: destinationInfo)
+				let handleError: (Proteus.Error) -> Void = { error in
+					print("Error Requesting Device Identity: \(error.debugMessage)")
+					strongSelf.discoveredDeviceResults.append(.failure(error))
+				}
 				
-				Proteus.shared.requestDeviceIdentity(endpointInfo: combinedEndpointInfo, responseAction: { [weak self] result in
-					guard let strongSelf = self else {
-						dispatchGroup.leave()
-						return
-					}
+				switch result {
+				case .failure(let error):
+					handleError(error)
 					
-					let handleError: (Proteus.Error) -> Void = { error in
-						print("Error Requesting Device Identity: \(error.debugMessage)")
-						strongSelf.discoveredDeviceResults.append(.failure(error))
-					}
-					
-					DispatchQueue.main.async {
-						switch result {
-						case .failure(let error):
-							handleError(error)
-							
-						case .success(let midiResponse):
-							print("MIDI response: \(midiResponse)")
-							
-							do {
-								let deviceIdentity = try Proteus.DeviceIdentity(data: midiResponse, endpointInfo: combinedEndpointInfo)
-								strongSelf.discoveredDeviceResults.append(.success(deviceIdentity))
-								
-							} catch {
-								handleError(Proteus.Error.other(error: error))
-							}
+				case .success(let payload):
+					do {
+						guard let endpointInfo = payload.endpointInfos else {
+							handleError(Proteus.Error.endpointInfoNil)
+							return
 						}
+						
+						let deviceIdentity = try Proteus.DeviceIdentity(data: payload.midiResponse, endpointInfo: endpointInfo)
+						strongSelf.discoveredDeviceResults.append(.success(deviceIdentity))
+						
+					} catch {
+						handleError(Proteus.Error.other(error: error))
 					}
-					
-					dispatchGroup.leave()
-				})
+				}
+				
+				if strongSelf.discoveredDeviceResults.count == MIDI.sharedInstance.destinationInfos.count {
+					strongSelf.discoveryCompleted = true
+				}
 			}
-			
-			dispatchGroup.notify(queue: DispatchQueue.main) {
-				self?.discoveryCompleted = true
-			}
-		}
+		})
 	}
 }
