@@ -72,7 +72,7 @@ struct PresetGrid: View {
 	}
 	
 	
-	// MARK: - METHODS	
+	// MARK: - METHODS
 	// MARK: MIDI methods
 	private func retrieveHardwareConfiguration() {
 		Proteus.shared.requestHardwareConfiguration(responseAction: { result in
