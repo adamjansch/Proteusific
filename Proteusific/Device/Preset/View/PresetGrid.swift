@@ -30,39 +30,41 @@ struct PresetGrid: View {
 				})
 				
 			case false:
-				let columns: [GridItem] = [GridItem(.flexible(), spacing: 16.0)]
-				
-				LazyVGrid(columns: columns, alignment: .leading) {
-					ForEach(currentDeviceROMs) { rom in
-						Section(header: Text("ROM 1 - " + rom.simm.name).font(.title)) {
-							let retrievePresetsAction = {
-								retrievePresets(for: rom)
-							}
-							
-							let romPresets: [String] = []
-							
-							switch romPresets.isEmpty {
-							case true:
-								Button(action: retrievePresetsAction, label: {
-									HStack {
-										Image(systemName: "square.and.arrow.down.fill")
-											.font(.system(size: 48.0))
-										
-										VStack(alignment: .leading) {
-											Text("Retrieve presets from").font(.system(size: 21.0))
-											Text(rom.simm.name).font(.system(size: 32.0))
-										}
-									}
-								})
-								.padding(EdgeInsets(top: 16.0, leading: 4.0, bottom: 16.0, trailing: 4.0))
+				ScrollView(.vertical) {
+					let columns: [GridItem] = [GridItem(.flexible(), spacing: 16.0)]
+					
+					LazyVGrid(columns: columns, alignment: .leading) {
+						ForEach(currentDeviceROMs) { rom in
+							Section(header: Text("ROM 1 - " + rom.simm.name).font(.title)) {
+								let retrievePresetsAction = {
+									retrievePresets(for: rom)
+								}
 								
-							case false:
-								EmptyView()
+								switch rom.presets.isEmpty {
+								case true:
+									Button(action: retrievePresetsAction, label: {
+										HStack {
+											Image(systemName: "square.and.arrow.down.fill")
+												.font(.system(size: 48.0))
+											
+											VStack(alignment: .leading) {
+												Text("Retrieve presets from").font(.system(size: 21.0))
+												Text(rom.simm.name).font(.system(size: 32.0))
+											}
+										}
+									})
+									.padding(EdgeInsets(top: 16.0, leading: 4.0, bottom: 16.0, trailing: 4.0))
+									
+								case false:
+									ForEach(rom.presets) { preset in
+										PresetGridCell(preset: preset)
+									}
+								}
 							}
 						}
 					}
+					.padding(24.0)
 				}
-				.padding(24.0)
 				
 				Spacer()
 			}
@@ -70,7 +72,7 @@ struct PresetGrid: View {
 	}
 	
 	
-	// MARK: - METHODS
+	// MARK: - METHODS	
 	// MARK: MIDI methods
 	private func retrieveHardwareConfiguration() {
 		Proteus.shared.requestHardwareConfiguration(responseAction: { result in
@@ -93,10 +95,7 @@ struct PresetGrid: View {
 						}
 						
 						currentDevice.userPresetCount = Int32(hardwareConfiguration.userPresetCount)
-						
 						try viewContext.save()
-						
-						// TODO: Collect preset names
 					}
 					
 				} catch {
@@ -108,6 +107,9 @@ struct PresetGrid: View {
 	
 	private func retrievePresets(for rom: ROM) {
 		Proteus.shared.requestGenericNames(for: .preset, rom: rom, responseAction: { result in
+			/*
+			This closure is called for each Generic Name response received
+			*/
 			DispatchQueue.main.async {
 				do {
 					switch result {
@@ -115,14 +117,14 @@ struct PresetGrid: View {
 						throw error
 						
 					case .success(let midiPayload):
-						guard let currentDevice = User.current?.currentDevice else {
-							return
-						}
-						
-						let genericName = try Proteus.GenericName(data: midiPayload.0)
-						
-						print(genericName)
-						// TODO: Turn into Core Data object and save
+						let genericName = try Proteus.GenericName(data: midiPayload.midiResponse)
+						let preset = try Preset(genericName: genericName)
+						rom.addToStoredPresets(preset)
+					}
+					
+					if rom.presetCount == rom.presets.count {
+						// All presets have been created
+						try viewContext.save()
 					}
 					
 				} catch {

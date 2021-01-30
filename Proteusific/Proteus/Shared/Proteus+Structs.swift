@@ -67,7 +67,7 @@ extension Proteus {
 		// MARK: Stored properties
 		let type: ObjectType
 		let objectID: MIDIWord
-		let romID: MIDIWord
+		let simm: SIMM
 		
 		let category: PresetCategory
 		let title: String
@@ -106,7 +106,9 @@ extension Proteus {
 			
 			self.type = objectType
 			self.objectID = try MIDIWord(unprocessedMIDIBytes: Array(data[7...8]))
-			self.romID = try MIDIWord(unprocessedMIDIBytes: Array(data[9...10]))
+			
+			let romID = try MIDIWord(unprocessedMIDIBytes: Array(data[9...10]))
+			self.simm = SIMM(rawValue: Int32(romID)) ?? .unknown
 			
 			// Process the retrieved title to separate the category and actual title
 			switch data.firstIndex(of: SysExMessage.eoxByte) {
@@ -208,8 +210,8 @@ extension Proteus {
 
 extension Proteus.HardwareConfiguation {
 	struct ROM {
-		let id: UInt16
-		let presetCount: UInt16
-		let instrumentCount: UInt16
+		let id: MIDIWord
+		let presetCount: MIDIWord
+		let instrumentCount: MIDIWord
 	}
 }

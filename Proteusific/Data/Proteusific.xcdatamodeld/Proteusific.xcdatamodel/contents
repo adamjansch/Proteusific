@@ -12,11 +12,19 @@
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="roms" toMany="YES" deletionRule="Cascade" destinationEntity="ROM" inverseName="device" inverseEntity="ROM"/>
     </entity>
+    <entity name="Preset" representedClassName=".Preset" syncable="YES" codeGenerationType="category">
+        <attribute name="romID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="storedCategory" attributeType="String"/>
+        <attribute name="storedObjectID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="rom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ROM" inverseName="storedPresets" inverseEntity="ROM"/>
+    </entity>
     <entity name="ROM" representedClassName=".ROM" syncable="YES" codeGenerationType="category">
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="instrumentCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="presetCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="device" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="roms" inverseEntity="Device"/>
+        <relationship name="storedPresets" toMany="YES" deletionRule="Cascade" destinationEntity="Preset" inverseName="rom" inverseEntity="Preset"/>
     </entity>
     <entity name="User" representedClassName=".User" syncable="YES" codeGenerationType="category">
         <attribute name="currentDeviceUUID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -24,7 +32,8 @@
     </entity>
     <elements>
         <element name="Device" positionX="-63" positionY="0" width="128" height="179"/>
+        <element name="Preset" positionX="-54" positionY="81" width="128" height="104"/>
+        <element name="ROM" positionX="-63" positionY="63" width="128" height="104"/>
         <element name="User" positionX="-63" positionY="54" width="128" height="59"/>
-        <element name="ROM" positionX="-63" positionY="63" width="128" height="89"/>
     </elements>
 </model>
