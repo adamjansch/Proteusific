@@ -13,6 +13,7 @@ extension Proteus {
 	enum Error: Swift.Error, Identifiable {
 		case endpointInfoNil
 		case incompatibleSysExMessage(data: [MIDIByte])
+		case invalidObjectType(Proteus.ObjectType)
 		case other(error: Swift.Error)
 		case selfNil
 		case sysExMessageCreationFailed(sysExMessage: SysExMessage)
@@ -27,6 +28,8 @@ extension Proteus {
 				return "Endpoint Info Nil"
 			case .incompatibleSysExMessage:
 				return "Incompatible SysEx Message"
+			case .invalidObjectType:
+				return "Invalid Object Type"
 			case .other:
 				return "Other"
 			case .selfNil:
@@ -47,6 +50,8 @@ extension Proteus {
 				return "Endpoint Info Nil"
 			case .incompatibleSysExMessage(let data):
 				return "Incompatible SysEx message received: \(data)"
+			case .invalidObjectType(let objectType):
+				return "Invalid Object Type: \(objectType)"
 			case .other(let error):
 				return "Other error encountered: \(error.localizedDescription)"
 			case .selfNil:
@@ -66,6 +71,8 @@ extension Proteus {
 				return "Endpoint Info could not be found."
 			case .incompatibleSysExMessage:
 				return "Incompatible System Exclusive message received."
+			case .invalidObjectType:
+				return "Invalid Object Type encountered."
 			case .sysExMessageCreationFailed:
 				return "System Exclusive message creation failed."
 			case .sysExMessageObjectTypeNotFound:
@@ -195,7 +202,7 @@ extension Proteus {
 	}
 	
 	enum SIMM: Int32 {
-		case none = 			0
+		case unknown = 			0
 		case composer = 		1
 		case holyGrailPiano = 	2
 		case protozoa = 		3
@@ -227,7 +234,7 @@ extension Proteus {
 		
 		var name: String {
 			switch self {
-			case .none:
+			case .unknown:
 				return ""
 			case .composer:
 				return "Composer"

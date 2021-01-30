@@ -13,7 +13,12 @@ final public class ROM: NSManagedObject {
 	// MARK: - PROPERTIES
 	// MARK: Computed properties
 	var simm: Proteus.SIMM {
-		return Proteus.SIMM(rawValue: id) ?? .none
+		return Proteus.SIMM(rawValue: id) ?? .unknown
+	}
+	
+	var presets: [Preset] {
+		let presetSortDescriptor = NSSortDescriptor(keyPath: \Preset.storedObjectID, ascending: true)
+		return storedPresets?.sortedArray(using: [presetSortDescriptor]) as? [Preset] ?? []
 	}
 	
 	
