@@ -78,6 +78,11 @@ final public class Device: NSManagedObject {
 		}
 	}
 	
+	var roms: [ROM] {
+		let romSortDescriptor = NSSortDescriptor(keyPath: \ROM.id, ascending: true)
+		return storedROMs?.sortedArray(using: [romSortDescriptor]) as? [ROM] ?? []
+	}
+	
 	var name: String {
 		return customName ?? familyMember.name
 	}

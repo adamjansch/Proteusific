@@ -10,7 +10,7 @@
         <attribute name="storedOutEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
         <attribute name="userPresetCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="roms" toMany="YES" deletionRule="Cascade" destinationEntity="ROM" inverseName="device" inverseEntity="ROM"/>
+        <relationship name="storedROMs" toMany="YES" deletionRule="Cascade" destinationEntity="ROM" inverseName="device" inverseEntity="ROM"/>
     </entity>
     <entity name="Preset" representedClassName=".Preset" syncable="YES" codeGenerationType="category">
         <attribute name="romID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -23,7 +23,7 @@
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="instrumentCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="presetCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="device" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="roms" inverseEntity="Device"/>
+        <relationship name="device" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="storedROMs" inverseEntity="Device"/>
         <relationship name="storedPresets" toMany="YES" deletionRule="Cascade" destinationEntity="Preset" inverseName="rom" inverseEntity="Preset"/>
     </entity>
     <entity name="User" representedClassName=".User" syncable="YES" codeGenerationType="category">
