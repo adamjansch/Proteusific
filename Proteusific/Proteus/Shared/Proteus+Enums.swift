@@ -199,6 +199,10 @@ extension Proteus {
 		case strings =		"str"
 		case synthesizer =	"syn"
 		case vocals =		"vox"
+		
+		var title: String {
+			return rawValue
+		}
 	}
 	
 	enum SIMM: Int32 {

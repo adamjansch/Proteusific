@@ -31,34 +31,23 @@ struct PresetGrid: View {
 				
 			case false:
 				ScrollView(.vertical) {
-					let columns: [GridItem] = [GridItem(.flexible(), spacing: 16.0)]
+					let columnCount = (UIDevice.current.userInterfaceIdiom == .pad) ? 3 : 2
+					let columns: [GridItem] = Array(repeating: .init(), count: columnCount)
 					
-					LazyVGrid(columns: columns, alignment: .leading) {
+					LazyVGrid(columns: columns, alignment: .leading, spacing: 8.0) {
 						ForEach(currentDeviceROMs) { rom in
-							Section(header: Text("ROM 1 - " + rom.simm.name).font(.title)) {
-								let retrievePresetsAction = {
-									retrievePresets(for: rom)
-								}
-								
-								switch rom.presets.isEmpty {
-								case true:
-									Button(action: retrievePresetsAction, label: {
-										HStack {
-											Image(systemName: "square.and.arrow.down.fill")
-												.font(.system(size: 48.0))
-											
-											VStack(alignment: .leading) {
-												Text("Retrieve presets from").font(.system(size: 21.0))
-												Text(rom.simm.name).font(.system(size: 32.0))
-											}
+							let retrievePresetsAction = {
+								retrievePresets(for: rom)
+							}
+							
+							Section(header: PresetGridSectionHeader(rom: rom, retrievePresetsAction: retrievePresetsAction)) {
+								ForEach(rom.presets) { preset in
+									PresetGridCell(preset: preset)
+										.onTapGesture {
+											print("YO BRUH \(preset.title ?? "")")
 										}
-									})
-									.padding(EdgeInsets(top: 16.0, leading: 4.0, bottom: 16.0, trailing: 4.0))
-									
-								case false:
-									ForEach(rom.presets) { preset in
-										PresetGridCell(preset: preset)
-									}
+										.background(Color(.systemGray5))
+										.cornerRadius(8.0)
 								}
 							}
 						}
@@ -91,7 +80,7 @@ struct PresetGrid: View {
 						
 						for configurationROM in hardwareConfiguration.roms {
 							let rom = ROM(rom: configurationROM)
-							currentDevice.addToRoms(rom)
+							currentDevice.addToStoredROMs(rom)
 						}
 						
 						currentDevice.userPresetCount = Int32(hardwareConfiguration.userPresetCount)
