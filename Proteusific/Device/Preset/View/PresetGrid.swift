@@ -43,9 +43,6 @@ struct PresetGrid: View {
 							Section(header: PresetGridSectionHeader(rom: rom, retrievePresetsAction: retrievePresetsAction)) {
 								ForEach(rom.presets) { preset in
 									PresetGridCell(preset: preset)
-										.onTapGesture {
-											print("YO BRUH \(preset.title ?? "")")
-										}
 										.background(Color(.systemGray5))
 										.cornerRadius(8.0)
 								}
