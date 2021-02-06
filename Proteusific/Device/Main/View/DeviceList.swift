@@ -36,8 +36,10 @@ struct DeviceList: View {
 						.foregroundColor(Color(foregroundColor))
 						.font(.system(size: 21.0))
 					
-					NavigationLink(destination: DeviceDetailView(), isActive: .constant(true)) {
-						EmptyView()
+					if UIDevice.current.userInterfaceIdiom == .pad {
+						NavigationLink(destination: DeviceDetailView(), isActive: .constant(true)) {
+							EmptyView()
+						}
 					}
 				}
 				
