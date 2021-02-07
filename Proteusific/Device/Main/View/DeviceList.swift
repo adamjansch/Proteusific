@@ -45,9 +45,10 @@ struct DeviceList: View {
 				
 				List {
 					ForEach(devices) { device in
-						NavigationLink(destination: DeviceDetailView()) {
+						NavigationLink(destination: MultiDetailView(device: device)) {
 							DeviceRow(device: device)
 						}
+						.isDetailLink(false)
 					}
 				}
 				.listStyle(InsetGroupedListStyle())
