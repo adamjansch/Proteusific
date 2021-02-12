@@ -122,4 +122,12 @@ extension Proteus {
 		pendingSysExMessages = sysExMessages
 		servicePendingSysExMessages(responseAction: responseAction)
 	}
+	
+	func requestCurrentSetupDump(responseAction: @escaping MIDIResponseAction) {
+		print("Attempting setup dump retrieval...")
+		
+		let sysExMessage: SysExMessage = .currentSetupDump(responseAction: responseAction)
+		pendingSysExMessages.append(sysExMessage)
+		servicePendingSysExMessages(responseAction: responseAction)
+	}
 }

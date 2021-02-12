@@ -141,6 +141,8 @@ extension Proteus {
 extension Proteus {
 	// MARK: - HARDWARE CONFIGURATION
 	struct HardwareConfiguation {
+		// MARK: - PROPERTIES
+		// MARK: Stored properties
 		let userPresetCount: MIDIWord
 		let roms: [ROM]
 		

@@ -20,7 +20,7 @@ struct MultiDetailView: View {
 			
 		case .none:
 			let retrieveCurrentMultiAction = {
-				print("Retrieving Current Multi...")
+				retrieveCurrentSetupDump()
 			}
 			
 			VStack {
@@ -39,6 +39,29 @@ struct MultiDetailView: View {
 				Spacer()
 			}
 		}
+	}
+	
+	// MARK: - METHODS
+	// MARK: MIDI methods
+	private func retrieveCurrentSetupDump() {
+		Proteus.shared.requestCurrentSetupDump(responseAction: { result in
+			DispatchQueue.main.async {
+				do {
+					switch result {
+					case .failure(let error):
+						throw error
+						
+					case .success(let payload):
+						let currentSetupDump = try Proteus.CurrentSetupDump(data: payload.midiResponse)
+						print(currentSetupDump)
+						
+					}
+					
+				} catch {
+					print("Error: \(error)")
+				}
+			}
+		})
 	}
 }
 
