@@ -9,14 +9,17 @@ import SwiftUI
 
 struct MultiDetailView: View {
 	// MARK: - PROPERTIES
-	// MARK: Wrapper properties
+	// MARK: Stored properties
 	var device: Device
+	
+	// MARK: Wrapper properties
+	@Environment(\.managedObjectContext) private var viewContext
 	
 	// MARK: View properties
 	var body: some View {
 		switch device.currentMulti {
 		case .some(let currentMulti):
-			EmptyView()
+			Text("Multi: \(currentMulti.masterClockTempo)")
 			
 		case .none:
 			let retrieveCurrentMultiAction = {
@@ -53,8 +56,10 @@ struct MultiDetailView: View {
 						
 					case .success(let payload):
 						let currentSetupDump = try Proteus.CurrentSetupDump(data: payload.midiResponse)
-						print(currentSetupDump)
+						let multi = try Multi(currentSetupDump: currentSetupDump)
+						device.currentMulti = multi
 						
+						try viewContext.save()
 					}
 					
 				} catch {

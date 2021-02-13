@@ -138,16 +138,16 @@ extension Proteus.CurrentSetupDump {
 		// MARK: Map enums
 		private enum DataMap: Int, DataMappable {
 			case clockTempo
-			case fxBypass
+			case fxEnabled
 			case transpose
 			case tune
 			case bendRange
 			case velocityCurve
 			case outputFormat
-			case knobQuickEdit
-			case knobDeepEdit
-			case presetEditAllLayers
-			case demoModeEnable
+			case knobsQuickEdit
+			case knobsDeepEdit
+			case editAllLayers
+			case demoModeEnabled
 		}
 		
 		
@@ -155,12 +155,12 @@ extension Proteus.CurrentSetupDump {
 		// MARK: Stored properties
 		let bendRange: MIDIWord
 		let clockTempo: MIDIWord
-		let demoModeEnable: Bool
-		let fxBypass: Bool
-		let knobDeepEdit: Bool
-		let knobQuickEdit: Bool
+		let demoModeEnabled: Bool
+		let fxEnabled: Bool
+		let knobsDeepEdit: Bool
+		let knobsQuickEdit: Bool
 		let outputFormat: MIDIWord
-		let presetEditAllLayers: Bool
+		let editAllLayers: Bool
 		let transpose: MIDIWord
 		let tune: MIDIWord
 		let velocityCurve: MIDIWord
@@ -172,7 +172,7 @@ extension Proteus.CurrentSetupDump {
 			/*
 			BYTES (by index)
 			0:	Master Clock Tempo
-			1:	Master FX Bypass
+			1:	Master FX Mode
 			2:	Master Transpose
 			3:	Master Tune
 			4:	Master Bend Range
@@ -190,12 +190,12 @@ extension Proteus.CurrentSetupDump {
 			
 			bendRange = try DataMap.bendRange.midiWord(from: midiBytes)
 			clockTempo = try DataMap.clockTempo.midiWord(from: midiBytes)
-			demoModeEnable = try DataMap.demoModeEnable.bool(from: midiBytes)
-			fxBypass = try DataMap.fxBypass.bool(from: midiBytes)
-			knobDeepEdit = try DataMap.knobDeepEdit.bool(from: midiBytes)
-			knobQuickEdit = try DataMap.knobQuickEdit.bool(from: midiBytes)
+			demoModeEnabled = try DataMap.demoModeEnabled.bool(from: midiBytes)
+			fxEnabled = try DataMap.fxEnabled.bool(from: midiBytes)
+			knobsDeepEdit = try DataMap.knobsDeepEdit.bool(from: midiBytes)
+			knobsQuickEdit = try DataMap.knobsQuickEdit.bool(from: midiBytes)
 			outputFormat = try DataMap.outputFormat.midiWord(from: midiBytes)
-			presetEditAllLayers = try DataMap.presetEditAllLayers.bool(from: midiBytes)
+			editAllLayers = try DataMap.editAllLayers.bool(from: midiBytes)
 			transpose = try DataMap.transpose.midiWord(from: midiBytes)
 			tune = try DataMap.tune.midiWord(from: midiBytes)
 			velocityCurve = try DataMap.velocityCurve.midiWord(from: midiBytes)
@@ -207,53 +207,54 @@ extension Proteus.CurrentSetupDump {
 		// MARK: Map enums
 		private enum DataMap: Int, DataMappable {
 			case mode
-			case modeChangeMasterMIDIID
-			case aControl
-			case bControl
-			case cControl
-			case dControl
-			case eControl
-			case fControl
-			case gControl
-			case hControl
-			case fs1Control
-			case fs2Control
-			case fs3Control
-			case tempoCtrlUp
-			case tempoCtrlDown
-			case knobOut
-			case packetDelay
-			case iControl
-			case jControl
-			case kControl
-			case lControl
+			case modeChangeAccepted
+			case realtimeControllerA
+			case realtimeControllerB
+			case realtimeControllerC
+			case realtimeControllerD
+			case realtimeControllerE
+			case realtimeControllerF
+			case realtimeControllerG
+			case realtimeControllerH
+			case footswitchController1
+			case footswitchController2
+			case footswitchController3
+			case tempoControllerUp
+			case tempoControllerDown
+			case knobsMIDIOut
+			case sysexPacketDelay
+			case realtimeControllerI
+			case realtimeControllerJ
+			case realtimeControllerK
+			case realtimeControllerL
 		}
 		
 		
 		// MARK: - PROPERTIES
 		// MARK: Stored properties
-		let fs1Control: MIDIWord
-		let fs2Control: MIDIWord
-		let fs3Control: MIDIWord
-		let knobOut: MIDIWord
+		let knobsMIDIOut: Bool
 		let mode: MIDIWord
-		let modeChangeMasterMIDIID: MIDIWord
-		let packetDelay: MIDIWord
-		let tempoCtrlDown: MIDIWord
-		let tempoCtrlUp: MIDIWord
+		let modeChangeAccepted: Bool
+		let sysexPacketDelay: MIDIWord
+		let tempoControllerDown: MIDIWord
+		let tempoControllerUp: MIDIWord
 		
-		let aControl: MIDIWord
-		let bControl: MIDIWord
-		let cControl: MIDIWord
-		let dControl: MIDIWord
-		let eControl: MIDIWord
-		let fControl: MIDIWord
-		let gControl: MIDIWord
-		let hControl: MIDIWord
-		let iControl: MIDIWord
-		let jControl: MIDIWord
-		let kControl: MIDIWord
-		let lControl: MIDIWord
+		let realtimeControllerA: MIDIWord
+		let realtimeControllerB: MIDIWord
+		let realtimeControllerC: MIDIWord
+		let realtimeControllerD: MIDIWord
+		let realtimeControllerE: MIDIWord
+		let realtimeControllerF: MIDIWord
+		let realtimeControllerG: MIDIWord
+		let realtimeControllerH: MIDIWord
+		let realtimeControllerI: MIDIWord
+		let realtimeControllerJ: MIDIWord
+		let realtimeControllerK: MIDIWord
+		let realtimeControllerL: MIDIWord
+		
+		let footswitchController1: MIDIWord
+		let footswitchController2: MIDIWord
+		let footswitchController3: MIDIWord
 		
 		
 		// MARK: - METHODS
@@ -287,28 +288,29 @@ extension Proteus.CurrentSetupDump {
 				throw Proteus.Error.insufficientMIDIBytes(midiBytes: midiBytes, parameterCount: parameterCount)
 			}
 			
-			fs1Control = try DataMap.fs1Control.midiWord(from: midiBytes)
-			fs2Control = try DataMap.fs2Control.midiWord(from: midiBytes)
-			fs3Control = try DataMap.fs3Control.midiWord(from: midiBytes)
-			knobOut = try DataMap.knobOut.midiWord(from: midiBytes)
+			knobsMIDIOut = try DataMap.knobsMIDIOut.bool(from: midiBytes)
 			mode = try DataMap.mode.midiWord(from: midiBytes)
-			modeChangeMasterMIDIID = try DataMap.modeChangeMasterMIDIID.midiWord(from: midiBytes)
-			packetDelay = try DataMap.packetDelay.midiWord(from: midiBytes)
-			tempoCtrlDown = try DataMap.tempoCtrlDown.midiWord(from: midiBytes)
-			tempoCtrlUp = try DataMap.tempoCtrlUp.midiWord(from: midiBytes)
+			modeChangeAccepted = try DataMap.modeChangeAccepted.bool(from: midiBytes)
+			sysexPacketDelay = try DataMap.sysexPacketDelay.midiWord(from: midiBytes)
+			tempoControllerDown = try DataMap.tempoControllerDown.midiWord(from: midiBytes)
+			tempoControllerUp = try DataMap.tempoControllerUp.midiWord(from: midiBytes)
 			
-			aControl = try DataMap.aControl.midiWord(from: midiBytes)
-			bControl = try DataMap.bControl.midiWord(from: midiBytes)
-			cControl = try DataMap.cControl.midiWord(from: midiBytes)
-			dControl = try DataMap.dControl.midiWord(from: midiBytes)
-			eControl = try DataMap.eControl.midiWord(from: midiBytes)
-			fControl = try DataMap.fControl.midiWord(from: midiBytes)
-			gControl = try DataMap.gControl.midiWord(from: midiBytes)
-			hControl = try DataMap.hControl.midiWord(from: midiBytes)
-			iControl = try DataMap.iControl.midiWord(from: midiBytes)
-			jControl = try DataMap.jControl.midiWord(from: midiBytes)
-			kControl = try DataMap.kControl.midiWord(from: midiBytes)
-			lControl = try DataMap.lControl.midiWord(from: midiBytes)
+			realtimeControllerA = try DataMap.realtimeControllerA.midiWord(from: midiBytes)
+			realtimeControllerB = try DataMap.realtimeControllerB.midiWord(from: midiBytes)
+			realtimeControllerC = try DataMap.realtimeControllerC.midiWord(from: midiBytes)
+			realtimeControllerD = try DataMap.realtimeControllerD.midiWord(from: midiBytes)
+			realtimeControllerE = try DataMap.realtimeControllerE.midiWord(from: midiBytes)
+			realtimeControllerF = try DataMap.realtimeControllerF.midiWord(from: midiBytes)
+			realtimeControllerG = try DataMap.realtimeControllerG.midiWord(from: midiBytes)
+			realtimeControllerH = try DataMap.realtimeControllerH.midiWord(from: midiBytes)
+			realtimeControllerI = try DataMap.realtimeControllerI.midiWord(from: midiBytes)
+			realtimeControllerJ = try DataMap.realtimeControllerJ.midiWord(from: midiBytes)
+			realtimeControllerK = try DataMap.realtimeControllerK.midiWord(from: midiBytes)
+			realtimeControllerL = try DataMap.realtimeControllerL.midiWord(from: midiBytes)
+			
+			footswitchController1 = try DataMap.footswitchController1.midiWord(from: midiBytes)
+			footswitchController2 = try DataMap.footswitchController2.midiWord(from: midiBytes)
+			footswitchController3 = try DataMap.footswitchController3.midiWord(from: midiBytes)
 		}
 	}
 	
@@ -319,19 +321,19 @@ extension Proteus.CurrentSetupDump {
 			case fxAAlgorithm
 			case fxADecay
 			case fxAHFDamp
-			case fxAToB
-			case fxAMixMain
-			case fxAMixSub1
-			case fxAMixSub2
+			case fxBToA
+			case fxASend1
+			case fxASend2
+			case fxASend3
 			case fxBAlgorithm
 			case fxBFeedback
 			case fxBLFORate
 			case fxBDelay
-			case fxBMixMain
-			case fxBMixSub1
-			case fxBMixSub2
-			case fxAMixSub3
-			case fxBMixSub3
+			case fxBSend1
+			case fxBSend2
+			case fxBSend3
+			case fxASend4
+			case fxBSend4
 		}
 		
 		
@@ -340,20 +342,20 @@ extension Proteus.CurrentSetupDump {
 		let fxAAlgorithm: MIDIWord
 		let fxADecay: MIDIWord
 		let fxAHFDamp: MIDIWord
-		let fxAToB: MIDIWord
-		let fxAMixMain: MIDIWord
-		let fxAMixSub1: MIDIWord
-		let fxAMixSub2: MIDIWord
-		let fxAMixSub3: MIDIWord
+		let fxBToA: MIDIWord
+		let fxASend1: MIDIWord
+		let fxASend2: MIDIWord
+		let fxASend3: MIDIWord
+		let fxASend4: MIDIWord
 		
 		let fxBAlgorithm: MIDIWord
 		let fxBDelay: MIDIWord
 		let fxBFeedback: MIDIWord
 		let fxBLFORate: MIDIWord
-		let fxBMixMain: MIDIWord
-		let fxBMixSub1: MIDIWord
-		let fxBMixSub2: MIDIWord
-		let fxBMixSub3: MIDIWord
+		let fxBSend1: MIDIWord
+		let fxBSend2: MIDIWord
+		let fxBSend3: MIDIWord
+		let fxBSend4: MIDIWord
 		
 		
 		// MARK: - METHODS
@@ -385,20 +387,20 @@ extension Proteus.CurrentSetupDump {
 			fxAAlgorithm = try DataMap.fxAAlgorithm.midiWord(from: midiBytes)
 			fxADecay = try DataMap.fxADecay.midiWord(from: midiBytes)
 			fxAHFDamp = try DataMap.fxAHFDamp.midiWord(from: midiBytes)
-			fxAToB = try DataMap.fxAToB.midiWord(from: midiBytes)
-			fxAMixMain = try DataMap.fxAMixMain.midiWord(from: midiBytes)
-			fxAMixSub1 = try DataMap.fxAMixSub1.midiWord(from: midiBytes)
-			fxAMixSub2 = try DataMap.fxAMixSub2.midiWord(from: midiBytes)
-			fxAMixSub3 = try DataMap.fxAMixSub3.midiWord(from: midiBytes)
+			fxBToA = try DataMap.fxBToA.midiWord(from: midiBytes)
+			fxASend1 = try DataMap.fxASend1.midiWord(from: midiBytes)
+			fxASend2 = try DataMap.fxASend2.midiWord(from: midiBytes)
+			fxASend3 = try DataMap.fxASend3.midiWord(from: midiBytes)
+			fxASend4 = try DataMap.fxASend4.midiWord(from: midiBytes)
 			
 			fxBAlgorithm = try DataMap.fxBAlgorithm.midiWord(from: midiBytes)
 			fxBDelay = try DataMap.fxBDelay.midiWord(from: midiBytes)
 			fxBFeedback = try DataMap.fxBFeedback.midiWord(from: midiBytes)
 			fxBLFORate = try DataMap.fxBLFORate.midiWord(from: midiBytes)
-			fxBMixMain = try DataMap.fxBMixMain.midiWord(from: midiBytes)
-			fxBMixSub1 = try DataMap.fxBMixSub1.midiWord(from: midiBytes)
-			fxBMixSub2 = try DataMap.fxBMixSub2.midiWord(from: midiBytes)
-			fxBMixSub3 = try DataMap.fxBMixSub3.midiWord(from: midiBytes)
+			fxBSend1 = try DataMap.fxBSend1.midiWord(from: midiBytes)
+			fxBSend2 = try DataMap.fxBSend2.midiWord(from: midiBytes)
+			fxBSend3 = try DataMap.fxBSend3.midiWord(from: midiBytes)
+			fxBSend4 = try DataMap.fxBSend4.midiWord(from: midiBytes)
 		}
 	}
 	
@@ -407,16 +409,16 @@ extension Proteus.CurrentSetupDump {
 		// MARK: Map enums
 		private enum DataMap: Int, DataMappable {
 			case multimodeBasicChannel
-			case multimodeFXCtrlChannel
-			case multimodeTempoCtrlChannel
+			case multimodeFXControlChannel
+			case multimodeTempoControlChannel
 		}
 		
 		
 		// MARK: - PROPERTIES
 		// MARK: Stored properties
 		let multimodeBasicChannel: MIDIWord
-		let multimodeFXCtrlChannel: MIDIWord
-		let multimodeTempoCtrlChannel: MIDIWord
+		let multimodeFXControlChannel: MIDIWord
+		let multimodeTempoControlChannel: MIDIWord
 		
 		
 		// MARK: - METHODS
@@ -433,8 +435,8 @@ extension Proteus.CurrentSetupDump {
 			}
 			
 			multimodeBasicChannel = try DataMap.multimodeBasicChannel.midiWord(from: midiBytes)
-			multimodeFXCtrlChannel = try DataMap.multimodeFXCtrlChannel.midiWord(from: midiBytes)
-			multimodeTempoCtrlChannel = try DataMap.multimodeTempoCtrlChannel.midiWord(from: midiBytes)
+			multimodeFXControlChannel = try DataMap.multimodeFXControlChannel.midiWord(from: midiBytes)
+			multimodeTempoControlChannel = try DataMap.multimodeTempoControlChannel.midiWord(from: midiBytes)
 		}
 	}
 	

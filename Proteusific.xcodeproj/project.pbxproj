@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		37071A8325A25A370014B8B3 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071A8225A25A370014B8B3 /* DeviceDetailView.swift */; };
 		37071AA125A321F60014B8B3 /* PresetGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071AA025A321F60014B8B3 /* PresetGrid.swift */; };
-		37071AAB25A322F30014B8B3 /* MultiGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071AAA25A322F30014B8B3 /* MultiGrid.swift */; };
 		37071AB525A3232D0014B8B3 /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37071AB425A3232D0014B8B3 /* MasterView.swift */; };
 		370DB68125991900007FB5DC /* DeviceDiscoveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */; };
 		37148E8125B379AA006AEE32 /* MIDI+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37148E8025B379AA006AEE32 /* MIDI+Utilities.swift */; };
@@ -50,6 +49,7 @@
 		37DF29ED25D2FFC2003F2FF7 /* Proteus+CurrentSetupDump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DF29EC25D2FFC2003F2FF7 /* Proteus+CurrentSetupDump.swift */; };
 		37DF29F825D32443003F2FF7 /* Bool+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DF29F725D32443003F2FF7 /* Bool+Utilities.swift */; };
 		37DF29FE25D5B86C003F2FF7 /* DataMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DF29FD25D5B86C003F2FF7 /* DataMappable.swift */; };
+		37DF2A2525D715B7003F2FF7 /* Part+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DF2A2425D715B7003F2FF7 /* Part+CoreDataClass.swift */; };
 		37E36B372599C1BE00E056D0 /* DeviceDiscoveryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E36B362599C1BE00E056D0 /* DeviceDiscoveryListModel.swift */; };
 		37E36B4E259A7F7800E056D0 /* DeviceDiscoveryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E36B4D259A7F7800E056D0 /* DeviceDiscoveryRow.swift */; };
 		37EAD26325A0D25700FB47FD /* AppInfoAcknowledgementsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EAD26225A0D25700FB47FD /* AppInfoAcknowledgementsList.swift */; };
@@ -78,7 +78,6 @@
 /* Begin PBXFileReference section */
 		37071A8225A25A370014B8B3 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		37071AA025A321F60014B8B3 /* PresetGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetGrid.swift; sourceTree = "<group>"; };
-		37071AAA25A322F30014B8B3 /* MultiGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGrid.swift; sourceTree = "<group>"; };
 		37071AB425A3232D0014B8B3 /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
 		370DB68025991900007FB5DC /* DeviceDiscoveryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryList.swift; sourceTree = "<group>"; };
 		37148E8025B379AA006AEE32 /* MIDI+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDI+Utilities.swift"; sourceTree = "<group>"; };
@@ -125,6 +124,7 @@
 		37DF29EC25D2FFC2003F2FF7 /* Proteus+CurrentSetupDump.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Proteus+CurrentSetupDump.swift"; sourceTree = "<group>"; };
 		37DF29F725D32443003F2FF7 /* Bool+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Utilities.swift"; sourceTree = "<group>"; };
 		37DF29FD25D5B86C003F2FF7 /* DataMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMappable.swift; sourceTree = "<group>"; };
+		37DF2A2425D715B7003F2FF7 /* Part+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Part+CoreDataClass.swift"; sourceTree = "<group>"; };
 		37E36B362599C1BE00E056D0 /* DeviceDiscoveryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryListModel.swift; sourceTree = "<group>"; };
 		37E36B4D259A7F7800E056D0 /* DeviceDiscoveryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryRow.swift; sourceTree = "<group>"; };
 		37EAD26225A0D25700FB47FD /* AppInfoAcknowledgementsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoAcknowledgementsList.swift; sourceTree = "<group>"; };
@@ -203,22 +203,6 @@
 				37071AA025A321F60014B8B3 /* PresetGrid.swift */,
 				37C49E1825C7353E00267D9C /* PresetGridSectionHeader.swift */,
 				37C49E0D25C5F71000267D9C /* PresetGridCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		37071AA825A322C80014B8B3 /* Multi */ = {
-			isa = PBXGroup;
-			children = (
-				37071AA925A322D50014B8B3 /* View */,
-			);
-			path = Multi;
-			sourceTree = "<group>";
-		};
-		37071AA925A322D50014B8B3 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				37071AAA25A322F30014B8B3 /* MultiGrid.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -319,6 +303,9 @@
 				37569BB125A23EB100D1D3E9 /* User */,
 				37CE5872258AAFA6000411FC /* Device */,
 				37C2DCD725D0107000918F30 /* Multi */,
+				37DF2A0525D71520003F2FF7 /* Part */,
+				37071A9325A321830014B8B3 /* Preset */,
+				37DF2A3225D719B1003F2FF7 /* ROM */,
 				37B0B1B72581361F0031F765 /* Toolbox */,
 				374B2CD0257D006D00BE9ACA /* Assets.xcassets */,
 				374B2CDA257D006D00BE9ACA /* Info.plist */,
@@ -464,8 +451,6 @@
 			children = (
 				37071A9025A3213C0014B8B3 /* Main */,
 				37071A9225A321610014B8B3 /* Discovery */,
-				37071AA825A322C80014B8B3 /* Multi */,
-				37071A9325A321830014B8B3 /* Preset */,
 				37071AB225A3230C0014B8B3 /* Master */,
 			);
 			path = Device;
@@ -475,7 +460,6 @@
 			isa = PBXGroup;
 			children = (
 				37CE5881258AB06F000411FC /* Device+CoreDataClass.swift */,
-				377DBAD925A8FE1A0091183F /* ROM+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -486,6 +470,38 @@
 				37DF29FD25D5B86C003F2FF7 /* DataMappable.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		37DF2A0525D71520003F2FF7 /* Part */ = {
+			isa = PBXGroup;
+			children = (
+				37DF2A0625D7152A003F2FF7 /* Model */,
+			);
+			path = Part;
+			sourceTree = "<group>";
+		};
+		37DF2A0625D7152A003F2FF7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37DF2A2425D715B7003F2FF7 /* Part+CoreDataClass.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37DF2A3225D719B1003F2FF7 /* ROM */ = {
+			isa = PBXGroup;
+			children = (
+				37DF2A3325D719C0003F2FF7 /* Model */,
+			);
+			path = ROM;
+			sourceTree = "<group>";
+		};
+		37DF2A3325D719C0003F2FF7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				377DBAD925A8FE1A0091183F /* ROM+CoreDataClass.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		37E36B352599C19400E056D0 /* View Model */ = {
@@ -689,9 +705,9 @@
 				3756BE8425A11AC800142EFB /* AppInfoBannerRow.swift in Sources */,
 				37148EEE25BDFEAA006AEE32 /* ProteusObject.swift in Sources */,
 				37C2DCED25D0162700918F30 /* Multi+CoreDataClass.swift in Sources */,
+				37DF2A2525D715B7003F2FF7 /* Part+CoreDataClass.swift in Sources */,
 				3795813B259FBF580002A00A /* SegmentedActivityIndicator.swift in Sources */,
 				377DBADA25A8FE1A0091183F /* ROM+CoreDataClass.swift in Sources */,
-				37071AAB25A322F30014B8B3 /* MultiGrid.swift in Sources */,
 				37E36B372599C1BE00E056D0 /* DeviceDiscoveryListModel.swift in Sources */,
 				37DF29ED25D2FFC2003F2FF7 /* Proteus+CurrentSetupDump.swift in Sources */,
 				37DF29FE25D5B86C003F2FF7 /* DataMappable.swift in Sources */,

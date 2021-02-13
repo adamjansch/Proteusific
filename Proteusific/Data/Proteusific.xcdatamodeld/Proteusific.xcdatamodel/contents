@@ -14,7 +14,70 @@
         <relationship name="storedROMs" toMany="YES" deletionRule="Cascade" destinationEntity="ROM" inverseName="device" inverseEntity="ROM"/>
     </entity>
     <entity name="Multi" representedClassName=".Multi" syncable="YES" codeGenerationType="category">
+        <attribute name="footswitchController1" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="footswitchController2" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="footswitchController3" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxAAlgorithmID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxADecay" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxAHFDamp" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxASend1" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxASend2" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxASend3" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxASend4" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxBAlgorithmID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxBDelay" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxBFeedback" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxBLFORate" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxBSend1" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxBSend2" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxBSend3" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxBSend4" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxBToA" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fxEnabled" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="knobsDeepEdit" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="knobsMIDIOut" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="knobsQuickEdit" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="masterBendRange" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="masterClockTempo" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="masterDemoModeEnabled" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="masterEditAllLayers" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="masterOutputFormat" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="masterTranspose" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="masterTune" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="masterVelocityCurve" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="midiModeChangeAccepted" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="midiModeID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="multimodeBasicChannel" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="multimodeFXControlChannel" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="multimodeTempoControlChannel" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerA" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerB" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerC" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerD" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerE" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerF" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerG" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerH" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerI" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerJ" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerK" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realtimeControllerL" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sysexPacketDelay" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="tempoControllerDown" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="tempoControllerUp" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="device" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="currentMulti" inverseEntity="Device"/>
+        <relationship name="parts" toMany="YES" deletionRule="Cascade" destinationEntity="Part" inverseName="multi" inverseEntity="Part"/>
+    </entity>
+    <entity name="Part" representedClassName=".Part" syncable="YES" codeGenerationType="category">
+        <attribute name="channelEnable" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="index" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="mixOutput" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="pan" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="presetID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="receiveProgramChange" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="romID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="volume" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="multi" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Multi" inverseName="parts" inverseEntity="Multi"/>
     </entity>
     <entity name="Preset" representedClassName=".Preset" syncable="YES" codeGenerationType="category">
         <attribute name="romID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -36,9 +99,10 @@
     </entity>
     <elements>
         <element name="Device" positionX="-63" positionY="0" width="128" height="194"/>
+        <element name="Multi" positionX="-54" positionY="90" width="128" height="824"/>
+        <element name="Part" positionX="-54" positionY="90" width="128" height="164"/>
         <element name="Preset" positionX="-54" positionY="81" width="128" height="104"/>
         <element name="ROM" positionX="-63" positionY="63" width="128" height="104"/>
         <element name="User" positionX="-63" positionY="54" width="128" height="59"/>
-        <element name="Multi" positionX="-54" positionY="90" width="128" height="44"/>
     </elements>
 </model>

@@ -23,6 +23,19 @@ final public class ROM: NSManagedObject {
 	
 	
 	// MARK: - METHODS
+	// MARK: Type methods
+	static func fetch(with romID: Int16) throws -> ROM? {
+		guard let entityName = entity().name else {
+			return nil
+		}
+		
+		let romFetchRequest = NSFetchRequest<ROM>(entityName: entityName)
+		let romFetchPredicate = NSPredicate(format: "storedObjectID == %@", romID as CVarArg)
+		romFetchRequest.predicate = romFetchPredicate
+		
+		return try PersistenceController.shared.container.viewContext.fetch(romFetchRequest).first
+	}
+	
 	// MARK: Initialisers
 	convenience init(rom: Proteus.HardwareConfiguation.ROM) {
 		self.init(context: PersistenceController.shared.container.viewContext)

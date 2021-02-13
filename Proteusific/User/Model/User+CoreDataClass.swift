@@ -85,3 +85,9 @@ final public class User: NSManagedObject {
 		}
 	}
 }
+
+extension User {
+	enum Error: Swift.Error {
+		case currentDeviceNil
+	}
+}
