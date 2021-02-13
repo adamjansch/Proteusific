@@ -56,7 +56,7 @@ struct DeviceDetailView: View {
 					ForEach(Tab.allCases) { tab in
 						switch tab {
 						case .multis:
-							MultiGrid()
+							MasterView()
 								.tabItem {
 									Image(systemName: tab.imageSystemName)
 									Text(tab.title)

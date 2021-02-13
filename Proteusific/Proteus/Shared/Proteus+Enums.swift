@@ -13,6 +13,7 @@ extension Proteus {
 	enum Error: Swift.Error, Identifiable {
 		case endpointInfoNil
 		case incompatibleSysExMessage(data: [MIDIByte])
+		case insufficientMIDIBytes(midiBytes: [MIDIByte], parameterCount: MIDIWord)
 		case invalidObjectType(Proteus.ObjectType)
 		case other(error: Swift.Error)
 		case selfNil
@@ -28,6 +29,8 @@ extension Proteus {
 				return "Endpoint Info Nil"
 			case .incompatibleSysExMessage:
 				return "Incompatible SysEx Message"
+			case .insufficientMIDIBytes:
+				return "Insufficient MIDI Bytes"
 			case .invalidObjectType:
 				return "Invalid Object Type"
 			case .other:
@@ -50,6 +53,8 @@ extension Proteus {
 				return "Endpoint Info Nil"
 			case .incompatibleSysExMessage(let data):
 				return "Incompatible SysEx message received: \(data)"
+			case .insufficientMIDIBytes(let midiBytes, let parameterCount):
+				return "Insufficient MIDI bytes - MIDI byte count: \(midiBytes.count); Parameter count: \(parameterCount)"
 			case .invalidObjectType(let objectType):
 				return "Invalid Object Type: \(objectType)"
 			case .other(let error):
@@ -71,6 +76,8 @@ extension Proteus {
 				return "Endpoint Info could not be found."
 			case .incompatibleSysExMessage:
 				return "Incompatible System Exclusive message received."
+			case .insufficientMIDIBytes:
+				return "Insufficient MIDI bytes."
 			case .invalidObjectType:
 				return "Invalid Object Type encountered."
 			case .sysExMessageCreationFailed:

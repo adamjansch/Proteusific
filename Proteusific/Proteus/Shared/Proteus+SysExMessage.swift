@@ -15,6 +15,7 @@ extension Proteus {
 	// MARK: MIDI enums
 	enum SysExMessage {
 		// MARK: - CASES
+		case currentSetupDump(responseAction: MIDIResponseAction)
 		case deviceIdentity(endpointInfos: BiDirectionalEndpointInfo, responseAction: MIDIResponseAction)
 		case genericName(type: Proteus.ObjectType, objectID: MIDIWord, romID: MIDIWord, responseAction: MIDIResponseAction)
 		case hardwareConfiguration(responseAction: MIDIResponseAction)
@@ -39,7 +40,8 @@ extension Proteus {
 			case .deviceIdentity:
 				return .universal
 				
-			case .genericName,
+			case .currentSetupDump,
+				 .genericName,
 				 .hardwareConfiguration,
 				 .presetDumpClosedLoop:
 				return .proteus
@@ -50,7 +52,8 @@ extension Proteus {
 			let sysExHeader = messageType.sysExHeader
 			
 			switch self {
-			case .deviceIdentity,
+			case .currentSetupDump,
+				 .deviceIdentity,
 				 .hardwareConfiguration:
 				return sysExHeader + requestCommandBytes + [Self.eoxByte]
 				
@@ -71,7 +74,8 @@ extension Proteus {
 		
 		var responseAction: MIDIResponseAction {
 			switch self {
-			case .deviceIdentity(_, let responseAction),
+			case .currentSetupDump(let responseAction),
+				 .deviceIdentity(_, let responseAction),
 				 .genericName(_, _, _, let responseAction),
 				 .hardwareConfiguration(let responseAction),
 				 .presetDumpClosedLoop(let responseAction):
@@ -81,6 +85,8 @@ extension Proteus {
 		
 		private var requestCommandBytes: [MIDIByte] {
 			switch self {
+			case .currentSetupDump:
+				return [Command.currentSetupDumpRequest.byte]
 			case .deviceIdentity:
 				return [0x01]
 			case .genericName:
@@ -94,6 +100,8 @@ extension Proteus {
 		
 		private var responseCommandBytes: [MIDIByte] {
 			switch self {
+			case .currentSetupDump:
+				return [Command.currentSetupDumpResponse.byte]
 			case .deviceIdentity:
 				return [0x02]
 			case .genericName:
@@ -136,7 +144,8 @@ extension Proteus.SysExMessage: Identifiable {
 		switch self {
 		case .deviceIdentity:
 			return [Self.sysExGeneralInformationByte] + requestCommandBytes
-		case .genericName,
+		case .currentSetupDump,
+			 .genericName,
 			 .hardwareConfiguration,
 			 .presetDumpClosedLoop:
 			return [Self.sysExSpecialEditorByte] + requestCommandBytes
@@ -209,6 +218,8 @@ extension Proteus.SysExMessage {
 		case genericNameRequest = 0x0C
 		case presetDumpResponse = 0x10
 		case presetDumpRequest = 0x11
+		case currentSetupDumpResponse = 0x1C
+		case currentSetupDumpRequest = 0x1D
 		
 		var byte: MIDIByte {
 			return rawValue

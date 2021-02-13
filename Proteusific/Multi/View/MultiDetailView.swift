@@ -9,18 +9,21 @@ import SwiftUI
 
 struct MultiDetailView: View {
 	// MARK: - PROPERTIES
-	// MARK: Wrapper properties
+	// MARK: Stored properties
 	var device: Device
+	
+	// MARK: Wrapper properties
+	@Environment(\.managedObjectContext) private var viewContext
 	
 	// MARK: View properties
 	var body: some View {
 		switch device.currentMulti {
 		case .some(let currentMulti):
-			EmptyView()
+			Text("Multi: \(currentMulti.masterClockTempo)")
 			
 		case .none:
 			let retrieveCurrentMultiAction = {
-				print("Retrieving Current Multi...")
+				retrieveCurrentSetupDump()
 			}
 			
 			VStack {
@@ -39,6 +42,31 @@ struct MultiDetailView: View {
 				Spacer()
 			}
 		}
+	}
+	
+	// MARK: - METHODS
+	// MARK: MIDI methods
+	private func retrieveCurrentSetupDump() {
+		Proteus.shared.requestCurrentSetupDump(responseAction: { result in
+			DispatchQueue.main.async {
+				do {
+					switch result {
+					case .failure(let error):
+						throw error
+						
+					case .success(let payload):
+						let currentSetupDump = try Proteus.CurrentSetupDump(data: payload.midiResponse)
+						let multi = try Multi(currentSetupDump: currentSetupDump)
+						device.currentMulti = multi
+						
+						try viewContext.save()
+					}
+					
+				} catch {
+					print("Error: \(error)")
+				}
+			}
+		})
 	}
 }
 

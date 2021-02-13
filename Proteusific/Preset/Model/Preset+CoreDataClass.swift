@@ -47,6 +47,19 @@ final public class Preset: NSManagedObject, ProteusObject {
 	
 	
 	// MARK: - METHODS
+	// MARK: Type methods
+	static func fetch(with presetID: Int16) throws -> Preset? {
+		guard let entityName = entity().name else {
+			return nil
+		}
+		
+		let presetFetchRequest = NSFetchRequest<Preset>(entityName: entityName)
+		let presetFetchPredicate = NSPredicate(format: "storedObjectID == %@", presetID as CVarArg)
+		presetFetchRequest.predicate = presetFetchPredicate
+		
+		return try PersistenceController.shared.container.viewContext.fetch(presetFetchRequest).first
+	}
+	
 	// MARK: Initializers
 	convenience init(genericName: Proteus.GenericName) throws {
 		guard genericName.type == .preset else {
