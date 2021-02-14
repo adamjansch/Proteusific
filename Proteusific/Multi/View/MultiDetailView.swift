@@ -22,9 +22,11 @@ struct MultiDetailView: View {
 			List {
 				Section {
 					ForEach(currentMulti.sortedParts) { part in
-						MultiPartRow(part: part)
-							.padding(EdgeInsets(top: 12.0, leading: 4.0, bottom: 12.0, trailing: 4.0))
-							.cornerRadius(5.0)
+						NavigationLink(destination: PresetGrid()) {
+							MultiPartRow(part: part)
+								.padding(EdgeInsets(top: 12.0, leading: 4.0, bottom: 12.0, trailing: 4.0))
+								.cornerRadius(5.0)
+						}
 					}
 				}
 			}
