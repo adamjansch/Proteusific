@@ -11,6 +11,11 @@ import CoreData
 public class Multi: NSManagedObject {
 	// MARK: - PROPERTIES
 	// MARK: Computed properties
+	var sortedParts: [Part] {
+		let indexSortDescriptor = NSSortDescriptor(key: "index", ascending: true)
+		return parts?.sortedArray(using: [indexSortDescriptor]) as? [Part] ?? []
+	}
+	
 	var midiMode: MIDIMode {
 		get {
 			return MIDIMode(rawValue: midiModeID) ?? .omni

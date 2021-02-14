@@ -19,7 +19,16 @@ struct MultiDetailView: View {
 	var body: some View {
 		switch device.currentMulti {
 		case .some(let currentMulti):
-			Text("Multi: \(currentMulti.masterClockTempo)")
+			List {
+				Section {
+					ForEach(currentMulti.sortedParts) { part in
+						MultiPartRow(part: part)
+							.padding(EdgeInsets(top: 12.0, leading: 4.0, bottom: 12.0, trailing: 4.0))
+							.cornerRadius(5.0)
+					}
+				}
+			}
+			.listStyle(InsetGroupedListStyle())
 			
 		case .none:
 			let retrieveCurrentMultiAction = {

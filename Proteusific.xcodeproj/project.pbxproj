@@ -39,6 +39,7 @@
 		37A44FD3258D4E5400D58526 /* Collection+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44FD2258D4E5400D58526 /* Collection+Utilities.swift */; };
 		37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */; };
 		37B0B1DE25855F490031F765 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 37B0B1DD25855F490031F765 /* AudioKit */; };
+		37B8B71D25D9559B009D09EF /* MultiPartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B8B71C25D9559A009D09EF /* MultiPartRow.swift */; };
 		37C2DCD925D010D400918F30 /* MultiDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C2DCD825D010D400918F30 /* MultiDetailView.swift */; };
 		37C2DCED25D0162700918F30 /* Multi+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C2DCEC25D0162700918F30 /* Multi+CoreDataClass.swift */; };
 		37C49E0E25C5F71000267D9C /* PresetGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C49E0D25C5F71000267D9C /* PresetGridCell.swift */; };
@@ -114,6 +115,7 @@
 		37A44FCA258CE61300D58526 /* EndpointInfo+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EndpointInfo+Identifiable.swift"; sourceTree = "<group>"; };
 		37A44FD2258D4E5400D58526 /* Collection+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Utilities.swift"; sourceTree = "<group>"; };
 		37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentContainer+Utilities.swift"; sourceTree = "<group>"; };
+		37B8B71C25D9559A009D09EF /* MultiPartRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPartRow.swift; sourceTree = "<group>"; };
 		37C2DCD825D010D400918F30 /* MultiDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDetailView.swift; sourceTree = "<group>"; };
 		37C2DCEC25D0162700918F30 /* Multi+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Multi+CoreDataClass.swift"; sourceTree = "<group>"; };
 		37C49E0D25C5F71000267D9C /* PresetGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetGridCell.swift; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				37C2DCD825D010D400918F30 /* MultiDetailView.swift */,
+				37B8B71C25D9559A009D09EF /* MultiPartRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				37148E9525B37BDD006AEE32 /* MIDIWord+Utilities.swift in Sources */,
 				37CE5882258AB06F000411FC /* Device+CoreDataClass.swift in Sources */,
 				37218C822586B6A6005B4B61 /* Proteus+SysExMessage.swift in Sources */,
+				37B8B71D25D9559B009D09EF /* MultiPartRow.swift in Sources */,
 				37DF29F825D32443003F2FF7 /* Bool+Utilities.swift in Sources */,
 				37569BA425A219E200D1D3E9 /* DeviceRow.swift in Sources */,
 			);
