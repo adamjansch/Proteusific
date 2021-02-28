@@ -54,7 +54,7 @@ final public class Preset: NSManagedObject, ProteusObject {
 		}
 		
 		let presetFetchRequest = NSFetchRequest<Preset>(entityName: entityName)
-		let presetFetchPredicate = NSPredicate(format: "storedObjectID == %@", presetID as CVarArg)
+		let presetFetchPredicate = NSPredicate(format: "storedObjectID == %ld", presetID)
 		presetFetchRequest.predicate = presetFetchPredicate
 		
 		return try PersistenceController.shared.container.viewContext.fetch(presetFetchRequest).first

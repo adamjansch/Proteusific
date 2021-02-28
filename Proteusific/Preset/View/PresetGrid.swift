@@ -10,6 +10,9 @@ import AudioKit
 
 struct PresetGrid: View {
 	// MARK: - PROPERTIES
+	// MARK: Stored properties
+	let part: Part
+	
 	// MARK: Wrapper properties
 	@Environment(\.managedObjectContext) private var viewContext
 	
@@ -42,7 +45,7 @@ struct PresetGrid: View {
 							
 							Section(header: PresetGridSectionHeader(rom: rom, retrievePresetsAction: retrievePresetsAction)) {
 								ForEach(rom.presets) { preset in
-									PresetGridCell(preset: preset)
+									PresetGridCell(preset: preset, channel: part.channel)
 										.background(Color(.systemGray5))
 										.cornerRadius(8.0)
 								}
@@ -55,6 +58,7 @@ struct PresetGrid: View {
 				Spacer()
 			}
 		}
+		.navigationTitle("Part " + String(format: "%02d", part.channel + 1))
 	}
 	
 	

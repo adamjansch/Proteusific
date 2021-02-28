@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import AudioKit
 
 struct PresetGridCell: View {
 	// MARK: - PROPERTIES
 	// MARK: Stored properties
 	let preset: Preset
+	let channel: MIDIChannel
 	
 	// MARK: View properties
 	var body: some View {
 		let buttonAction = {
-			Proteus.shared.changePreset(to: preset)
+			Proteus.shared.changePreset(to: preset, channel: channel)
 		}
 		
 		Button(action: buttonAction, label: {

@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import AudioKit
 
 public class Part: NSManagedObject {
 	// MARK: - PROPERTIES
@@ -17,6 +18,10 @@ public class Part: NSManagedObject {
 	
 	var rom: ROM? {
 		return try? ROM.fetch(with: romID)
+	}
+	
+	var channel: MIDIChannel {
+		return MIDIChannel(index)
 	}
 	
 	

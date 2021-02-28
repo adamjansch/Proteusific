@@ -30,7 +30,7 @@ final public class ROM: NSManagedObject {
 		}
 		
 		let romFetchRequest = NSFetchRequest<ROM>(entityName: entityName)
-		let romFetchPredicate = NSPredicate(format: "storedObjectID == %@", romID as CVarArg)
+		let romFetchPredicate = NSPredicate(format: "id == %ld", romID)
 		romFetchRequest.predicate = romFetchPredicate
 		
 		return try PersistenceController.shared.container.viewContext.fetch(romFetchRequest).first
