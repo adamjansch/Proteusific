@@ -53,9 +53,9 @@ final class Proteus {
 	}
 	
 	// MARK: MIDI methods
-	func changePreset(to preset: Preset) {
+	func changePreset(to preset: Preset, channel: MIDIChannel) {
 		let midi = MIDI.sharedInstance
-		let channel: MIDIChannel = 0				// TODO: Populate `channel`
+		let channel: MIDIChannel = channel
 		
 		let romChangeEvent = MIDIEvent(controllerChange: 0, value: MIDIByte(preset.romID), channel: channel)
 		midi.sendEvent(romChangeEvent)

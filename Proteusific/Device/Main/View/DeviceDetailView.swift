@@ -63,11 +63,7 @@ struct DeviceDetailView: View {
 								}
 							
 						case .presets:
-							PresetGrid()
-								.tabItem {
-									Image(systemName: tab.imageSystemName)
-									Text(tab.title)
-								}
+							EmptyView()
 							
 						case .master:
 							MasterView()

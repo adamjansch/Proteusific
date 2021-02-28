@@ -8,6 +8,27 @@
 import SwiftUI
 
 struct MultiDetailView: View {
+	// MARK: - ENUMS
+	// MARK: Data source enums
+	private enum ListSection: Int, Identifiable, CaseIterable {
+		case parts
+		
+		// MARK: - PROPERTIES
+		// MARK: Identifiable properties
+		var id: Int {
+			return rawValue
+		}
+		
+		// MARK: Computed properties
+		var title: String {
+			switch self {
+			case .parts:
+				return "Parts"
+			}
+		}
+	}
+	
+	
 	// MARK: - PROPERTIES
 	// MARK: Stored properties
 	var device: Device
@@ -20,17 +41,21 @@ struct MultiDetailView: View {
 		switch device.currentMulti {
 		case .some(let currentMulti):
 			List {
-				Section {
-					ForEach(currentMulti.sortedParts) { part in
-						NavigationLink(destination: PresetGrid()) {
-							MultiPartRow(part: part)
-								.padding(EdgeInsets(top: 12.0, leading: 4.0, bottom: 12.0, trailing: 4.0))
-								.cornerRadius(5.0)
+				ForEach(ListSection.allCases) { section in
+					Section(header: Text(section.title)) {
+						ForEach(currentMulti.sortedParts) { part in
+							NavigationLink(destination: PresetGrid(part: part)) {
+								MultiPartRow(part: part)
+									.padding(EdgeInsets(top: 12.0, leading: 4.0, bottom: 12.0, trailing: 4.0))
+									.cornerRadius(5.0)
+							}
 						}
 					}
 				}
 			}
 			.listStyle(InsetGroupedListStyle())
+			.navigationTitle("Current Setup")
+			.padding(EdgeInsets(top: 24.0, leading: 0.0, bottom: 0.0, trailing: 0.0))
 			
 		case .none:
 			let retrieveCurrentMultiAction = {
