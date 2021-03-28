@@ -24,10 +24,6 @@ struct DeviceRow: View {
 			.foregroundColor(Color(.secondaryLabel))
 			.font(Font.body.weight(.regular))
 		
-		let notFoundText = Text("Not found")
-			.foregroundColor(Color(.systemRed))
-			.font(Font.body.weight(.regular))
-		
 		HStack {
 			VStack(alignment: .leading, spacing: 8.0) {
 				HStack(alignment: .bottom, spacing: 8.0) {
@@ -55,7 +51,10 @@ struct DeviceRow: View {
 					case .none:
 						HStack {
 							sourcePortText
-							notFoundText
+							Text(device.sourceEndpointName ?? "Not found")
+								.foregroundColor(Color(.systemRed))
+								.font(Font.body.weight(.regular))
+								.italic()
 						}
 					}
 					
@@ -71,7 +70,10 @@ struct DeviceRow: View {
 					case .none:
 						HStack {
 							destinationPortText
-							notFoundText
+							Text(device.destinationEndpointName ?? "Not found")
+								.foregroundColor(Color(.systemRed))
+								.font(Font.body.weight(.regular))
+								.italic()
 						}
 					}
 				}

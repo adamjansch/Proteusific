@@ -24,26 +24,26 @@ final public class Device: NSManagedObject {
 	
 	var sourceEndpointUID: MIDIUniqueID? {
 		get {
-			switch storedInEndpointUID {
-			case .some(let storedInEndpointUID):
-				return storedInEndpointUID.int32Value
+			switch storedSourceEndpointUID {
+			case .some(let storedSourceEndpointUID):
+				return storedSourceEndpointUID.int32Value
 			case .none:
 				return nil
 			}
 		}
 		set {
 			switch newValue {
-			case .some(let inEndpointUID):
-				storedInEndpointUID = NSNumber(value: inEndpointUID)
+			case .some(let sourceEndpointUID):
+				storedSourceEndpointUID = NSNumber(value: sourceEndpointUID)
 			case .none:
-				storedInEndpointUID = nil
+				storedSourceEndpointUID = nil
 			}
 		}
 	}
 	
 	var destinationEndpointUID: MIDIUniqueID? {
 		get {
-			switch storedOutEndpointUID {
+			switch storedDestinationEndpointUID {
 			case .some(let storedOutEndpointUID):
 				return storedOutEndpointUID.int32Value
 			case .none:
@@ -52,10 +52,10 @@ final public class Device: NSManagedObject {
 		}
 		set {
 			switch newValue {
-			case .some(let outEndpointUID):
-				storedOutEndpointUID = NSNumber(value: outEndpointUID)
+			case .some(let destinationEndpointUID):
+				storedDestinationEndpointUID = NSNumber(value: destinationEndpointUID)
 			case .none:
-				storedOutEndpointUID = nil
+				storedDestinationEndpointUID = nil
 			}
 		}
 	}
@@ -66,6 +66,7 @@ final public class Device: NSManagedObject {
 		}
 		set {
 			sourceEndpointUID = newValue?.midiUniqueID
+			sourceEndpointName = newValue?.displayName
 		}
 	}
 	
@@ -75,6 +76,7 @@ final public class Device: NSManagedObject {
 		}
 		set {
 			destinationEndpointUID = newValue?.midiUniqueID
+			destinationEndpointName = newValue?.displayName
 		}
 	}
 	
