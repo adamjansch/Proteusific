@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D64" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Device" representedClassName=".Device" syncable="YES" codeGenerationType="category">
         <attribute name="customName" optional="YES" attributeType="String"/>
+        <attribute name="destinationEndpointName" optional="YES" attributeType="String"/>
         <attribute name="deviceID" attributeType="Integer 16" minValueString="0" maxValueString="127" defaultValueString="127" usesScalarValueType="YES"/>
         <attribute name="familyID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="softwareVersion" optional="YES" attributeType="String"/>
+        <attribute name="sourceEndpointName" optional="YES" attributeType="String"/>
+        <attribute name="storedDestinationEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
         <attribute name="storedFamilyMember" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="storedInEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
-        <attribute name="storedOutEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
+        <attribute name="storedSourceEndpointUID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
         <attribute name="userPresetCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="currentMulti" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Multi" inverseName="device" inverseEntity="Multi"/>
@@ -98,7 +100,7 @@
         <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Device" positionX="-63" positionY="0" width="128" height="194"/>
+        <element name="Device" positionX="-63" positionY="0" width="128" height="224"/>
         <element name="Multi" positionX="-54" positionY="90" width="128" height="824"/>
         <element name="Part" positionX="-54" positionY="90" width="128" height="164"/>
         <element name="Preset" positionX="-54" positionY="81" width="128" height="104"/>
