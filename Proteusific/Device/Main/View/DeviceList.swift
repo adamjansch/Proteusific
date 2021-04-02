@@ -17,6 +17,7 @@ struct DeviceList: View {
 	
 	@State private var showAddDeviceList = false
 	@State private var showAppInfoList = false
+	@StateObject private var midiListener = Proteus.shared
 	
 	// MARK: View properties
 	var body: some View {
@@ -51,6 +52,7 @@ struct DeviceList: View {
 						.isDetailLink(false)
 					}
 				}
+				.id(midiListener.midiSetupChanged)		// This refreshes the List when `midiSetupChanged` is updated
 				.listStyle(InsetGroupedListStyle())
 				.navigationBarTitle("Devices", displayMode: .inline)
 				.navigationBarItems(trailing:
