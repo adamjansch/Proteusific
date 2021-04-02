@@ -10,7 +10,7 @@ import CoreMIDI
 
 typealias BiDirectionalEndpointInfo = (source: EndpointInfo?, destination: EndpointInfo)
 
-final class Proteus {
+final class Proteus: ObservableObject {
 	// MARK: - PROPERTIES
 	// MARK: Shared instance
 	static let shared = Proteus()
@@ -19,6 +19,9 @@ final class Proteus {
 	private static let midiOperationQueueLabel = "MIDIOperationQueue"
 	static let messageTimeoutDuration: TimeInterval = 1.0
 	static let midiOperationQueue = DispatchQueue(label: midiOperationQueueLabel, qos: .utility)
+	
+	// MARK: Wrapper properties
+	@Published var midiSetupChanged = false
 	
 	// MARK: Stored properties
 	var pendingSysExMessages: [SysExMessage] = []
