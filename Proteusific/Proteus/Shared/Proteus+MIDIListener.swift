@@ -9,7 +9,7 @@ import AudioKit
 import CoreMIDI
 
 extension Proteus: MIDIListener {
-	func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+	func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
 		if let currentDevice = User.current?.currentDevice,
 		   currentDevice.sourceEndpointUID != portID {
 			return
@@ -41,32 +41,32 @@ extension Proteus: MIDIListener {
 	
 	
 	// NOT USED
-	func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("receivedMIDINoteOn - noteNumber: \(noteNumber); velocity: \(velocity); channel: \(channel); portID: \(String(describing: portID)); offset: \(offset)")
+	func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
+		print("receivedMIDINoteOn - noteNumber: \(noteNumber); velocity: \(velocity); channel: \(channel); portID: \(String(describing: portID)); timeStamp: \(String(describing: timeStamp))")
 	}
 	
-	func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("receivedMIDINoteOff - noteNumber: \(noteNumber); velocity: \(velocity); channel: \(channel); portID: \(String(describing: portID)); offset: \(offset)")
+	func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
+		print("receivedMIDINoteOff - noteNumber: \(noteNumber); velocity: \(velocity); channel: \(channel); portID: \(String(describing: portID)); timeStamp: \(String(describing: timeStamp))")
 	}
 	
-	func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("receivedMIDIController - controller: \(controller); value: \(value); channel: \(channel); portID: \(String(describing: portID)); offset: \(offset)")
+	func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
+		print("receivedMIDIController - controller: \(controller); value: \(value); channel: \(channel); portID: \(String(describing: portID)); timeStamp: \(String(describing: timeStamp))")
 	}
 	
-	func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("receivedMIDIAftertouch - noteNumber: \(noteNumber); pressure: \(pressure); channel: \(channel); portID: \(String(describing: portID)); offset: \(offset)")
+	func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
+		print("receivedMIDIAftertouch - noteNumber: \(noteNumber); pressure: \(pressure); channel: \(channel); portID: \(String(describing: portID)); timeStamp: \(String(describing: timeStamp))")
 	}
 	
-	func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("receivedMIDIAftertouch - pressure: \(pressure); channel: \(channel); portID: \(String(describing: portID)); offset: \(offset)")
+	func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
+		print("receivedMIDIAftertouch - pressure: \(pressure); channel: \(channel); portID: \(String(describing: portID)); timeStamp: \(String(describing: timeStamp))")
 	}
 	
-	func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("receivedMIDIPitchWheel - pitchWheelValue: \(pitchWheelValue); channel: \(channel); portID: \(String(describing: portID)); offset: \(offset)")
+	func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
+		print("receivedMIDIPitchWheel - pitchWheelValue: \(pitchWheelValue); channel: \(channel); portID: \(String(describing: portID)); timeStamp: \(String(describing: timeStamp))")
 	}
 	
-	func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-		print("receivedMIDIProgramChange - program: \(program); channel: \(channel); portID: \(String(describing: portID)); offset: \(offset)")
+	func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
+		print("receivedMIDIProgramChange - program: \(program); channel: \(channel); portID: \(String(describing: portID)); timeStamp: \(String(describing: timeStamp))")
 	}
 	
 	func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {

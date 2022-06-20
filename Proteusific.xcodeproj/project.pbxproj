@@ -38,8 +38,9 @@
 		37A44FCB258CE61300D58526 /* EndpointInfo+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44FCA258CE61300D58526 /* EndpointInfo+Identifiable.swift */; };
 		37A44FD3258D4E5400D58526 /* Collection+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A44FD2258D4E5400D58526 /* Collection+Utilities.swift */; };
 		37B0B1BA2581364F0031F765 /* NSPersistentContainer+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */; };
-		37B0B1DE25855F490031F765 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 37B0B1DD25855F490031F765 /* AudioKit */; };
 		37B8B71D25D9559B009D09EF /* MultiPartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B8B71C25D9559A009D09EF /* MultiPartRow.swift */; };
+		37BA35AF2860EEEC004F1F2D /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 37BA35AE2860EEEC004F1F2D /* AudioKit */; };
+		37BA35B128610683004F1F2D /* AppInfoAcknowledgementsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA35B028610683004F1F2D /* AppInfoAcknowledgementsRow.swift */; };
 		37C2DCD925D010D400918F30 /* MultiDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C2DCD825D010D400918F30 /* MultiDetailView.swift */; };
 		37C2DCED25D0162700918F30 /* Multi+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C2DCEC25D0162700918F30 /* Multi+CoreDataClass.swift */; };
 		37C49E0E25C5F71000267D9C /* PresetGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C49E0D25C5F71000267D9C /* PresetGridCell.swift */; };
@@ -116,6 +117,7 @@
 		37A44FD2258D4E5400D58526 /* Collection+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Utilities.swift"; sourceTree = "<group>"; };
 		37B0B1B92581364F0031F765 /* NSPersistentContainer+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentContainer+Utilities.swift"; sourceTree = "<group>"; };
 		37B8B71C25D9559A009D09EF /* MultiPartRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPartRow.swift; sourceTree = "<group>"; };
+		37BA35B028610683004F1F2D /* AppInfoAcknowledgementsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoAcknowledgementsRow.swift; sourceTree = "<group>"; };
 		37C2DCD825D010D400918F30 /* MultiDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDetailView.swift; sourceTree = "<group>"; };
 		37C2DCEC25D0162700918F30 /* Multi+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Multi+CoreDataClass.swift"; sourceTree = "<group>"; };
 		37C49E0D25C5F71000267D9C /* PresetGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetGridCell.swift; sourceTree = "<group>"; };
@@ -140,7 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37B0B1DE25855F490031F765 /* AudioKit in Frameworks */,
+				37BA35AF2860EEEC004F1F2D /* AudioKit in Frameworks */,
 				374B2D0B257D6B0600BE9ACA /* CoreMIDI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,6 +542,7 @@
 				37EF90C325A09C3B00000D23 /* AppInfoList.swift */,
 				3756BE8325A11AC800142EFB /* AppInfoBannerRow.swift */,
 				37EAD26225A0D25700FB47FD /* AppInfoAcknowledgementsList.swift */,
+				37BA35B028610683004F1F2D /* AppInfoAcknowledgementsRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -561,7 +564,7 @@
 			);
 			name = Proteusific;
 			packageProductDependencies = (
-				37B0B1DD25855F490031F765 /* AudioKit */,
+				37BA35AE2860EEEC004F1F2D /* AudioKit */,
 			);
 			productName = Proteusific;
 			productReference = 374B2CC9257D006C00BE9ACA /* Proteusific.app */;
@@ -635,7 +638,7 @@
 			);
 			mainGroup = 374B2CC0257D006C00BE9ACA;
 			packageReferences = (
-				37B0B1DC25855F490031F765 /* XCRemoteSwiftPackageReference "AudioKit" */,
+				37BA35AD2860EEEC004F1F2D /* XCRemoteSwiftPackageReference "audiokit" */,
 			);
 			productRefGroup = 374B2CCA257D006C00BE9ACA /* Products */;
 			projectDirPath = "";
@@ -722,6 +725,7 @@
 				37218C822586B6A6005B4B61 /* Proteus+SysExMessage.swift in Sources */,
 				37B8B71D25D9559B009D09EF /* MultiPartRow.swift in Sources */,
 				37DF29F825D32443003F2FF7 /* Bool+Utilities.swift in Sources */,
+				37BA35B128610683004F1F2D /* AppInfoAcknowledgementsRow.swift in Sources */,
 				37569BA425A219E200D1D3E9 /* DeviceRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1052,20 +1056,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		37B0B1DC25855F490031F765 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+		37BA35AD2860EEEC004F1F2D /* XCRemoteSwiftPackageReference "audiokit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AudioKit/AudioKit";
+			repositoryURL = "https://github.com/audiokit/audiokit/";
 			requirement = {
-				branch = "v5-develop";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		37B0B1DD25855F490031F765 /* AudioKit */ = {
+		37BA35AE2860EEEC004F1F2D /* AudioKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 37B0B1DC25855F490031F765 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			package = 37BA35AD2860EEEC004F1F2D /* XCRemoteSwiftPackageReference "audiokit" */;
 			productName = AudioKit;
 		};
 /* End XCSwiftPackageProductDependency section */

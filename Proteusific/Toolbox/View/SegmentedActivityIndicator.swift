@@ -40,7 +40,7 @@ struct SegmentedActivityIndicator: View {
 	// MARK: View properties
 	var body: some View {
 		ZStack {
-			ForEach(0..<maxSegmentCount) { segmentIndex in
+			ForEach(0..<maxSegmentCount, id: \.self) { segmentIndex in
 				let segmentFillColor: UIColor = (segmentIndex < completedSegmentCount) ? .white : .systemGray4
 				
 				Segment(segmentIndex: segmentIndex, maxSegmentCount: maxSegmentCount)
